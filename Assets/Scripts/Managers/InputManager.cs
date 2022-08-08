@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Keys;
 using Signals;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -22,16 +24,14 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private bool isReadyForTouch, isFirstTimeTouchTaken;
+        [SerializeField] private FloatingJoystick floatingJoystick;
+        [SerializeField] private Image joystickBackgroundImg;
+        [SerializeField] private Image joystickHandleImg;
 
         #endregion
 
         #region Private Variables
 
-        private bool _isTouching;
-
-        private float _currentVelocity; //ref type
-        private Vector2? _mousePosition; //ref type
-        private Vector3 _moveVector; //ref type
 
         #endregion
 
@@ -57,14 +57,22 @@ namespace Managers
         {
             InputSignals.Instance.onEnableInput += OnEnableInput;
             InputSignals.Instance.onDisableInput += OnDisableInput;
+            InputSignals.Instance.onPointerDown += OnPointerDown;
+            InputSignals.Instance.onPointerDragged += OnPointerDragged;
+            InputSignals.Instance.onPointerReleased += OnPointerReleased;
+            InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
         }
-
+        
         private void UnsubscribeEvents()
         {
             InputSignals.Instance.onEnableInput -= OnEnableInput;
             InputSignals.Instance.onDisableInput -= OnDisableInput;
+            InputSignals.Instance.onPointerDown -= OnPointerDown;
+            InputSignals.Instance.onPointerDragged -= OnPointerDragged;
+            InputSignals.Instance.onPointerReleased -= OnPointerReleased;
+            InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
@@ -76,59 +84,22 @@ namespace Managers
 
         #endregion
 
-        private void Update()
+        
+        private void OnPointerDown()
         {
-            if (!isReadyForTouch) return;
-
-            if (Input.GetMouseButtonUp(0) && !IsPointerOverUIElement())
-            {
-                _isTouching = false;
-                InputSignals.Instance.onInputReleased?.Invoke();
-            }
-
-
-            if (Input.GetMouseButtonDown(0) && !IsPointerOverUIElement())
-            {
-                _isTouching = true;
-                InputSignals.Instance.onInputTaken?.Invoke();
-                if (!isFirstTimeTouchTaken)
-                {
-                    isFirstTimeTouchTaken = true;
-                    InputSignals.Instance.onFirstTimeTouchTaken?.Invoke();
-                }
-
-                _mousePosition = Input.mousePosition;
-            }
-
-            if (Input.GetMouseButton(0) && !IsPointerOverUIElement())
-            {
-                if (_isTouching)
-                {
-                    if (_mousePosition != null)
-                    {
-                        Vector2 mouseDeltaPos = (Vector2) Input.mousePosition - _mousePosition.Value;
-
-
-                        if (mouseDeltaPos.x > Data.HorizontalInputSpeed)
-                            _moveVector.x = Data.HorizontalInputSpeed / 10f * mouseDeltaPos.x;
-                        else if (mouseDeltaPos.x < -Data.HorizontalInputSpeed)
-                            _moveVector.x = -Data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
-                        else
-                            _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity,
-                                Data.ClampSpeed);
-
-                        _mousePosition = Input.mousePosition;
-
-                        InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
-                        {
-                            XValue = _moveVector.x,
-                            ClampValues = new Vector2(Data.ClampSides.x, Data.ClampSides.y)
-                        });
-                    }
-                }
-            }
+            
         }
-
+        
+        private void OnPointerDragged()
+        {
+            JoystickMovement();
+        }
+        
+        private void OnPointerReleased()
+        {
+            
+        }
+        
         private void OnEnableInput()
         {
             isReadyForTouch = true;
@@ -143,7 +114,37 @@ namespace Managers
         {
             isReadyForTouch = true;
         }
+        
+        private void JoystickMovement()
+        {
+            float horizontal = floatingJoystick.Horizontal;
+            float vertical = floatingJoystick.Vertical;
+            
+            InputSignals.Instance.onInputParamsUpdate?.Invoke(new InputParams()
+            {
+                XValue = horizontal,
+                YValue = vertical
+            });
+        }
 
+        public void OnJoystickStateChange(JoystickStates joystickState)
+        {
+            switch (joystickState)
+            {
+                case JoystickStates.Runner:
+                    floatingJoystick.AxisOptions = global::AxisOptions.Horizontal;
+                    joystickHandleImg.enabled = false;
+                    joystickBackgroundImg.enabled = false;
+                    break;
+                
+                case JoystickStates.Idle:
+                    floatingJoystick.AxisOptions = global::AxisOptions.Both;
+                    joystickHandleImg.enabled = true;
+                    joystickBackgroundImg.enabled = true;
+                    break;
+            }
+        }
+        
         private bool IsPointerOverUIElement()
         {
             var eventData = new PointerEventData(EventSystem.current);
@@ -155,20 +156,7 @@ namespace Managers
 
         private void OnReset()
         {
-            _isTouching = false;
-            isReadyForTouch = false;
-            isFirstTimeTouchTaken = false;
+            InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Runner);
         }
-
-        private void ActivateJoystickY()
-        {
-            
-        }
-
-        private void DeactivateJoystickY()
-        {
-            
-        }
-        
     }
 }

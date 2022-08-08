@@ -1,9 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace Data.ValueObject
+[Serializable]
+public class PlayerData
 {
-    public class PlayerData : MonoBehaviour
-    {
-        public MovementData MovementData;
-    }
+    public PlayerMovementData playerMovementData;
+}
+    
+[Serializable]
+public class PlayerMovementData
+{
+    public float ForwardSpeed;
+    public float SidewaySpeed;
+    public float IdleSpeed;
+    public float IdleTurnSpeed;
 }
