@@ -159,5 +159,16 @@ namespace Managers
             isReadyForTouch = false;
             isFirstTimeTouchTaken = false;
         }
+
+        private void ActivateJoystickY()
+        {
+            
+        }
+
+        private void DeactivateJoystickY()
+        {
+            
+        }
+        
     }
 }

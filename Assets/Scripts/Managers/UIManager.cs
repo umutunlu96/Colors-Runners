@@ -109,5 +109,10 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
         }
+
+        public void IdleMoneyMultiplier()
+        {
+            
+        }
     }
 }
