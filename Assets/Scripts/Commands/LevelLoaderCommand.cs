@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Controllers
+namespace Commands
 {
     public class LevelLoaderCommand : MonoBehaviour
     {

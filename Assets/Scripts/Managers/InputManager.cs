@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Commands;
 using Data.UnityObject;
 using Data.ValueObject;
 using Enums;
@@ -32,12 +33,24 @@ namespace Managers
 
         #region Private Variables
 
+        private JoystickMovementCommand _joystickMovementCommand;
+        private JoystickStateChangeCommand _onJoystickStateChangeCommand;
+        private StopJoystickMovementCommand _stopJoystickMovementCommand;
 
         #endregion
 
         #endregion
 
 
+        private void Awake()
+        {
+            Data = GetInputData();
+            _joystickMovementCommand = new JoystickMovementCommand(ref floatingJoystick);
+            _onJoystickStateChangeCommand = new JoystickStateChangeCommand(ref floatingJoystick, ref joystickHandleImg,
+                ref joystickBackgroundImg);
+            _stopJoystickMovementCommand = new StopJoystickMovementCommand();
+        }
+        
         #region Event Subscriptions
 
         private void OnEnable()
@@ -52,7 +65,7 @@ namespace Managers
             InputSignals.Instance.onPointerDown += OnPointerDown;
             InputSignals.Instance.onPointerDragged += OnPointerDragged;
             InputSignals.Instance.onPointerReleased += OnPointerReleased;
-            InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
+            InputSignals.Instance.onJoystickStateChange += _onJoystickStateChangeCommand.OnJoystickStateChange;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
         }
@@ -64,7 +77,7 @@ namespace Managers
             InputSignals.Instance.onPointerDown -= OnPointerDown;
             InputSignals.Instance.onPointerDragged -= OnPointerDragged;
             InputSignals.Instance.onPointerReleased -= OnPointerReleased;
-            InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
+            InputSignals.Instance.onJoystickStateChange -= _onJoystickStateChangeCommand.OnJoystickStateChange;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
@@ -75,13 +88,6 @@ namespace Managers
         }
 
         #endregion
-
-        
-        
-        private void Awake()
-        {
-            Data = GetInputData();
-        }
 
         private void Start()//Test version
         {
@@ -99,12 +105,12 @@ namespace Managers
         
         private void OnPointerDragged()
         {
-            JoystickMovement();
+            _joystickMovementCommand.JoystickMovement();
         }
         
         private void OnPointerReleased()
         {
-            StopJoystickMovement();
+            _stopJoystickMovementCommand.StopJoystickMovement();
         }
         
         private void OnEnableInput()
@@ -122,42 +128,7 @@ namespace Managers
             isReadyForTouch = true;
         }
         
-        private void JoystickMovement()
-        {
-            float horizontal = floatingJoystick.Horizontal;
-            float vertical = floatingJoystick.Vertical;
-            
-            InputSignals.Instance.onInputParamsUpdate?.Invoke(new InputParams() {
-                XValue = horizontal, YValue = vertical });
-        }
-
-        private void StopJoystickMovement()
-        {
-            InputSignals.Instance.onInputParamsUpdate?.Invoke(new InputParams()
-            {
-                XValue = 0, YValue = 0
-            });
-        }
-
-        public void OnJoystickStateChange(JoystickStates joystickState)
-        {
-            switch (joystickState)
-            {
-                case JoystickStates.Runner:
-                    floatingJoystick.AxisOptions = global::AxisOptions.Horizontal;
-                    joystickHandleImg.enabled = false;
-                    joystickBackgroundImg.enabled = false;
-                    break;
-                
-                case JoystickStates.Idle:
-                    floatingJoystick.AxisOptions = global::AxisOptions.Both;
-                    joystickHandleImg.enabled = true;
-                    joystickBackgroundImg.enabled = true;
-                    break;
-            }
-        }
-        
-        private bool IsPointerOverUIElement()
+        private bool IsPointerOverUIElement() // Unused
         {
             var eventData = new PointerEventData(EventSystem.current);
             eventData.position = Input.mousePosition;

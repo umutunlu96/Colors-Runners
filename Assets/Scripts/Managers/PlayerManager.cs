@@ -17,7 +17,6 @@ namespace Managers
         [SerializeField] private PlayerMeshController playerMeshController;
         [SerializeField] private PlayerAnimationController playerAnimationController;
 
-        
         #region Event Subsicription
     
         void OnEnable()
@@ -34,6 +33,7 @@ namespace Managers
             InputSignals.Instance.onInputParamsUpdate += OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
         }
+        
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
@@ -89,7 +89,8 @@ namespace Managers
         private void OnInputParamsUpdate(InputParams inputParams)
         {
             playerMovementController.SetInputValues(inputParams);
-        }        
+        }      
+        
         private void OnJoystickStateChange(JoystickStates joystickState)
         {
             playerMovementController.ChangeMovementType(joystickState);
