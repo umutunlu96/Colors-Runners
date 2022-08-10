@@ -38,14 +38,6 @@ namespace Managers
         #endregion
 
 
-        private void Awake()
-        {
-            Data = GetInputData();
-        }
-
-        private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").InputData;
-
-
         #region Event Subscriptions
 
         private void OnEnable()
@@ -85,6 +77,21 @@ namespace Managers
         #endregion
 
         
+        
+        private void Awake()
+        {
+            Data = GetInputData();
+        }
+
+        private void Start()//Test version
+        {
+            InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Runner);
+        }
+
+        private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").InputData;
+
+
+        
         private void OnPointerDown()
         {
             
@@ -97,7 +104,7 @@ namespace Managers
         
         private void OnPointerReleased()
         {
-            
+            StopJoystickMovement();
         }
         
         private void OnEnableInput()
@@ -120,10 +127,15 @@ namespace Managers
             float horizontal = floatingJoystick.Horizontal;
             float vertical = floatingJoystick.Vertical;
             
+            InputSignals.Instance.onInputParamsUpdate?.Invoke(new InputParams() {
+                XValue = horizontal, YValue = vertical });
+        }
+
+        private void StopJoystickMovement()
+        {
             InputSignals.Instance.onInputParamsUpdate?.Invoke(new InputParams()
             {
-                XValue = horizontal,
-                YValue = vertical
+                XValue = 0, YValue = 0
             });
         }
 

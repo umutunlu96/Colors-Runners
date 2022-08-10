@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     playerMovementData:
-      ForwardSpeed: 0
-      SidewaySpeed: 0
-      IdleSpeed: 10
-      IdleTurnSpeed: 20
+      RunnerForwardSpeed: 5
+      RunnerSidewaySpeed: 5
+      RunnerMaxRotateAngle: 0.5
+      RunnerTurnSpeed: 0.1
+      IdleSpeed: 5
+      IdleTurnSpeed: 0.1

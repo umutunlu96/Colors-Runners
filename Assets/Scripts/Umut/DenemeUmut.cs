@@ -18,6 +18,10 @@ namespace Umut
         {
             InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Idle);
         }
-    }
 
+        public void OnPlay()
+        {
+            CoreGameSignals.Instance.onPlay?.Invoke();
+        }
+    }
 }

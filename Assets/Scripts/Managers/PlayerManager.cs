@@ -2,6 +2,7 @@
 using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
+using Enums;
 using Keys;
 using Signals;
 using UnityEngine;
@@ -26,53 +27,82 @@ namespace Managers
 
         private void SubscribeEvents()
         {
+            CoreGameSignals.Instance.onPlay += OnPlay;
+            InputSignals.Instance.onPointerDown += OnPointerDown;
             InputSignals.Instance.onPointerDragged += OnInputDragged;
             InputSignals.Instance.onPointerReleased += OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate += OnInputParamsUpdate;
+            InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
         }
         private void UnsubscribeEvents()
         {
+            CoreGameSignals.Instance.onPlay -= OnPlay;
+            InputSignals.Instance.onPointerDown -= OnPointerDown;
             InputSignals.Instance.onPointerDragged -= OnInputDragged;
             InputSignals.Instance.onPointerReleased -= OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate -= OnInputParamsUpdate;
+            InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
         }
-
+        
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
 
         #endregion
+        
         private void Awake()
         {
             _playerData = GetPlayerData();
             SetPlayerDataToControllers();
         }
 
-
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").Data;
         
-
         private void SetPlayerDataToControllers()
         {
             playerMovementController.SetMovementData(_playerData.playerMovementData);
         }
 
-        private void OnInputDragged()
+        private void OnPlay()
         {
             playerMovementController.ActivateMovement();
+            playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
+        }
+
+        private void OnPointerDown()
+        {
+            playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
+        }
+        
+        private void OnInputDragged()
+        {
+            // playerMovementController.ActivateMovement();
         }
         
         private void OnInputReleased()
         {
-            playerMovementController.DeactivateMovement();
-            playerMovementController.SetMovementValues(0, 0);
+            playerAnimationController.SetAnimationState(SticmanAnimationType.Idle);
+            playerMovementController.SetInputValues(new InputParams() { XValue = 0, YValue = 0,});
         }
 
         private void OnInputParamsUpdate(InputParams inputParams)
         {
-            playerMovementController.GetJoystickValues(inputParams);
+            playerMovementController.SetInputValues(inputParams);
         }        
+        private void OnJoystickStateChange(JoystickStates joystickState)
+        {
+            playerMovementController.ChangeMovementType(joystickState);
+            switch (joystickState)
+            {
+                case JoystickStates.Runner:
+                    playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
+                    break;
+                case JoystickStates.Idle:
+                    playerAnimationController.SetAnimationState(SticmanAnimationType.Idle);
+                    break;
+            }
+        }
         
         private void OnChangePlayerGradientColor()
         {
