@@ -11,7 +11,6 @@ namespace Umut
         public void Runner()
         {
             InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Runner);
-            print("x");
         }
 
         public void Idle()
