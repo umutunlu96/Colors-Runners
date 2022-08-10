@@ -4,11 +4,11 @@ namespace Enums
 {
     public enum SticmanAnimationType
     {
-        Run,
-        Hide,
-        HideAndMove,
-        MinigameThrow,
         Idle,
-        Die
+        Run,
+        SneakWalk,
+        SneakIdle,
+        Die,
+        MinigameThrow
     }
 }

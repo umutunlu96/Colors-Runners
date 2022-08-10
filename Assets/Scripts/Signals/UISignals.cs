@@ -10,5 +10,6 @@ namespace Signals
         public UnityAction<UIPanels> onClosePanel;
         public UnityAction<int> onUpdateStageData;
         public UnityAction<int> onSetLevelText;
+        public UnityAction<int> onIdleMoneyMultiplier;
     }
 }
