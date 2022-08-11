@@ -2,6 +2,7 @@
 using Data.ValueObject;
 using Enums;
 using Keys;
+using Signals;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -17,7 +18,31 @@ namespace Controllers
         private bool _isReadyToMove;
         private bool _runnerMovement;
         private bool _idleMovement;
+        private bool _isPressed, _isDragged, _isReleased;
+
+        #region EventSubscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerRotate += OnPlayerRotate;
+        }
         
+        private void UnSubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerRotate -= OnPlayerRotate;
+        }
+
+        #endregion
         
         public void SetMovementData(PlayerMovementData movementData)
         {
@@ -31,16 +56,32 @@ namespace Controllers
                 if (_runnerMovement)
                 {
                     RunnerMove();
-                    RunnerRotate();
+                    
+                    if (_isDragged)
+                    {
+                        RunnerRotate();
+                    }
+                    else if (_isReleased)
+                    {
+                        RunnerRotateNormal();
+                        print("released");
+                    }
                 }
                 else if (_idleMovement)
                 {
-                    IdleMove();
-                    IdleRotate();
+                    if (_isDragged)
+                    {
+                        IdleMove();
+                        IdleRotate();
+                    }
+                    else if (_isReleased)
+                    {
+                        Stop();
+                    }
                 }
-                else
-                    Stop();
             }
+            else
+                Stop();
         }
 
         public void ActivateMovement()
@@ -51,20 +92,47 @@ namespace Controllers
         public void DeactivateMovement()
         {
             _isReadyToMove = false;
-            Stop();
+        }
+
+        public void JoystickPressState(bool isPressed, bool isDragged, bool isReleased)
+        {
+            _isPressed = isPressed;
+            _isDragged = isDragged;
+            _isReleased = isReleased;
         }
         
         private void RunnerMove()
         {
             rigidBody.velocity = new Vector3(_horizontalInput * _playerMovementData.RunnerSidewaySpeed, rigidBody.velocity.y,
                 _playerMovementData.RunnerForwardSpeed);
+            Clamp();
+        }
+
+        private void Clamp()
+        {
+            var pos = transform.position;
+            pos.x =  Mathf.Clamp(transform.position.x, _playerMovementData.ClampValues.x, _playerMovementData.ClampValues.y);
+            transform.position = pos;
         }
 
         private void RunnerRotate()
         {
             Vector3 direction = Vector3.forward + Vector3.right * Mathf.Clamp(_horizontalInput,
                 -_playerMovementData.RunnerMaxRotateAngle, _playerMovementData.RunnerMaxRotateAngle);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
+            
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction),
+                _playerMovementData.RunnerTurnSpeed);
+        }
+
+        private float OnPlayerRotate()
+        {
+            return transform.rotation.y;
+        }
+
+        private void RunnerRotateNormal()
+        {
+            Vector3 direction = Vector3.forward;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction),
                 _playerMovementData.RunnerTurnSpeed);
         }
         
@@ -79,18 +147,7 @@ namespace Controllers
             if (_verticalInput != 0 || _horizontalInput != 0)
             {
                 Vector3 direction = Vector3.forward * _verticalInput + Vector3.right * _horizontalInput;
-
-                #region RigidbodyRotation
-                // rigidBody.rotation = Quaternion.Slerp(rigidBody.rotation, Quaternion.LookRotation(direction),
-                //     _playerMovementData.IdleTurnSpeed);
-                #endregion
-
-                #region TransformFastRotation
-                // Quaternion lookDirection = Quaternion.LookRotation(direction);
-                // transform.rotation = lookDirection;
-                #endregion
-                
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction),
                     _playerMovementData.IdleTurnSpeed);
             }
         }
@@ -120,12 +177,6 @@ namespace Controllers
                     _idleMovement = true;
                     break;
             }
-        }
-        
-        public void SetMovementValues(float horizontalInput, float verticalInput)
-        {
-            _horizontalInput = horizontalInput;
-            _verticalInput = verticalInput;
         }
     }
 }

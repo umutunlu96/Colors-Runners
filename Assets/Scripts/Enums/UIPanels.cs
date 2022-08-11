@@ -5,10 +5,10 @@ namespace Enums
     [Serializable]
     public enum UIPanels
     {
-        WinPanel,
-        FailPanel,
-        LevelPanel,
-        MiniGamePanel,
-        StartPanel
+        PreGamePanel,
+        InGamePanel,
+        EndGamePrizePanel,
+        IdlePanel,
+        LoseGamePanel
     }
 }

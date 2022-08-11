@@ -73,15 +73,18 @@ namespace Managers
         private void OnPointerDown()
         {
             playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
+            playerMovementController.JoystickPressState(true, false, false);
         }
         
         private void OnInputDragged()
         {
             // playerMovementController.ActivateMovement();
+            playerMovementController.JoystickPressState(false, true, false);
         }
         
         private void OnInputReleased()
         {
+            playerMovementController.JoystickPressState(false, false, true);
             playerAnimationController.SetAnimationState(SticmanAnimationType.Idle);
             playerMovementController.SetInputValues(new InputParams() { XValue = 0, YValue = 0,});
         }
