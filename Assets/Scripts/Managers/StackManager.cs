@@ -12,7 +12,7 @@ namespace Managers
 
         #region privateVariables
 
-        private List<Transform> _collectable = new List<GameObject>();
+        private List<Transform> _collectable = new List<Transform>();
         private Transform _playerPossition;
 
         #endregion
@@ -30,7 +30,7 @@ namespace Managers
         {
             StackSignals.Instance.onAddStack += OnAddStack;
             StackSignals.Instance.OnRemoveFromStack += OnRemoveFromStack;
-            StackSignals.Instance.OnLerpStack += OnLerpStack;
+            StackSignals.Instance.OnLerpStack += OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize += OnSetStackStartSize;
             StackSignals.Instance.OnShakeStackSize += OnShakeStackSize;
             StackSignals.Instance.OnThrowStackInMiniGame += OnThrowStackInMiniGame;
@@ -40,7 +40,7 @@ namespace Managers
         {
             StackSignals.Instance.onAddStack -= OnAddStack;
             StackSignals.Instance.OnRemoveFromStack -= OnRemoveFromStack;
-            StackSignals.Instance.OnLerpStack -= OnLerpStack;
+            StackSignals.Instance.OnLerpStack -= OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize -= OnSetStackStartSize;
             StackSignals.Instance.OnShakeStackSize -= OnShakeStackSize;
             StackSignals.Instance.OnThrowStackInMiniGame -= OnThrowStackInMiniGame;
@@ -56,12 +56,18 @@ namespace Managers
         //temp
         private void Awake()
         {
-            _playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+            _playerPossition =  GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        private void OnAddStack(GameObject _gameObject)
+        private void Update()
         {
+            OnLerpStackMove();
+        }
 
+        private void OnAddStack(Transform collectable)
+        {
+            collectable.SetParent(transform);
+            _collectable.Add(collectable);
         }
 
         private void OnRemoveFromStack(int index)
@@ -81,7 +87,7 @@ namespace Managers
                 _collectable[0].localPosition = new Vector3(
                     Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x, 0.5f),
                     Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, 0.5f),
-                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - 2, 0.5f
+                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - 2, 0.5f)
                     );
 
                 //after each stack flow each other by n flow n - 1 prenciple by give offset and time 
