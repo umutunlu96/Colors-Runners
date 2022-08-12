@@ -12,7 +12,6 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private UIPanelController uiPanelController;
-        [SerializeField] private LevelPanelController levelPanelController;
 
         #endregion
 
@@ -66,29 +65,29 @@ namespace Managers
 
         private void OnUpdateStageData(int value)
         {
-            levelPanelController.UpdateStageData(value);
+            
         }
 
         private void OnSetLevelText(int value)
         {
-            levelPanelController.SetLevelText(value);
+            
         }
 
         private void OnPlay()
         {
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.StartPanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.PreGamePanel);
         }
 
         private void OnLevelFailed()
         {
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
-            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.FailPanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.LoseGamePanel);
         }
 
         private void OnLevelSuccessful()
         {
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
-            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.WinPanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
         }
 
         public void Play()
@@ -99,15 +98,15 @@ namespace Managers
         public void NextLevel()
         {
             CoreGameSignals.Instance.onNextLevel?.Invoke();
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.WinPanel);
-            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }
 
         public void RestartLevel()
         {
             CoreGameSignals.Instance.onRestartLevel?.Invoke();
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
-            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }
 
         public void IdleMoneyMultiplier()
