@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Signals;
+using UnityObject;
+using ValueObject;
 using UnityEngine;
 
 namespace Managers
@@ -14,10 +16,28 @@ namespace Managers
 
         private List<Transform> _collectable = new List<Transform>();
         private Transform _playerPossition;
+        private LerpData _lerpData;
 
         #endregion
 
         #endregion
+
+        
+
+        //temp
+        private void Awake()
+        {
+            _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;
+            _lerpData = GetLerpData();
+            Debug.Log(_lerpData.LerpSpeeds);
+        }
+
+        private void Update()
+        {
+            OnLerpStackMove();
+        }
+
+        private LerpData GetLerpData() => Resources.Load<CD_Lerp>("Data/CD_Lerp").Data;
 
         #region Subscriptions
 
@@ -53,19 +73,10 @@ namespace Managers
 
         #endregion
 
-        //temp
-        private void Awake()
-        {
-            _playerPossition =  GameObject.FindGameObjectWithTag("Player").transform;
-        }
-
-        private void Update()
-        {
-            OnLerpStackMove();
-        }
-
+       
         private void OnAddStack(Transform collectable)
         {
+            collectable.tag = "Collected";
             collectable.SetParent(transform);
             _collectable.Add(collectable);
         }
@@ -87,7 +98,7 @@ namespace Managers
                 _collectable[0].localPosition = new Vector3(
                     Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x, 0.5f),
                     Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, 0.5f),
-                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - 2, 0.5f)
+                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - _lerpData.DistanceOffSet, 0.5f)
                     );
 
                 //after each stack flow each other by n flow n - 1 prenciple by give offset and time 
@@ -95,8 +106,8 @@ namespace Managers
                 {
                     _collectable[i].localPosition = new Vector3(
                          Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x, 0.5f),
-                         Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.x, 0.5f),
-                         Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.x - 2, 0.5f)
+                         Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, 0.5f),
+                         Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, 0.5f)
                          );
 
                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Signals;
+using System;
 using UnityEngine;
 
 namespace Controllers
@@ -7,10 +8,7 @@ namespace Controllers
     {
         private void OnTriggerEnter(Collider other)
         {
-            // if (other.CompareTag(""))
-            // {
-            //     
-            // }
+            
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using Managers;
+﻿using Managers;
+using Signals;
 using UnityEngine;
 
-namespace Assets.Scripts.Controllers
+namespace Controllers
 {
     public class CollectablePhisicController : MonoBehaviour
     {
@@ -11,7 +11,7 @@ namespace Assets.Scripts.Controllers
 
         #region Serialize Variables
 
-        [SerializeField] CollectableManager _manager;
+        //[SerializeField] CollectableManager _manager;
 
         #endregion
 
@@ -19,7 +19,17 @@ namespace Assets.Scripts.Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            //write trigers
+            if(other.CompareTag("Collectable") && CompareTag("Collected"))
+            {
+                StackSignals.Instance.onAddStack(other.transform);
+                Debug.Log("trigger on collectable");
+            }
+
+            if(other.CompareTag("Player"))
+            {
+                StackSignals.Instance.onAddStack(transform);
+                Debug.Log("trigger on player");
+            }
         }
     }
 }
