@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Signals;
+using DG.Tweening;
 using UnityObject;
 using ValueObject;
 using UnityEngine;
+using System.Collections;
 
 namespace Managers
 {
@@ -52,7 +54,7 @@ namespace Managers
             StackSignals.Instance.OnRemoveFromStack += OnRemoveFromStack;
             StackSignals.Instance.OnLerpStack += OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize += OnSetStackStartSize;
-            StackSignals.Instance.OnShakeStackSize += OnShakeStackSize;
+            //StackSignals.Instance.OnShakeStackSize += OnShakeStackSize;
             StackSignals.Instance.OnThrowStackInMiniGame += OnThrowStackInMiniGame;
         }
 
@@ -62,7 +64,7 @@ namespace Managers
             StackSignals.Instance.OnRemoveFromStack -= OnRemoveFromStack;
             StackSignals.Instance.OnLerpStack -= OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize -= OnSetStackStartSize;
-            StackSignals.Instance.OnShakeStackSize -= OnShakeStackSize;
+            //StackSignals.Instance.OnShakeStackSize -= OnShakeStackSize;
             StackSignals.Instance.OnThrowStackInMiniGame -= OnThrowStackInMiniGame;
         }
 
@@ -79,6 +81,7 @@ namespace Managers
             collectable.tag = "Collected";
             collectable.SetParent(transform);
             _collectable.Add(collectable);
+            StartCoroutine(OnShakeStackSize());
         }
 
         private void OnRemoveFromStack(int index)
@@ -94,7 +97,8 @@ namespace Managers
         {
             if(_collectable.Count > 0)
             {
-                //put pack to stack behind the player
+                // note that canbe put inside loop and perfectly fine just iteration number is inrease
+                //put pack to stack behind the player 
                 _collectable[0].localPosition = new Vector3(
                     Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x, 0.5f),
                     Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, 0.5f),
@@ -111,12 +115,27 @@ namespace Managers
                          );
 
                 }
-
+                
             }
         }
 
-        private void OnShakeStackSize() 
+        private IEnumerator OnShakeStackSize() 
         {
+            _collectable.TrimExcess();
+
+            for (int i = 0; i < _collectable.Count; i++)
+            {
+                if (i < 0 || i >= _collectable.Count)
+                {
+                    yield break;
+                }
+                _collectable[i].transform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.12f).SetEase(Ease.Flash);
+                _collectable[i].transform.DOScale(Vector3.one, 0.12f).SetDelay(0.12f).SetEase(Ease.Flash);
+
+                _collectable.TrimExcess();
+                yield return new WaitForSeconds(0.05f);
+            }
+
         }
 
         private void OnThrowStackInMiniGame() 
