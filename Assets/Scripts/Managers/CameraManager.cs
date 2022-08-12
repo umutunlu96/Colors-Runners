@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using StateMachine;
 using Cinemachine;
 using UnityEngine;
 
@@ -9,11 +10,18 @@ namespace Managers
 
         #region Self Variables
 
-        #region Private Variables
+        #region Public Variables
 
-        private CinemachineVirtualCamera _RunnerCam;
-        private CinemachineVirtualCamera _IdleCam;
-        private Animator _animator;
+        public CinemachineVirtualCamera RunnerCam;
+        public CinemachineVirtualCamera IdleCam;
+        public Animator StateDrivenCameraAnimator;
+        public Transform Player;
+
+        #endregion
+
+        #region Private 
+
+        private CameraStateMachine _state;
 
         #endregion
 
@@ -21,9 +29,22 @@ namespace Managers
 
         private void Awake()
         {
-            _RunnerCam = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            _RunnerCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
-            _animator = GetComponent<Animator>();
+            RunnerCam = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
+            IdleCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
+            StateDrivenCameraAnimator = GetComponent<Animator>();
+            Player = GameObject.FindGameObjectWithTag("Player").transform;
+            _state = new CameraRunnerState();
+            _state.SetContext(this);
+            _state.ChangerStateCamera();
+
         }
+
+        private void onTranslateCameraState(CameraStateMachine state)
+        {
+            _state = state;
+            _state.SetContext(this);
+            _state.ChangerStateCamera();
+        }
+       
     }
 }
