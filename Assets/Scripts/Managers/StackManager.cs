@@ -16,7 +16,7 @@ namespace Managers
 
         #region privateVariables
 
-        private List<Transform> _collectable = new List<Transform>();
+        [SerializeField] List<Transform> _collectable = new List<Transform>();
         private Transform _playerPossition;
         private LerpData _lerpData;
 
@@ -81,12 +81,14 @@ namespace Managers
             collectable.tag = "Collected";
             collectable.SetParent(transform);
             _collectable.Add(collectable);
+            _collectable.TrimExcess();
             StartCoroutine(OnShakeStackSize());
         }
 
-        private void OnRemoveFromStack(int index)
+        private void OnRemoveFromStack(Transform collectable)
         {
-
+            _collectable.Remove(collectable);
+            _collectable.TrimExcess();
         }
 
         private void OnSetStackStartSize(int size) 
@@ -95,7 +97,8 @@ namespace Managers
 
         private void OnLerpStackMove() 
         {
-            if(_collectable.Count > 0)
+            
+            if (_collectable.Count > 0)
             {
                 // note that canbe put inside loop and perfectly fine just iteration number is inrease
                 //put pack to stack behind the player 
