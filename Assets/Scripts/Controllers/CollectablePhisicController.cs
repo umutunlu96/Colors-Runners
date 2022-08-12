@@ -30,6 +30,11 @@ namespace Controllers
                 StackSignals.Instance.onAddStack(transform);
                 Debug.Log("trigger on player");
             }
+
+            if(other.CompareTag("Obstical"))
+            {
+
+            }
         }
     }
 }

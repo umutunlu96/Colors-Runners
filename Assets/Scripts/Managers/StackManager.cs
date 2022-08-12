@@ -34,7 +34,7 @@ namespace Managers
             Debug.Log(_lerpData.LerpSpeeds);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             OnLerpStackMove();
         }
@@ -100,18 +100,18 @@ namespace Managers
                 // note that canbe put inside loop and perfectly fine just iteration number is inrease
                 //put pack to stack behind the player 
                 _collectable[0].localPosition = new Vector3(
-                    Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x, 0.5f),
-                    Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, 0.5f),
-                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - _lerpData.DistanceOffSet, 0.5f)
+                    Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x, 10f * Time.deltaTime),
+                    Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, 10f * Time.deltaTime),
+                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - _lerpData.DistanceOffSet, 10f * Time.deltaTime)
                     );
 
                 //after each stack flow each other by n flow n - 1 prenciple by give offset and time 
                 for(int i = 1; i < _collectable.Count; i++)
                 {
                     _collectable[i].localPosition = new Vector3(
-                         Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x, 0.5f),
-                         Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, 0.5f),
-                         Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, 0.5f)
+                         Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x, 10f * Time.deltaTime),
+                         Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, 10f * Time.deltaTime),
+                         Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, 10f * Time.deltaTime)
                          );
 
                 }
@@ -135,6 +135,11 @@ namespace Managers
                 _collectable.TrimExcess();
                 yield return new WaitForSeconds(0.05f);
             }
+
+        }
+
+        private void OnJumpOnJumpPlatform()
+        {
 
         }
 
