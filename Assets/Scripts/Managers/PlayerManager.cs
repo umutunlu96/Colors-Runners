@@ -104,6 +104,11 @@ namespace Managers
                     break;
             }
         }
+
+        public void JumpPlayerOnRamp()
+        {
+            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, 25, 25 * Time.deltaTime), transform.position.z);
+        }
         
         private void OnChangePlayerGradientColor()
         {

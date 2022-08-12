@@ -15,8 +15,8 @@ namespace Signals
             base.Awake();
         }
 
-        public Action<GameObject> onAddStack;
-        public Action<int> OnRemoveFromStack;
+        public Action<Transform> onAddStack;
+        public Action<Transform> OnRemoveFromStack;
         public Action<int> OnSetStackStartSize;
         public Action OnLerpStack;
         public Action OnShakeStackSize;
