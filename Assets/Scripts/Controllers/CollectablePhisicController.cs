@@ -21,18 +21,18 @@ namespace Controllers
         {
             if(other.CompareTag("Collectable") && CompareTag("Collected"))
             {
-                StackSignals.Instance.onAddStack?.Invoke(other.transform);
+                _manager.AddCollectableToStackManager();
             }
 
             //test purposes
             if(other.CompareTag("Player") && CompareTag("Collectable"))
             {
-                StackSignals.Instance.onAddStack?.Invoke(transform);
+                _manager.AddCollectableToStackManager();
             }
 
             if(other.CompareTag("Obstical"))
             {
-                StackSignals.Instance.OnRemoveFromStack?.Invoke(transform);
+                _manager.RemoveCollectableFromStackManager();
                 Destroy(other.gameObject); 
             }
         }

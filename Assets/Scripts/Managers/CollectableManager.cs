@@ -53,5 +53,15 @@ namespace Managers
         {
             meshController.SetCollectableMatarial(material);
         }
+
+        public void AddCollectableToStackManager()
+        {
+            StackSignals.Instance.onAddStack(transform);
+        }
+
+        public void RemoveCollectableFromStackManager()
+        {
+            StackSignals.Instance.OnRemoveFromStack(transform);
+        }
     }
 }
