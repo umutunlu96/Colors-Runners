@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c15440484a744a50a256be344908ffe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 5478012923387452229}
 --- !u!1 &4609287986668542906
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +258,7 @@ GameObject:
   - component: {fileID: 8046435805542438293}
   m_Layer: 0
   m_Name: PlayerManager
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

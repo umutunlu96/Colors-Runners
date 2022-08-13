@@ -16,6 +16,12 @@ namespace Controllers
                 manager.JumpPlayerOnRamp();
                 other.gameObject.GetComponent<Collider>().enabled = false;
             }
+
+            if(other.CompareTag("Gate"))
+            {
+                Color color = other.GetComponent<Material>().color;
+                
+            }
         }
     }
 }

@@ -32,9 +32,9 @@ namespace Controllers
 
         }
 
-        private void SetMatarialColor(Color color)
+        public void SetMatarial(Material material)
         {
-
+            _material = material;
         }
 
         private void AcrivateOutlineTrasition(/*state*/)
