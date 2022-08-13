@@ -27,7 +27,8 @@ namespace Controllers
             //test purposes
             if(other.CompareTag("Player") && CompareTag("Collectable"))
             {
-                StackSignals.Instance.onAddStack?.Invoke(transform);
+                StackSignals.Instance.onAddStack?.Invoke(transform.parent);
+                _manager.RotateMeshForward();
             }
 
             if(other.CompareTag("Obstical"))

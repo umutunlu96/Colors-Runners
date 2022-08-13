@@ -10,7 +10,7 @@ namespace Controllers
 
         #region Private Variavles
 
-        private Material _material;
+        private SkinnedMeshRenderer _renderer;
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace Controllers
 
         private void Awake()
         {
-            _material = GetComponent<Material>();
+            _renderer = GetComponent<SkinnedMeshRenderer>();
         }
 
         private void SetParticulColor(Color color)
@@ -34,7 +34,7 @@ namespace Controllers
 
         public void SetMatarial(Material material)
         {
-            _material = material;
+            _renderer.material = material;
         }
 
         private void AcrivateOutlineTrasition(/*state*/)

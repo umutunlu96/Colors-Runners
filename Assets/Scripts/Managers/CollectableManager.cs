@@ -20,12 +20,18 @@ namespace Managers
 
         #region Private Variables
         //write collectable State
+        private Material _playerMat;
 
         #endregion
 
         #endregion
 
-        
+        private void Awake()
+        {
+            _playerMat = GameObject.FindObjectOfType<PlayerMeshController>().GetComponent<SkinnedMeshRenderer>()
+                .material;
+        }
+
         #region Subscriptions
 
         private void OnEnable()
@@ -52,7 +58,12 @@ namespace Managers
 
         private void OnSetMaterial(Material material)
         {
-            meshController.SetMatarial(material);
+            meshController.SetMatarial(_playerMat);
+        }
+
+        public void RotateMeshForward()
+        {
+            animatorController.transform.rotation = new Quaternion(0, 0, 0,0);
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Signals;
-using System;
-using Managers;
+﻿using Managers;
+using Signals;
 using UnityEngine;
+using MK;
 
 namespace Controllers
 {
@@ -19,8 +19,8 @@ namespace Controllers
 
             if(other.CompareTag("Gate"))
             {
-                Color color = other.GetComponent<Material>().color;
-                
+                Color color = other.gameObject.GetComponent<MeshRenderer>().material.color;
+                PlayerSignals.Instance.onChangeColor?.Invoke(color);
             }
         }
     }

@@ -131,9 +131,7 @@ namespace Controllers
 
         private void RunnerRotateNormal()
         {
-            Vector3 direction = Vector3.forward;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction),
-                _playerMovementData.RunnerTurnSpeed);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward);
         }
         
         private void IdleMove()
