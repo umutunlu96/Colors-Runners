@@ -64,7 +64,6 @@ namespace Controllers
                     else if (_isReleased)
                     {
                         RunnerRotateNormal();
-                        print("released");
                     }
                 }
                 else if (_idleMovement)

@@ -51,7 +51,10 @@ namespace Managers
 
         private void OnSetCollectableMaterial(Material material)
         {
-            meshController.SetCollectableMatarial(material);
+            if(CompareTag("Collected"))
+            {
+                meshController.SetCollectableMatarial(material);
+            }
         }
 
         public void AddCollectableToStackManager()
