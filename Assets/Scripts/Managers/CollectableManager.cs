@@ -19,8 +19,7 @@ namespace Managers
         #endregion
 
         #region Private Variables
-        //write collectable State
-
+      
         #endregion
 
         #endregion
@@ -35,13 +34,13 @@ namespace Managers
 
         private void Subscribe()
         {
-            PlayerSignals.Instance.onChangeMaterial += OnSetMaterial;
+            PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
         }
 
         private void UnSubscribe()
         {
 
-            PlayerSignals.Instance.onChangeMaterial -= OnSetMaterial;
+            PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
         }
 
         private void OnDisable()
@@ -50,9 +49,9 @@ namespace Managers
         }
         #endregion
 
-        private void OnSetMaterial(Material material)
+        private void OnSetCollectableMaterial(Material material)
         {
-            meshController.SetMatarial(material);
+            meshController.SetCollectableMatarial(material);
         }
     }
 }

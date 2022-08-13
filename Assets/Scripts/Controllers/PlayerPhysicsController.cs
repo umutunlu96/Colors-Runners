@@ -19,8 +19,8 @@ namespace Controllers
 
             if(other.CompareTag("Gate"))
             {
-                Color color = other.GetComponent<Material>().color;
-                
+                Material color = other.GetComponent<MeshRenderer>().material;
+                PlayerSignals.Instance.onChangeMaterial(color);
             }
         }
     }
