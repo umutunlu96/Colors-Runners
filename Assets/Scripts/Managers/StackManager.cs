@@ -57,7 +57,6 @@ namespace Managers
             StackSignals.Instance.OnRemoveFromStack += OnRemoveFromStack;
             StackSignals.Instance.OnLerpStack += OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize += OnSetStackStartSize;
-            //StackSignals.Instance.OnShakeStackSize += OnShakeStackSize;
             StackSignals.Instance.OnThrowStackInMiniGame += OnThrowStackInMiniGame;
         }
 
@@ -67,7 +66,6 @@ namespace Managers
             StackSignals.Instance.OnRemoveFromStack -= OnRemoveFromStack;
             StackSignals.Instance.OnLerpStack -= OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize -= OnSetStackStartSize;
-            //StackSignals.Instance.OnShakeStackSize -= OnShakeStackSize;
             StackSignals.Instance.OnThrowStackInMiniGame -= OnThrowStackInMiniGame;
         }
 
@@ -110,16 +108,17 @@ namespace Managers
                     Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, 10f * Time.deltaTime),
                     Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - _lerpData.DistanceOffSet, 10f * Time.deltaTime)
                     );
+                _collectable[0].LookAt(_playerPossition);
 
                 //after each stack flow each other by n flow n - 1 prenciple by give offset and time 
-                for(int i = 1; i < _collectable.Count; i++)
+                for (int i = 1; i < _collectable.Count; i++)
                 {
                     _collectable[i].localPosition = new Vector3(
                          Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x, 10f * Time.deltaTime),
                          Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, 100f * Time.deltaTime),
                          Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, 10f * Time.deltaTime)
                          );
-
+                    _collectable[i].LookAt(_playerPossition);
                 }
                 
             }

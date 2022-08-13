@@ -19,9 +19,13 @@ namespace Managers
         #endregion
 
         #region Private Variables
+<<<<<<< HEAD
         //write collectable State
         private Material _playerMat;
 
+=======
+      
+>>>>>>> origin/CollectableManager
         #endregion
 
         #endregion
@@ -41,13 +45,13 @@ namespace Managers
 
         private void Subscribe()
         {
-            PlayerSignals.Instance.onChangeMaterial += OnSetMaterial;
+            PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
         }
 
         private void UnSubscribe()
         {
 
-            PlayerSignals.Instance.onChangeMaterial -= OnSetMaterial;
+            PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
         }
 
         private void OnDisable()
@@ -56,14 +60,31 @@ namespace Managers
         }
         #endregion
 
-        private void OnSetMaterial(Material material)
+        private void OnSetCollectableMaterial(Material material)
         {
+            if(CompareTag("Collected"))
+            {
+                meshController.SetCollectableMatarial(material);
+            }
+        }
+
+        public void AddCollectableToStackManager()
+        {
+            StackSignals.Instance.onAddStack(transform);
+        }
+
+        public void RemoveCollectableFromStackManager()
+        {
+<<<<<<< HEAD
             meshController.SetMatarial(_playerMat);
         }
 
         public void RotateMeshForward()
         {
             animatorController.transform.rotation = new Quaternion(0, 0, 0,0);
+=======
+            StackSignals.Instance.OnRemoveFromStack(transform);
+>>>>>>> origin/CollectableManager
         }
     }
 }
