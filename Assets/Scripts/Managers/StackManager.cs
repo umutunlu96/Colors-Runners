@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityObject;
 using ValueObject;
 using UnityEngine;
+using Commands;
 using System.Collections;
 using Controllers;
 
@@ -13,14 +14,24 @@ namespace Managers
 {
     public class StackManager : MonoBehaviour
     {
-        #region SelfVariables
+        #region Self Variables
 
-        #region privateVariables
+        #region Serialize Variables
 
         [SerializeField] List<Transform> _collectable = new List<Transform>();
+
+        #endregion
+
+        #region private Variables
+
         private Transform _playerPossition;
         private Material _playerMat;
         private LerpData _lerpData;
+
+        private ShakeStackCommand _shakeStakeCommand;
+        private AddStackCommand _addStackCommand;
+        private RemoveStackCommand _removeStackCommand;
+        private StackLerpMoveCommand _stackLerpMoveCommand;
 
         #endregion
 
@@ -34,12 +45,15 @@ namespace Managers
             _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;
 
             _lerpData = GetLerpData();
-            Debug.Log(_lerpData.LerpSpeeds);
+            _shakeStakeCommand = new ShakeStackCommand(ref _collectable, ref _lerpData);
+            _addStackCommand = new AddStackCommand(ref _collectable, ref _shakeStakeCommand, transform, this);
+            _removeStackCommand = new RemoveStackCommand(ref _collectable);
+            _stackLerpMoveCommand = new StackLerpMoveCommand(ref _collectable, ref _lerpData, _playerPossition);
         }
 
         private void FixedUpdate()
         {
-            OnLerpStackMove();
+            _stackLerpMoveCommand.OnLerpStackMove();
         }
 
         private LerpData GetLerpData() => Resources.Load<CD_Lerp>("Data/CD_Lerp").Data;
@@ -53,18 +67,18 @@ namespace Managers
 
         private void Subscribe()
         {
-            StackSignals.Instance.onAddStack += OnAddStack;
-            StackSignals.Instance.OnRemoveFromStack += OnRemoveFromStack;
-            StackSignals.Instance.OnLerpStack += OnLerpStackMove;
+            StackSignals.Instance.onAddStack += _addStackCommand.OnAddStack;
+            StackSignals.Instance.OnRemoveFromStack += _removeStackCommand.OnRemoveFromStack;
+            StackSignals.Instance.OnLerpStack += _stackLerpMoveCommand.OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize += OnSetStackStartSize;
             StackSignals.Instance.OnThrowStackInMiniGame += OnThrowStackInMiniGame;
         }
 
         private void UnSubscribe()
         {
-            StackSignals.Instance.onAddStack -= OnAddStack;
-            StackSignals.Instance.OnRemoveFromStack -= OnRemoveFromStack;
-            StackSignals.Instance.OnLerpStack -= OnLerpStackMove;
+            StackSignals.Instance.onAddStack -= _addStackCommand.OnAddStack;
+            StackSignals.Instance.OnRemoveFromStack -= _removeStackCommand.OnRemoveFromStack;
+            StackSignals.Instance.OnLerpStack -= _stackLerpMoveCommand.OnLerpStackMove;
             StackSignals.Instance.OnSetStackStartSize -= OnSetStackStartSize;
             StackSignals.Instance.OnThrowStackInMiniGame -= OnThrowStackInMiniGame;
         }
@@ -75,22 +89,6 @@ namespace Managers
         }
 
         #endregion
-
-       
-        private void OnAddStack(Transform collectable)
-        {
-            collectable.tag = "Collected";
-            collectable.SetParent(transform);
-            _collectable.Add(collectable);
-            _collectable.TrimExcess();
-            StartCoroutine(OnShakeStackSize());
-        }
-
-        private void OnRemoveFromStack(Transform collectable)
-        {
-            _collectable.Remove(collectable);
-            _collectable.TrimExcess();
-        }
 
         private void OnSetStackStartSize(int size) 
         {
