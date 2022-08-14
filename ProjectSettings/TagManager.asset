@@ -8,6 +8,8 @@ TagManager:
   - Collected
   - Obstical
   - Ramp
+  - MatObstical
+  - Gate
   layers:
   - Default
   - TransparentFX

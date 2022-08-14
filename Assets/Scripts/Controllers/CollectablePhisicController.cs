@@ -11,7 +11,7 @@ namespace Controllers
 
         #region Serialize Variables
 
-        //[SerializeField] CollectableManager _manager;
+        [SerializeField] CollectableManager _manager;
 
         #endregion
 
@@ -21,21 +21,19 @@ namespace Controllers
         {
             if(other.CompareTag("Collectable") && CompareTag("Collected"))
             {
-                //StackSignals.Instance.onAddStack?.Invoke(other.transform);
-                //Debug.Log("trigger on collectable");
+                _manager.AddCollectableToStackManager();
             }
 
+            //test purposes
             if(other.CompareTag("Player") && CompareTag("Collectable"))
             {
-                StackSignals.Instance.onAddStack?.Invoke(transform);
-                Debug.Log("trigger on player");
+                _manager.AddCollectableToStackManager();
             }
 
             if(other.CompareTag("Obstical"))
             {
-                StackSignals.Instance.OnRemoveFromStack?.Invoke(transform);
-                Destroy(other.gameObject);
-                //Destroy(gameObject);  
+                _manager.RemoveCollectableFromStackManager();
+                Destroy(other.gameObject); 
             }
         }
     }

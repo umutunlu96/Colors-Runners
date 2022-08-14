@@ -9,13 +9,24 @@ namespace Controllers
 
         #region SelfVariables
 
+        #region Serialize Variables
+
+        [SerializeField] CollectableManager manager;
+
+        #endregion
+
         #region Private Variavles
 
-        private CollectableManager _manager;
         private ParticleSystem _particleSystem;
+        private Animator _animator;
 
         #endregion
         #endregion
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
 
         private void AnimationStateChange(/*state*/)
         {

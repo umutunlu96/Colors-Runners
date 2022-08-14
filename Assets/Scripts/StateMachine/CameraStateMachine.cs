@@ -28,6 +28,7 @@ namespace StateMachine
             _target = _cameraManager.Player;
             _runnerCamera = _cameraManager.RunnerCam;
             _idleCamera = _cameraManager.IdleCam;
+            _cinamationAnimationStates = _cameraManager.StateDrivenCameraAnimator;
         }
 
         public abstract void ChangerStateCamera();

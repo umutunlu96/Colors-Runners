@@ -24,7 +24,7 @@ namespace Controllers
 
         private void Awake()
         {
-            _material = GetComponent<Material>();
+            _material = GetComponent<SkinnedMeshRenderer>().material;
         }
 
         private void SetParticulColor(Color color)
@@ -32,9 +32,9 @@ namespace Controllers
 
         }
 
-        private void SetMatarialColor(Color color)
+        public void SetCollectableMatarial(Material material)
         {
-
+            _material.color = material.color;
         }
 
         private void AcrivateOutlineTrasition(/*state*/)
