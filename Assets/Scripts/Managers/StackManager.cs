@@ -7,6 +7,7 @@ using UnityObject;
 using ValueObject;
 using UnityEngine;
 using System.Collections;
+using Controllers;
 
 namespace Managers
 {
@@ -18,6 +19,7 @@ namespace Managers
 
         [SerializeField] List<Transform> _collectable = new List<Transform>();
         private Transform _playerPossition;
+        private Material _playerMat;
         private LerpData _lerpData;
 
         #endregion
@@ -30,6 +32,7 @@ namespace Managers
         private void Awake()
         {
             _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;
+
             _lerpData = GetLerpData();
             Debug.Log(_lerpData.LerpSpeeds);
         }
@@ -112,7 +115,7 @@ namespace Managers
                 {
                     _collectable[i].localPosition = new Vector3(
                          Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x, 10f * Time.deltaTime),
-                         Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, 10f * Time.deltaTime),
+                         Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, 100f * Time.deltaTime),
                          Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, 10f * Time.deltaTime)
                          );
                     _collectable[i].LookAt(_playerPossition);

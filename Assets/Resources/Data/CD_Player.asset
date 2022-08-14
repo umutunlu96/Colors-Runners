@@ -15,8 +15,8 @@ MonoBehaviour:
   Data:
     playerMovementData:
       ClampValues: {x: -4.5, y: 4.5}
-      RunnerForwardSpeed: 5
-      RunnerSidewaySpeed: 5
+      RunnerForwardSpeed: 10
+      RunnerSidewaySpeed: 10
       RunnerMaxRotateAngle: 0.5
       RunnerTurnSpeed: 0.1
       IdleSpeed: 5
