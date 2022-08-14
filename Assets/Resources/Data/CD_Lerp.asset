@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     ScaleOffset: 1
-    DistanceOffSet: 0.63
-    LerpSpeeds: {x: 0.5, y: 0.5, z: 0.5}
+    DistanceOffSet: 0.6
+    LerpSpeeds: {x: 7, y: 7, z: 5}
