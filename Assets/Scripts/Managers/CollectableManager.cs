@@ -1,6 +1,7 @@
 ﻿using System;
 using Controllers;
 using Signals;
+using StateMachine;
 using UnityEngine;
 
 namespace Managers
@@ -34,12 +35,14 @@ namespace Managers
         private void Subscribe()
         {
             PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
+            PlayerSignals.Instance.onTranslateAnimationState += OnTranslateAnimationState;
         }
 
         private void UnSubscribe()
         {
 
             PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
+            PlayerSignals.Instance.onTranslateAnimationState -= OnTranslateAnimationState;
         }
 
         private void OnDisable()
@@ -47,6 +50,11 @@ namespace Managers
             UnSubscribe();
         }
         #endregion
+
+        private void OnTranslateAnimationState(AnimationStateMachine state)
+        {
+            animatorController.TranslateAnimationState(state);
+        }
 
         private void OnSetCollectableMaterial(Material material)
         {

@@ -35,7 +35,7 @@ namespace Managers
             Player = GameObject.FindGameObjectWithTag("Player").transform;
             _state = new CameraRunnerState();
             _state.SetContext(this);
-            _state.ChangerStateCamera();
+            _state.ChangeStateCamera();
 
         }
 
@@ -43,7 +43,7 @@ namespace Managers
         {
             _state = state;
             _state.SetContext(this);
-            _state.ChangerStateCamera();
+            _state.ChangeStateCamera();
         }
        
     }
