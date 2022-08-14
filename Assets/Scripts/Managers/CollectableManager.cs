@@ -20,12 +20,11 @@ namespace Managers
         #endregion
 
         #region Private Variables
-      
-        #endregion
 
         #endregion
 
-        
+        #endregion
+
         #region Subscriptions
 
         private void OnEnable()
@@ -68,9 +67,15 @@ namespace Managers
         public void AddCollectableToStackManager()
         {
             StackSignals.Instance.onAddStack(transform);
+            animatorController.transform.rotation = new Quaternion(0, 0, 0,0);
         }
 
         public void RemoveCollectableFromStackManager()
+        {
+
+        }
+
+        public void RotateMeshForward()
         {
             StackSignals.Instance.OnRemoveFromStack(transform);
         }

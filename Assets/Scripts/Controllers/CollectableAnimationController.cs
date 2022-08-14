@@ -38,9 +38,9 @@ namespace Controllers
             _CollectableStateMachine = state;
             _CollectableStateMachine.SetContext(ref _CollectableAnimator);
             _CollectableStateMachine.ChangeAnimationState();
-        }
 
-      
+        }
+        
         private void ActivateParticul()
         {
 

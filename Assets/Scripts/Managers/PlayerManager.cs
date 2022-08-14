@@ -2,6 +2,7 @@
 using Controllers;
 using Data.UnityObject;
 using Data.ValueObject;
+using DG.Tweening;
 using Enums;
 using Keys;
 using Signals;
@@ -32,6 +33,7 @@ namespace Managers
             InputSignals.Instance.onPointerReleased += OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate += OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
+            PlayerSignals.Instance.onChangeColor += OnChangePlayerColor;
         }
         
         private void UnsubscribeEvents()
@@ -42,6 +44,7 @@ namespace Managers
             InputSignals.Instance.onPointerReleased -= OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate -= OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
+            PlayerSignals.Instance.onChangeColor -= OnChangePlayerColor;
         }
         
         private void OnDisable()
@@ -110,7 +113,8 @@ namespace Managers
 
         public void JumpPlayerOnRamp()
         {
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, 25, 25 * Time.deltaTime), transform.position.z);
+            // transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, 25, 25 * Time.deltaTime), transform.position.z);
+            transform.DOMoveY(15, 1f).SetEase(Ease.OutCubic).SetAutoKill();
         }
         
         private void OnChangePlayerGradientColor()
@@ -118,9 +122,9 @@ namespace Managers
             
         }
 
-        private void OnChanePlayerColor()
+        private void OnChangePlayerColor(Color color)
         {
-            
+            playerMeshController.ChangeMaterialColor(color);
         }
 
         private void ActivateMovement()

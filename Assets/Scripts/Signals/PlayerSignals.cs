@@ -3,6 +3,7 @@ using Extentions;
 using UnityEngine;
 using StateMachine;
 using UnityEngine.Events;
+using UnityEngine.WSA;
 
 namespace Signals
 {
