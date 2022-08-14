@@ -31,6 +31,6 @@ namespace StateMachine
             _cinamationAnimationStates = _cameraManager.StateDrivenCameraAnimator;
         }
 
-        public abstract void ChangerStateCamera();
+        public abstract void ChangeStateCamera();
     }
 }

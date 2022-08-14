@@ -2,7 +2,7 @@
 {
     public class CameraRunnerState : CameraStateMachine
     {
-        public override void ChangerStateCamera()
+        public override void ChangeStateCamera()
         {
             _runnerCamera.Follow = _target;
             _cinamationAnimationStates.Play("RunnerCam");

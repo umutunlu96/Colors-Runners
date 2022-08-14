@@ -1,6 +1,7 @@
 ﻿using System;
 using Extentions;
 using UnityEngine;
+using StateMachine;
 using UnityEngine.Events;
 
 namespace Signals
@@ -8,8 +9,8 @@ namespace Signals
     public class PlayerSignals : MonoSingleton<PlayerSignals>
     {
         public Func<float> onPlayerRotate;
-        //change collectable material signals
         public Action<Material> onChangeMaterial;
+        public Action<AnimationStateMachine> onTranslateAnimationState;
 
         protected override void Awake()
         {
