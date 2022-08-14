@@ -10,7 +10,7 @@ namespace Controllers
 
         #region Private Variavles
 
-        private Material _material;
+        private SkinnedMeshRenderer _renderer;
 
         #endregion
 
@@ -24,7 +24,11 @@ namespace Controllers
 
         private void Awake()
         {
+<<<<<<< HEAD
+            _renderer = GetComponent<SkinnedMeshRenderer>();
+=======
             _material = GetComponent<SkinnedMeshRenderer>().material;
+>>>>>>> origin/CollectableManager
         }
 
         private void SetParticulColor(Color color)
@@ -34,7 +38,11 @@ namespace Controllers
 
         public void SetCollectableMatarial(Material material)
         {
+<<<<<<< HEAD
+            _renderer.material = material;
+=======
             _material.color = material.color;
+>>>>>>> origin/CollectableManager
         }
 
         private void AcrivateOutlineTrasition(/*state*/)

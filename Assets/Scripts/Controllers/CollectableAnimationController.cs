@@ -28,9 +28,9 @@ namespace Controllers
             _animator = GetComponent<Animator>();
         }
 
-        private void AnimationStateChange(/*state*/)
+        public void AnimationStateChange()
         {
-
+            _animator.SetTrigger("Run");
         }
 
         private void ActivateParticul()

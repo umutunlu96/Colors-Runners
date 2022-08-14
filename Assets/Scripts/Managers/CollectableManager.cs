@@ -19,12 +19,23 @@ namespace Managers
         #endregion
 
         #region Private Variables
+<<<<<<< HEAD
+        //write collectable State
+        private Material _playerMat;
+
+=======
       
+>>>>>>> origin/CollectableManager
         #endregion
 
         #endregion
 
-        
+        private void Awake()
+        {
+            _playerMat = GameObject.FindObjectOfType<PlayerMeshController>().GetComponent<SkinnedMeshRenderer>()
+                .material;
+        }
+
         #region Subscriptions
 
         private void OnEnable()
@@ -64,7 +75,16 @@ namespace Managers
 
         public void RemoveCollectableFromStackManager()
         {
+<<<<<<< HEAD
+            meshController.SetMatarial(_playerMat);
+        }
+
+        public void RotateMeshForward()
+        {
+            animatorController.transform.rotation = new Quaternion(0, 0, 0,0);
+=======
             StackSignals.Instance.OnRemoveFromStack(transform);
+>>>>>>> origin/CollectableManager
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Signals;
-using System;
-using Managers;
+﻿using Managers;
+using Signals;
 using UnityEngine;
+using MK;
 
 namespace Controllers
 {
@@ -19,8 +19,13 @@ namespace Controllers
 
             if(other.CompareTag("Gate"))
             {
+<<<<<<< HEAD
+                Color color = other.gameObject.GetComponent<MeshRenderer>().material.color;
+                PlayerSignals.Instance.onChangeColor?.Invoke(color);
+=======
                 Material color = other.GetComponent<MeshRenderer>().material;
                 PlayerSignals.Instance.onChangeMaterial(color);
+>>>>>>> origin/CollectableManager
             }
         }
     }

@@ -2,6 +2,7 @@
 using Extentions;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.WSA;
 
 namespace Signals
 {
@@ -10,6 +11,7 @@ namespace Signals
         public Func<float> onPlayerRotate;
         //change collectable material signals
         public Action<Material> onChangeMaterial;
+        public Action<Color> onChangeColor;
 
         protected override void Awake()
         {
