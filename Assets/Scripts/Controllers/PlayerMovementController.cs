@@ -56,7 +56,6 @@ namespace Controllers
                 if (_runnerMovement)
                 {
                     RunnerMove();
-                    
                     if (_isDragged)
                     {
                         RunnerRotate();

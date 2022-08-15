@@ -19,13 +19,13 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Collectable") && CompareTag("Collected"))
+            if(other.CompareTag("Collectable") && _manager.transform.CompareTag("Collected"))
             {
-                _manager.AddCollectableToStackManager();
+               // _manager.AddCollectableToStackManager();
             }
 
             //test purposes
-            if(other.CompareTag("Player") && CompareTag("Collectable"))
+            if(other.CompareTag("Player") && !_manager.transform.CompareTag("Collected") )
             {
                 _manager.AddCollectableToStackManager();
             }
@@ -34,6 +34,12 @@ namespace Controllers
             {
                 _manager.RemoveCollectableFromStackManager();
                 Destroy(other.gameObject); 
+            }
+
+            if (other.CompareTag("MatObstical"))
+            {
+                StackSignals.Instance.onStackOnDronePath(transform.parent, other.transform);
+                Debug.Log("is working");
             }
         }
     }
