@@ -1,5 +1,6 @@
 ﻿using System;
 using Controllers;
+using Enums;
 using Signals;
 using StateMachine;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace Managers
         {
             PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState += OnTranslateAnimationState;
+            PlayerSignals.Instance.onActivateOutlineTrasition += OnActivateOutlineTrasition;
         }
 
         private void UnSubscribe()
@@ -43,6 +45,7 @@ namespace Managers
 
             PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState -= OnTranslateAnimationState;
+            PlayerSignals.Instance.onActivateOutlineTrasition -= OnActivateOutlineTrasition;
         }
 
         private void OnDisable()
@@ -53,7 +56,10 @@ namespace Managers
 
         private void OnTranslateAnimationState(AnimationStateMachine state)
         {
-            animatorController.TranslateAnimationState(state);
+            if(CompareTag("Collected"))
+            {
+                animatorController.TranslateAnimationState(state);
+            }
         }
 
         private void OnSetCollectableMaterial(Material material)
@@ -61,6 +67,14 @@ namespace Managers
             if(CompareTag("Collected"))
             {
                 meshController.SetCollectableMatarial(material);
+            }
+        }
+
+        private void OnActivateOutlineTrasition(OutlineType type)
+        {
+            if(CompareTag("Collected"))
+            {
+                meshController.ActivateOutlineTrasition(type);
             }
         }
 
@@ -74,6 +88,7 @@ namespace Managers
         {
 
         }
+
 
         public void RotateMeshForward()
         {

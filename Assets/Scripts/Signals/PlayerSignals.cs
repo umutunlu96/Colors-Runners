@@ -2,6 +2,7 @@
 using Extentions;
 using UnityEngine;
 using StateMachine;
+using Enums;
 using UnityEngine.Events;
 using UnityEngine.WSA;
 
@@ -12,6 +13,7 @@ namespace Signals
         public Func<float> onPlayerRotate;
         public Action<Material> onChangeMaterial;
         public Action<AnimationStateMachine> onTranslateAnimationState;
+        public Action<OutlineType> onActivateOutlineTrasition;
 
         protected override void Awake()
         {

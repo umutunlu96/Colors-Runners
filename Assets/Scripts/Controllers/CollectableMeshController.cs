@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using Managers;
+using MK.Toon;
+using DG.Tweening;
+using Enums;
 using UnityEngine;
 
 namespace Controllers
@@ -37,9 +40,16 @@ namespace Controllers
             _material.color = material.color;
         }
 
-        private void AcrivateOutlineTrasition(/*state*/)
+        public void ActivateOutlineTrasition(OutlineType type)
         {
-
+            if(type == OutlineType.NonOutline)
+            {
+                _material.DOFloat(0, "_OutlineSize", 1f);
+            }
+            if( type == OutlineType.NonOutline)
+            {
+                _material.DOFloat(0, "_OutlineSize", 1f);
+            }
         }
     }
 }

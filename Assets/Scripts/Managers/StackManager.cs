@@ -118,7 +118,10 @@ namespace Managers
                 .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
         }
 
-        private void OnAfterStackOnDronePath() { }
+        private void OnAfterStackOnDronePath() 
+        {
+
+        }
         private void SortStack()
         {
         }
