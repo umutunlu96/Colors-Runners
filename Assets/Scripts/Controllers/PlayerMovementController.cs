@@ -5,6 +5,9 @@ using Keys;
 using Signals;
 using Unity.Mathematics;
 using UnityEngine;
+using DG.Tweening;
+using Managers;
+
 
 namespace Controllers
 {
@@ -129,7 +132,7 @@ namespace Controllers
 
         private void RunnerRotateNormal()
         {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward);
+            transform.rotation = Quaternion.Euler(Vector3.zero);
         }
         
         private void IdleMove()
@@ -147,7 +150,7 @@ namespace Controllers
                     _playerMovementData.IdleTurnSpeed);
             }
         }
-
+        
         private void Stop()
         {
             rigidBody.velocity = Vector3.zero;
@@ -160,6 +163,20 @@ namespace Controllers
             _verticalInput = inputParams.YValue;
         }
 
+        public void DroneAreaMovement(Transform _transform)
+        {
+            _transform.DOMoveZ(10, 3f).SetRelative().OnComplete(() =>
+            {
+                _playerMovementData.RunnerForwardSpeed = 0f;
+            });
+        }
+
+        public void ExitDroneAreaMovement()
+        {
+            _playerMovementData.RunnerForwardSpeed = 10f;
+        }
+        
+        
         public void ChangeMovementType(JoystickStates joystickState)
         {
             switch (joystickState)
