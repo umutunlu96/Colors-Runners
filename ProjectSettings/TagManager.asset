@@ -10,6 +10,8 @@ TagManager:
   - Ramp
   - MatObstical
   - Gate
+  - DroneArea
+  - TurretArea
   layers:
   - Default
   - TransparentFX
