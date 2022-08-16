@@ -473,6 +473,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPanelController: {fileID: 338134688}
+--- !u!114 &527319640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5478012923387452229, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
+  m_PrefabInstance: {fileID: 1826385616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe009202d33746048f26e76187e60b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &583584048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,6 +1880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1179057687}
     m_Modifications:
+    - target: {fileID: 3626865593313052502, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 527319640}
     - target: {fileID: 4703302485167264113, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
       propertyPath: m_Name
       value: PlayerManager
