@@ -5,6 +5,7 @@ using Signals;
 using DG.Tweening;
 using UnityObject;
 using ValueObject;
+using StateMachine;
 using UnityEngine;
 using Commands;
 using System.Collections;
@@ -108,13 +109,13 @@ namespace Managers
         private void OnStackOnDronePath(Transform collectable, Transform mat)
         {
             if(!_collectable.Contains(collectable)) return;
+            PlayerSignals.Instance.onTranslateAnimationState(new SneakWalkAnimationState());
             _tempList.Add(collectable);
             _collectable.Remove(collectable);
             _collectable.TrimExcess();
             _tempList.TrimExcess();
-            collectable.DOMove(new Vector3(mat.position.x, collectable.position.y, collectable.position.z + UnityEngine.Random.Range(6, 10)), 3f);
-        //    collectable.DOMoveZ(UnityEngine.Random.Range(3, 10), 3f).SetRelative();
-        //    collectable.DOMoveX(mat.position.x, 3f);
+            collectable.DOMove(new Vector3(mat.position.x, collectable.position.y, collectable.position.z + UnityEngine.Random.Range(6, 10)), 3f)
+                .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
         }
 
         private void OnAfterStackOnDronePath() { }
