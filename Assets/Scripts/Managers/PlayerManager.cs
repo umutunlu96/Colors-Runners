@@ -33,6 +33,10 @@ namespace Managers
             InputSignals.Instance.onPointerReleased += OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate += OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
+            PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerEnterTurretArea;
+            PlayerSignals.Instance.onPlayerExitTurretArea += OnPlayerExitTurretArea;
+            PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
+            PlayerSignals.Instance.onPlayerExitDroneArea += OnPlayerExitDroneArea;
             //PlayerSignals.Instance.onChangeColor += OnChangePlayerColor;
         }
         
@@ -44,6 +48,10 @@ namespace Managers
             InputSignals.Instance.onPointerReleased -= OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate -= OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
+            PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerEnterTurretArea;
+            PlayerSignals.Instance.onPlayerExitTurretArea -= OnPlayerExitTurretArea;
+            PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
+            PlayerSignals.Instance.onPlayerExitDroneArea -= OnPlayerExitDroneArea;
             //PlayerSignals.Instance.onChangeColor -= OnChangePlayerColor;
         }
         
@@ -114,7 +122,7 @@ namespace Managers
         public void JumpPlayerOnRamp()
         {
             // transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, 25, 25 * Time.deltaTime), transform.position.z);
-            transform.DOMoveY(15, 1f).SetEase(Ease.OutCubic).SetAutoKill();
+            // transform.DOMoveY(15, 1f).SetEase(Ease.OutCubic).SetAutoKill();
         }
         
         private void OnChangePlayerGradientColor()
@@ -122,25 +130,39 @@ namespace Managers
             
         }
 
-        private void OnChangePlayerColor(Color color)
+        private void OnChangePlayerColor(Color color) { playerMeshController.ChangeMaterialColor(color); }
+
+        private void ActivateMovement() { playerMovementController.ActivateMovement(); }
+
+        public void DeactivateMovement() { playerMovementController.DeactivateMovement(); }
+
+        private void OnPlayerEnterTurretArea()
+        { 
+            _playerData.playerMovementData.RunnerForwardSpeed = 5f;
+            SetPlayerDataToControllers();
+            playerAnimationController.SetAnimationState(SticmanAnimationType.SneakWalk);
+        }
+        
+        private void OnPlayerExitTurretArea() 
+        { 
+            _playerData.playerMovementData.RunnerForwardSpeed = 10f;
+            SetPlayerDataToControllers();
+            playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
+        }
+        
+        private void OnPlayerEnterDroneArea()
         {
-            playerMeshController.ChangeMaterialColor(color);
+            playerMovementController.DroneAreaMovement(transform);
         }
 
-        private void ActivateMovement()
+        private void OnPlayerExitDroneArea()
         {
-            
+            playerMovementController.ExitDroneAreaMovement();
         }
-
-        public void DeactivateMovement()
-        {
-            playerMovementController.DeactivateMovement();
-        }
-
+        
         private void OnReset()
         {
             
         }
-        
     }
 }

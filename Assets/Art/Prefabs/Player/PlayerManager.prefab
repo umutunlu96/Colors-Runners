@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 5564488390155788894}
+  manager: {fileID: 5478012923387452229}
 --- !u!1 &7952623407013692681
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 8863775905938065574}
+  manager: {fileID: 0}
 --- !u!1001 &2510389022663393238
 PrefabInstance:
   m_ObjectHideFlags: 0

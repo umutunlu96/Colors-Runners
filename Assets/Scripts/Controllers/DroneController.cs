@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DG.Tweening;
+using Signals;
 using UnityEngine;
 
 namespace Controllers
@@ -13,13 +14,37 @@ namespace Controllers
         [SerializeField] private float delay;
 
         private Sequence _sequence;
-        
+
         private void Start()
         {
-            DoAnim();
+            SetDroneMovement();
         }
 
-        public void DoAnim()
+        #region Event Subsicription
+    
+        void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
+        }
+        
+        private void UnsubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
+        }
+        
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        #endregion
+
+        private void SetDroneMovement()
         {
             _sequence = DOTween.Sequence();
             for (int i = 0; i < movePath.Length; i++)
@@ -30,6 +55,18 @@ namespace Controllers
                     moveSpeed[i]));
                 _sequence.SetDelay(delay);
             }
+            _sequence.Pause();
+        }
+        
+        public void OnPlayerEnterDroneArea()
+        {
+            _sequence.Play();
+
+            _sequence.OnComplete(() =>
+            {
+                PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
+                /* Start the color comparison*/
+            });
         }
     }
 }
