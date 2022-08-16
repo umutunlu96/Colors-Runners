@@ -28,7 +28,7 @@ namespace Controllers
         private void Awake()
         {
             _CollectableAnimator = GetComponent<Animator>();
-            _CollectableStateMachine = GetComponent<RunnerAnimationState>();
+            _CollectableStateMachine = new RunnerAnimationState();
             _CollectableStateMachine.SetContext(ref _CollectableAnimator);
             _CollectableStateMachine.ChangeAnimationState();
         }

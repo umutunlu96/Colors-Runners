@@ -21,5 +21,6 @@ namespace Signals
         public Action OnLerpStack;
         public Action OnShakeStackSize;
         public Action OnThrowStackInMiniGame;
+        public Action<Transform, Transform> onStackOnDronePath;
     }
 }

@@ -33,7 +33,7 @@ namespace Managers
             InputSignals.Instance.onPointerReleased += OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate += OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
-            PlayerSignals.Instance.onChangeColor += OnChangePlayerColor;
+            //PlayerSignals.Instance.onChangeColor += OnChangePlayerColor;
         }
         
         private void UnsubscribeEvents()
@@ -44,7 +44,7 @@ namespace Managers
             InputSignals.Instance.onPointerReleased -= OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate -= OnInputParamsUpdate;
             InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
-            PlayerSignals.Instance.onChangeColor -= OnChangePlayerColor;
+            //PlayerSignals.Instance.onChangeColor -= OnChangePlayerColor;
         }
         
         private void OnDisable()
@@ -132,9 +132,9 @@ namespace Managers
             
         }
 
-        private void DeactivateMovement()
+        public void DeactivateMovement()
         {
-            
+            playerMovementController.DeactivateMovement();
         }
 
         private void OnReset()

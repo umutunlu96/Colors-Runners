@@ -1,7 +1,8 @@
 ﻿using Managers;
 using Signals;
+using DG.Tweening;
 using UnityEngine;
-using MK;
+
 
 namespace Controllers
 {
@@ -21,6 +22,11 @@ namespace Controllers
             {
                 Material color = other.GetComponent<MeshRenderer>().material;
                 PlayerSignals.Instance.onChangeMaterial(color);
+            }
+            if(other.CompareTag("MatObstical"))
+            {
+                //manager.DeactivateMovement();
+                manager.transform.DOMoveZ(10, 3f).SetRelative();
             }
         }
     }
