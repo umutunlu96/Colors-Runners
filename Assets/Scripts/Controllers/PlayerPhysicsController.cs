@@ -22,7 +22,8 @@ namespace Controllers
             if(other.CompareTag("Gate"))
             {
                 Material color = other.GetComponent<MeshRenderer>().material;
-                PlayerSignals.Instance.onChangeMaterial(color);
+                //PlayerSignals.Instance.onChangeMaterial(color); delete that signal when ever refactor code
+                PlayerSignals.Instance.onChangeAllCollectableColorType(other.GetComponent<GateController>().currentColorType);
             }
             
             if(other.CompareTag("DroneArea")) // change name Drone Area

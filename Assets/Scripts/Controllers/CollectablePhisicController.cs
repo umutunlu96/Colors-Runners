@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using Signals;
 using UnityEngine;
 
@@ -19,28 +20,51 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Collectable") && _manager.transform.CompareTag("Collected"))
-            {
-               // _manager.AddCollectableToStackManager();
-            }
 
-            //test purposes
-            if(other.CompareTag("Player") && !_manager.transform.CompareTag("Collected") )
+            try
             {
-                _manager.AddCollectableToStackManager();
+                if (other.CompareTag("Collectable") && CompareTag("Collected"))
+                {
+                    if (_manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>().currentColorType))
+                    {
+                        _manager.AddCollectableToStackManager(other.transform.parent);
+                    }
+                    else if (!_manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>().currentColorType))//call from signals
+                    {
+                        _manager.RemoveCollectableFromStackManager(transform.parent);
+                        other.transform.parent.gameObject.SetActive(false);
+                    }
+                }
             }
-
-            if(other.CompareTag("Obstical"))
+            catch (Exception e)
             {
-                _manager.RemoveCollectableFromStackManager();
-                Destroy(other.gameObject); 
+                Debug.Log("error sourch : " + e.Source);
+                Debug.Log("error inner sourch : " + e.InnerException);
+
+                Debug.Log("error message : " + e.Message);
+
+                Debug.Log("error data : " + e.Data);
+                Debug.Log("error data : " + e.Data.ToString());
+            }
+          
+            if (other.CompareTag("Obstical"))
+            {
+                _manager.RemoveCollectableFromStackManager(_manager.transform);
+                other.gameObject.SetActive(false);
             }
 
             if (other.CompareTag("MatObstical"))
             {
-                StackSignals.Instance.onStackOnDronePath(transform.parent, other.transform);
-                Debug.Log("is working");
+                StackSignals.Instance.onStackOnDronePath(_manager.transform, other.transform);
+                if (!_manager.CompareColor(other.GetComponent<MatController>().currentColorType))
+                {
+                    _manager.IsDead = true;
+                }
+
             }
+
+            
+            
         }
     }
 }

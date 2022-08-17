@@ -18,13 +18,22 @@ namespace Managers
         [SerializeField] CollectablePhisicController phisicController;
         [SerializeField] CollectableAnimationController animatorController;
 
+
         #endregion
 
         #region Private Variables
 
+        [SerializeField] private bool _isDead;
+        #endregion
+
+        #region public Variable
+
+        public ColorType currentColorType;
+
         #endregion
 
         #endregion
+
 
         #region Subscriptions
 
@@ -38,14 +47,15 @@ namespace Managers
             PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState += OnTranslateAnimationState;
             PlayerSignals.Instance.onActivateOutlineTrasition += OnActivateOutlineTrasition;
+            PlayerSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
         }
 
         private void UnSubscribe()
         {
-
             PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState -= OnTranslateAnimationState;
             PlayerSignals.Instance.onActivateOutlineTrasition -= OnActivateOutlineTrasition;
+            PlayerSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
         }
 
         private void OnDisable()
@@ -53,6 +63,12 @@ namespace Managers
             UnSubscribe();
         }
         #endregion
+
+        public void ChangeMatarialColor(ColorType type)
+        {
+            currentColorType = type;
+            meshController.ChangeMatarialColor();
+        }
 
         private void OnTranslateAnimationState(AnimationStateMachine state)
         {
@@ -70,6 +86,15 @@ namespace Managers
             }
         }
 
+        public bool CompareColor(ColorType type)
+        {
+            if (currentColorType == type)
+            {
+                return true;
+            }
+            else return false;
+        }
+
         private void OnActivateOutlineTrasition(OutlineType type)
         {
             if(CompareTag("Collected"))
@@ -78,21 +103,33 @@ namespace Managers
             }
         }
 
-        public void AddCollectableToStackManager()
+        public void AddCollectableToStackManager(Transform _transform)
         {
-            StackSignals.Instance.onAddStack(transform);
-            animatorController.transform.rotation = new Quaternion(0, 0, 0,0);
+
+            StackSignals.Instance.onAddStack(_transform);
+            _transform.rotation = new Quaternion(0, 0, 0,0);
         }
 
-        public void RemoveCollectableFromStackManager()
+        public void RemoveCollectableFromStackManager(Transform transform)
         {
-
+            StackSignals.Instance.onRemoveFromStack?.Invoke(transform);
         }
 
 
         public void RotateMeshForward()
         {
-            StackSignals.Instance.OnRemoveFromStack(transform);
+            StackSignals.Instance.onRemoveFromStack(transform);
         }
+
+        private void OnDroneAnimationComplated()
+        {
+            if(_isDead == true)
+            {
+                OnTranslateAnimationState(new DeathAnimationState());
+            }
+            StackSignals.Instance.onAddAfterDroneAnimationDone?.Invoke(_isDead, transform);
+        }
+
+        public bool IsDead { get { return _isDead; } set { _isDead = value; } }
     }
 }

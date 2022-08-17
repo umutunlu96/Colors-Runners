@@ -65,8 +65,9 @@ namespace Controllers
             _sequence.OnComplete(() =>
             {
                 PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
+                PlayerSignals.Instance.onDroneAnimationComplated?.Invoke();
                 /* Start the color comparison*/
-            });
+            });//.OnComplete(() => PlayerSignals.Instance.onDroneAnimationComplated?.Invoke());
         }
     }
 }

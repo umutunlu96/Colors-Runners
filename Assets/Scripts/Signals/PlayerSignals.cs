@@ -10,6 +10,11 @@ namespace Signals
 {
     public class PlayerSignals : MonoSingleton<PlayerSignals>
     {
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
         public Func<float> onPlayerRotate;
         public Action onPlayerEnterDroneArea;
         public Action onPlayerExitDroneArea;
@@ -18,10 +23,7 @@ namespace Signals
         public Action<Material> onChangeMaterial;
         public Action<AnimationStateMachine> onTranslateAnimationState;
         public Action<OutlineType> onActivateOutlineTrasition;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
+        public Action<ColorType> onChangeAllCollectableColorType;
+        public Action onDroneAnimationComplated;
     }
 }

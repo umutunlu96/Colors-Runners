@@ -21,6 +21,7 @@ namespace Commands
         {
             _collectable.Remove(collectable);
             _collectable.TrimExcess();
+            collectable.gameObject.SetActive(false); //after use with pool ?
         }
     }
 }

@@ -3,6 +3,8 @@ using Managers;
 using MK.Toon;
 using DG.Tweening;
 using Enums;
+using UnityObject;
+using ValueObject;
 using UnityEngine;
 
 namespace Controllers
@@ -13,13 +15,21 @@ namespace Controllers
 
         #region Private Variavles
 
-        private Material _material;
+        private ColorData _colorData;
 
         #endregion
 
         #region Serialize Variavles
 
-        [SerializeField] CollectableManager _manager;
+        [SerializeField] CollectableManager manager;
+
+        #endregion
+
+
+        #region Public Variables
+
+        public Material _material;
+
 
         #endregion
 
@@ -28,12 +38,23 @@ namespace Controllers
         private void Awake()
         {
             _material = GetComponent<SkinnedMeshRenderer>().material;
+           
         }
 
-        private void SetParticulColor(Color color)
+        private void Start()
+        {
+            GetColorData();
+            _material.color = _colorData.Color;
+        }
+
+        public void ChangeMatarialColor()
         {
 
+            GetColorData();
+            _material.color = _colorData.Color;
         }
+
+        private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)manager.currentColorType];
 
         public void SetCollectableMatarial(Material material)
         {

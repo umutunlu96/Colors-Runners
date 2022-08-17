@@ -12,6 +12,8 @@ namespace Enums
         Red,
         Yellow,
         Orange,
-        Purple
+        Purple,
+        Blue,
+        Brown
     }
 }

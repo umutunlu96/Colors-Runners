@@ -12,11 +12,13 @@ namespace Signals
         }
 
         public Action<Transform> onAddStack;
-        public Action<Transform> OnRemoveFromStack;
-        public Action<int> OnSetStackStartSize;
-        public Action OnLerpStack;
-        public Action OnShakeStackSize;
-        public Action OnThrowStackInMiniGame;
+        public Action<Transform> onRemoveFromStack;
+        public Action<int> onSetStackStartSize;
+        public Action onLerpStack;
+        public Action onShakeStackSize;
+        public Action onThrowStackInMiniGame;
         public Action<Transform, Transform> onStackOnDronePath;
+        public Action onMergeToPLayer;
+        public Action<bool, Transform> onAddAfterDroneAnimationDone;
     }
 }
