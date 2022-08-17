@@ -104,7 +104,7 @@ RectTransform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 2584075189918321302}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -325,7 +325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 5564488390155788894}
-  manager: {fileID: 5478012923387452229}
 --- !u!1 &7952623407013692681
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +354,7 @@ Transform:
   m_LocalScale: {x: 0.15, y: 0.2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 2584075189918321302}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6660885919202458854
 SpriteRenderer:
@@ -436,8 +435,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6290381589143204671}
   - {fileID: 3529870101641417548}
+  - {fileID: 6290381589143204671}
   m_Father: {fileID: 8019403123650135591}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -454,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 8863775905938065574}
-  manager: {fileID: 0}
+  manager: {fileID: 5478012923387452229}
 --- !u!1001 &2510389022663393238
 PrefabInstance:
   m_ObjectHideFlags: 0

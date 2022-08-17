@@ -8,6 +8,7 @@ using ValueObject;
 using StateMachine;
 using UnityEngine;
 using Commands;
+using Enums;
 using System.Collections;
 using Controllers;
 
@@ -72,21 +73,27 @@ namespace Managers
         private void Subscribe()
         {
             StackSignals.Instance.onAddStack += _addStackCommand.OnAddStack;
-            StackSignals.Instance.OnRemoveFromStack += _removeStackCommand.OnRemoveFromStack;
-            StackSignals.Instance.OnLerpStack += _stackLerpMoveCommand.OnLerpStackMove;
-            StackSignals.Instance.OnSetStackStartSize += OnSetStackStartSize;
-            StackSignals.Instance.OnThrowStackInMiniGame += OnThrowStackInMiniGame;
+            StackSignals.Instance.onRemoveFromStack += _removeStackCommand.OnRemoveFromStack;
+            StackSignals.Instance.onLerpStack += _stackLerpMoveCommand.OnLerpStackMove;
+            StackSignals.Instance.onSetStackStartSize += OnSetStackStartSize;
+            //StackSignals.Instance.onThrowStackInMiniGame += OnThrowStackInMiniGame;
             StackSignals.Instance.onStackOnDronePath += OnStackOnDronePath;
+            StackSignals.Instance.onMergeToPLayer += OnMergeToPLayer;
+            StackSignals.Instance.onAddAfterDroneAnimationDone += OnAddAfterDroneAnimationDone;
+            PlayerSignals.Instance.onChangeAllCollectableColorType += OnChangeAllCollectableColorType;
         }
 
         private void UnSubscribe()
         {
             StackSignals.Instance.onAddStack -= _addStackCommand.OnAddStack;
-            StackSignals.Instance.OnRemoveFromStack -= _removeStackCommand.OnRemoveFromStack;
-            StackSignals.Instance.OnLerpStack -= _stackLerpMoveCommand.OnLerpStackMove;
-            StackSignals.Instance.OnSetStackStartSize -= OnSetStackStartSize;
-            StackSignals.Instance.OnThrowStackInMiniGame -= OnThrowStackInMiniGame;
+            StackSignals.Instance.onRemoveFromStack -= _removeStackCommand.OnRemoveFromStack;
+            StackSignals.Instance.onLerpStack -= _stackLerpMoveCommand.OnLerpStackMove;
+            StackSignals.Instance.onSetStackStartSize -= OnSetStackStartSize;
+            //StackSignals.Instance.onThrowStackInMiniGame -= OnThrowStackInMiniGame;
             StackSignals.Instance.onStackOnDronePath -= OnStackOnDronePath;
+            StackSignals.Instance.onMergeToPLayer -= OnMergeToPLayer;
+            StackSignals.Instance.onAddAfterDroneAnimationDone -= OnAddAfterDroneAnimationDone;
+            PlayerSignals.Instance.onChangeAllCollectableColorType -= OnChangeAllCollectableColorType;
         }
 
         private void OnDisable()
@@ -96,14 +103,12 @@ namespace Managers
 
         #endregion
 
-        private void OnSetStackStartSize(int size) 
+        private void OnChangeAllCollectableColorType(ColorType type)
         {
-        }
-
-
-        private void OnThrowStackInMiniGame() 
-        {
-            
+            foreach (var item in _collectable)
+            {
+                item.GetComponent<CollectableManager>().ChangeMatarialColor(type);
+            }
         }
 
         private void OnStackOnDronePath(Transform collectable, Transform mat)
@@ -117,10 +122,39 @@ namespace Managers
             collectable.DOMove(new Vector3(mat.position.x, collectable.position.y, collectable.position.z + UnityEngine.Random.Range(6, 10)), 3f)
                 .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
         }
-
-        private void OnAfterStackOnDronePath() { }
-        private void SortStack()
+       
+        private void OnMergeToPLayer()
         {
+            _tempList = _collectable;
+            _collectable.Clear();
+            _tempList.TrimExcess();
+            _collectable.TrimExcess();
+
+            foreach (var stack in _tempList)
+            {
+                stack.DOMoveZ(_playerPossition.position.z, 0.4f).OnComplete(() => _playerPossition.DOScale(new Vector3(_playerPossition.localScale.x + 0.0375f, _playerPossition.localScale.y + 0.0375f, _playerPossition.localScale.z + 0.0375f) , 0.3f));
+            }
+        }
+
+        private void OnAddAfterDroneAnimationDone(bool isDead, Transform _tranform)
+        {
+            if (isDead == true)
+            {
+                _tempList.Remove(_tranform);
+                _tempList.TrimExcess();
+            }
+            if(isDead == false && _tempList.Contains(_tranform))
+            {
+                _tempList.Remove(_tranform);
+                _collectable.Add(_tranform);
+                _tempList.TrimExcess();
+                _collectable.TrimExcess();
+            }
+        }
+
+        private void OnSetStackStartSize(int size)
+        {
+
         }
     }
 }

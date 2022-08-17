@@ -1,4 +1,7 @@
-﻿namespace StateMachine
+﻿using Signals;
+using Enums;
+
+namespace StateMachine
 {
     public class CameraRunnerState : CameraStateMachine
     {
@@ -6,6 +9,7 @@
         {
             _runnerCamera.Follow = _target;
             _cinamationAnimationStates.Play("RunnerCam");
+            PlayerSignals.Instance.onActivateOutlineTrasition(OutlineType.Outline);
         }
     }
 }

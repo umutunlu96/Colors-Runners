@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7954477794781463620}
   - component: {fileID: 8014575969848650774}
   - component: {fileID: 7344016813213795538}
+  - component: {fileID: 8480359273094884191}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: MatObstical
@@ -95,6 +96,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8480359273094884191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238419778564975300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85eacbb732e2a13489b2714e08dd4e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorData:
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  currentColorType: 0
 --- !u!1 &5335635724298955633
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +123,7 @@ GameObject:
   - component: {fileID: 7096346806363604129}
   - component: {fileID: 5191050382750908637}
   - component: {fileID: 6601218860549822564}
+  - component: {fileID: 2049903529584553062}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: MatObstical
@@ -190,6 +207,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2049903529584553062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335635724298955633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85eacbb732e2a13489b2714e08dd4e09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorData:
+    Color: {r: 0, g: 0, b: 0, a: 0}
+  currentColorType: 0
 --- !u!1 &6543451158925804624
 GameObject:
   m_ObjectHideFlags: 0

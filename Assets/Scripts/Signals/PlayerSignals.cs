@@ -2,6 +2,7 @@
 using Extentions;
 using UnityEngine;
 using StateMachine;
+using Enums;
 using UnityEngine.Events;
 using UnityEngine.WSA;
 
@@ -9,6 +10,11 @@ namespace Signals
 {
     public class PlayerSignals : MonoSingleton<PlayerSignals>
     {
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
         public Func<float> onPlayerRotate;
         public Action onPlayerEnterDroneArea;
         public Action onPlayerExitDroneArea;
@@ -16,10 +22,8 @@ namespace Signals
         public Action onPlayerExitTurretArea;
         public Action<Material> onChangeMaterial;
         public Action<AnimationStateMachine> onTranslateAnimationState;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
+        public Action<OutlineType> onActivateOutlineTrasition;
+        public Action<ColorType> onChangeAllCollectableColorType;
+        public Action onDroneAnimationComplated;
     }
 }
