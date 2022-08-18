@@ -12,11 +12,13 @@ namespace Managers
 {
     public class PlayerManager: MonoBehaviour
     {
+        #region Variables
         private PlayerData _playerData;
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerPhysicsController playerPhysicsController;
         [SerializeField] private PlayerMeshController playerMeshController;
         [SerializeField] private PlayerAnimationController playerAnimationController;
+        #endregion
 
         #region Event Subsicription
     
@@ -37,7 +39,6 @@ namespace Managers
             PlayerSignals.Instance.onPlayerExitTurretArea += OnPlayerExitTurretArea;
             PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
             PlayerSignals.Instance.onPlayerExitDroneArea += OnPlayerExitDroneArea;
-            //PlayerSignals.Instance.onChangeColor += OnChangePlayerColor;
         }
         
         private void UnsubscribeEvents()
@@ -52,7 +53,6 @@ namespace Managers
             PlayerSignals.Instance.onPlayerExitTurretArea -= OnPlayerExitTurretArea;
             PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
             PlayerSignals.Instance.onPlayerExitDroneArea -= OnPlayerExitDroneArea;
-            //PlayerSignals.Instance.onChangeColor -= OnChangePlayerColor;
         }
         
         private void OnDisable()
@@ -78,7 +78,6 @@ namespace Managers
         private void OnPlay()
         {
             playerMovementController.ActivateMovement();
-            playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
         }
 
         private void OnPointerDown()

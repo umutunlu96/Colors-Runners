@@ -32,7 +32,7 @@ namespace Commands
                 _collectable[0].localPosition = new Vector3(
                     Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x, _lerpData.LerpSpeeds.x * Time.deltaTime),
                     Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y, _lerpData.LerpSpeeds.y * Time.deltaTime),
-                Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - _lerpData.DistanceOffSet, _lerpData.LerpSpeeds.z * Time.deltaTime)
+                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - .5f, _lerpData.LerpSpeeds.z * Time.deltaTime)
                     );
                 _collectable[0].LookAt(_playerPossition);
 
@@ -42,7 +42,7 @@ namespace Commands
                     _collectable[i].localPosition = new Vector3(
                          Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x, _lerpData.LerpSpeeds.x * Time.deltaTime),
                          Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y, _lerpData.LerpSpeeds.y * Time.deltaTime),
-                    Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, _lerpData.LerpSpeeds.z * Time.deltaTime)
+                         Mathf.Lerp(_collectable[i].localPosition.z, _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet, _lerpData.LerpSpeeds.z * Time.deltaTime)
                     );
                     _collectable[i].LookAt(_playerPossition);
                 }

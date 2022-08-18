@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8480359273094884191}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: MatObstical
+  m_TagString: MatTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 5.798877, z: 1.0501685}
+  m_Center: {x: 0, y: 2.5892987, z: -0.02508377}
 --- !u!114 &8480359273094884191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorData:
     Color: {r: 0, g: 0, b: 0, a: 0}
-  currentColorType: 0
+  currentColorType: 1
 --- !u!1 &5335635724298955633
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 2049903529584553062}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: MatObstical
+  m_TagString: MatTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,8 +205,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 5.798877, z: 1.0501685}
+  m_Center: {x: 0, y: 2.5892987, z: -0.02508377}
 --- !u!114 &2049903529584553062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colorData:
     Color: {r: 0, g: 0, b: 0, a: 0}
-  currentColorType: 0
+  currentColorType: 2
 --- !u!1 &6543451158925804624
 GameObject:
   m_ObjectHideFlags: 0

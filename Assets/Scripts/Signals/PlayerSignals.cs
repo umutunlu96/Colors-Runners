@@ -22,8 +22,6 @@ namespace Signals
         public Action onPlayerExitTurretArea;
         public Action<Material> onChangeMaterial;
         public Action<AnimationStateMachine> onTranslateAnimationState;
-        public Action<OutlineType> onActivateOutlineTrasition;
         public Action<ColorType> onChangeAllCollectableColorType;
-        public Action onDroneAnimationComplated;
     }
 }

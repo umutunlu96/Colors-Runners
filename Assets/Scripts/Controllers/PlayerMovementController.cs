@@ -176,7 +176,6 @@ namespace Controllers
             _playerMovementData.RunnerForwardSpeed = 10f;
         }
         
-        
         public void ChangeMovementType(JoystickStates joystickState)
         {
             switch (joystickState)

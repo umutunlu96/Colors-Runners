@@ -1,4 +1,5 @@
 ﻿using System;
+using Enums;
 using UnityEngine;
 using Extentions;
 
@@ -17,7 +18,11 @@ namespace Signals
         public Action onLerpStack;
         public Action onShakeStackSize;
         public Action onThrowStackInMiniGame;
-        public Action<Transform, Transform> onStackOnDronePath;
+        public Action<Transform, Transform> onStackEnterDroneArea;
+        public Action onLastCollectableEnterDroneArea;
+        public Action onDroneAnimationComplated;
+        public Action<Transform> onWrongTurretMatAreaEntered;
+        public Action<OutlineType> onActivateOutlineTrasition;
         public Action onMergeToPLayer;
         public Action<bool, Transform> onAddAfterDroneAnimationDone;
     }

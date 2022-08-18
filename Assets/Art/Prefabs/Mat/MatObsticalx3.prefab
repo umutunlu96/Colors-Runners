@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4183800532986951271}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: MatObstical
+  m_TagString: TurretMatTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1667504106684687836}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: MatObstical
+  m_TagString: TurretMatTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 322242250361957073}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: MatObstical
+  m_TagString: TurretMatTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
