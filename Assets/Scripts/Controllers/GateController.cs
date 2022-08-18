@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Enums;
 using Managers;
+using Extentions;
 using UnityEngine;
 using UnityObject;
 using ValueObject;
@@ -36,9 +37,7 @@ namespace Controllers
             _material = GetComponent<MeshRenderer>().material;
             GetColorData();
             _material.color = _colorData.Color;
-            Color _color = _material.color;
-            _color.a = .5f;
-            _material.color = _color;
+            _material.SetAlpha(0.5f);
         }
 
         private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)currentColorType];
