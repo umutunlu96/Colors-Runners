@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2749586889323748609}
-  manager: {fileID: 0}
+  followOffset: {x: 0, y: 0.2, z: -1.2}
 --- !u!1 &3708555236754739374
 GameObject:
   m_ObjectHideFlags: 0
