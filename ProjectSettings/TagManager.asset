@@ -8,10 +8,14 @@ TagManager:
   - Collected
   - Obstical
   - Ramp
-  - MatObstical
   - Gate
   - DroneArea
   - TurretArea
+  - MatTrigger
+  - Obstacle
+  - BoostArea
+  - TurretMatTrigger
+  - ExitTurretArea
   layers:
   - Default
   - TransparentFX

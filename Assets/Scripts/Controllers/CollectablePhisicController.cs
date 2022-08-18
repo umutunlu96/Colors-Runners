@@ -20,51 +20,44 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-
-            try
+            if (other.CompareTag("Collectable") && CompareTag("Collected"))
             {
-                if (other.CompareTag("Collectable") && CompareTag("Collected"))
+                other.tag = "Collected";
+                if (_manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>().currentColorType))
                 {
-                    if (_manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>().currentColorType))
-                    {
-                        _manager.AddCollectableToStackManager(other.transform.parent);
-                    }
-                    else if (!_manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>().currentColorType))//call from signals
-                    {
-                        _manager.RemoveCollectableFromStackManager(transform.parent);
-                        other.transform.parent.gameObject.SetActive(false);
-                    }
+                    _manager.AddCollectableToStackManager(other.transform.parent);
+                }
+                else if (!_manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>()
+                    .currentColorType)) //call from signals
+                {
+                    _manager.RemoveCollectableFromStackManager(transform.parent);
+                    other.transform.parent.gameObject.SetActive(false);
                 }
             }
-            catch (Exception e)
-            {
-                Debug.Log("error sourch : " + e.Source);
-                Debug.Log("error inner sourch : " + e.InnerException);
 
-                Debug.Log("error message : " + e.Message);
-
-                Debug.Log("error data : " + e.Data);
-                Debug.Log("error data : " + e.Data.ToString());
-            }
-          
-            if (other.CompareTag("Obstical"))
+            if (other.CompareTag("Obstacle"))
             {
                 _manager.RemoveCollectableFromStackManager(_manager.transform);
                 other.gameObject.SetActive(false);
             }
-
-            if (other.CompareTag("MatObstical"))
+            
+            if (other.CompareTag("MatTrigger"))
             {
-                StackSignals.Instance.onStackOnDronePath(_manager.transform, other.transform);
+                StackSignals.Instance.onStackEnterDroneArea?.Invoke(_manager.transform, other.transform);
+                
                 if (!_manager.CompareColor(other.GetComponent<MatController>().currentColorType))
                 {
                     _manager.IsDead = true;
                 }
-
             }
 
-            
-            
+            if (other.CompareTag("TurretMatTrigger"))
+            {
+                if (!_manager.CompareColor(other.GetComponent<TurretMatController>().currentColorType))
+                {
+                    StackSignals.Instance.onWrongTurretMatAreaEntered?.Invoke(_manager.transform);
+                }
+            }
         }
     }
 }

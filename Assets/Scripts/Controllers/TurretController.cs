@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Threading.Tasks;
 using DG.Tweening;
 using Signals;
 using UnityEngine;
@@ -9,16 +8,44 @@ namespace Controllers
 {
     public class TurretController : MonoBehaviour
     {
-        [SerializeField] private GameObject denemeeeeee;
+        #region Variables
         [SerializeField] private Vector2 turretMaxAngleX;
         [SerializeField] private Vector2 turretMaxAngleY;
         [SerializeField] private GameObject turret;
         [SerializeField] private ParticleSystem fireParticle;
         [SerializeField] private float turnSpeed;
         [SerializeField] private float turnDelay;
-        private bool _isAiming, _isRotating;
+        private bool _isAiming, _isRotating ,_canShoot;
+        #endregion
+
+        #region EventSubscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerExitTurretArea += DeactivateTurret;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerExitTurretArea -= DeactivateTurret;
+        }
+
+        #endregion
+        
+        
         private void Start()
         {
+            _canShoot = true;
             Idle();
         }
         
@@ -35,19 +62,23 @@ namespace Controllers
             }
         }
         
-        private void Aim(Transform target)
+        public async void Aim(Transform target)
         {
+            if (!_canShoot) return;
+
+            await Task.Delay(200);
+            
             _isAiming = true;
-            turret.transform.DOLookAt(target.position, turnSpeed).SetDelay(turnDelay / 4).OnComplete(() =>
+            turret.transform.DOLookAt(target.position, turnSpeed).SetDelay(turnDelay * 1.66f).OnComplete(() =>
             {
                 fireParticle.Play();
                 StackSignals.Instance.onRemoveFromStack?.Invoke(target);
             });
         }
 
-        public void TriggetAim()
+        private void DeactivateTurret()
         {
-            Aim(denemeeeeee.transform);
+            _canShoot = false;
         }
     }
 }

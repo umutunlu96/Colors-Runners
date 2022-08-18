@@ -67,9 +67,9 @@ namespace Controllers
             {
                 _material.DOFloat(0, "_OutlineSize", 1f);
             }
-            if( type == OutlineType.NonOutline)
+            else if( type == OutlineType.Outline)
             {
-                _material.DOFloat(0, "_OutlineSize", 1f);
+                _material.DOFloat(100, "_OutlineSize", 1f);
             }
         }
     }

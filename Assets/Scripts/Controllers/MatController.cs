@@ -13,8 +13,7 @@ namespace Controllers
         #region Private Variavles
 
         private Material _material;
-        public ColorData _colorData;
-
+        private BoxCollider _boxCollider;
         #endregion
 
         #region Serialize Variavles
@@ -24,6 +23,7 @@ namespace Controllers
 
         #region Public Variables
 
+        public ColorData ColorData;
         public ColorType currentColorType;
 
         #endregion
@@ -33,11 +33,20 @@ namespace Controllers
         private void Awake()
         {
             _material = GetComponent<MeshRenderer>().material;
-            GetColorData();
-            _material.color = _colorData.Color;
+            _boxCollider = GetComponent<BoxCollider>();
         }
 
-        private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)currentColorType];
+        public void GetColorData(ColorType colorType) => ColorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)colorType];
 
+        public void SetColorData(ColorType colorType)
+        {
+            currentColorType = colorType;
+            _material.color = ColorData.Color;
+        }
+
+        public void DisableBoxCollider()
+        {
+            _boxCollider.enabled = false;
+        }
     }
 }

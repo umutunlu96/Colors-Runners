@@ -8,7 +8,6 @@ namespace StateMachine
         public override void ChangeAnimationState()
         {
             _animator.SetTrigger("SneakIdle");
-            PlayerSignals.Instance.onActivateOutlineTrasition(OutlineType.NonOutline);
         }
     }
 }

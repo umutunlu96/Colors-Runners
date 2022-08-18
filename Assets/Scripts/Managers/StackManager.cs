@@ -40,10 +40,7 @@ namespace Managers
         #endregion
 
         #endregion
-
         
-
-        //temp
         private void Awake()
         {
             _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;
@@ -77,7 +74,7 @@ namespace Managers
             StackSignals.Instance.onLerpStack += _stackLerpMoveCommand.OnLerpStackMove;
             StackSignals.Instance.onSetStackStartSize += OnSetStackStartSize;
             //StackSignals.Instance.onThrowStackInMiniGame += OnThrowStackInMiniGame;
-            StackSignals.Instance.onStackOnDronePath += OnStackOnDronePath;
+            StackSignals.Instance.onStackEnterDroneArea += OnStackEnterDroneArea;
             StackSignals.Instance.onMergeToPLayer += OnMergeToPLayer;
             StackSignals.Instance.onAddAfterDroneAnimationDone += OnAddAfterDroneAnimationDone;
             PlayerSignals.Instance.onChangeAllCollectableColorType += OnChangeAllCollectableColorType;
@@ -90,7 +87,7 @@ namespace Managers
             StackSignals.Instance.onLerpStack -= _stackLerpMoveCommand.OnLerpStackMove;
             StackSignals.Instance.onSetStackStartSize -= OnSetStackStartSize;
             //StackSignals.Instance.onThrowStackInMiniGame -= OnThrowStackInMiniGame;
-            StackSignals.Instance.onStackOnDronePath -= OnStackOnDronePath;
+            StackSignals.Instance.onStackEnterDroneArea -= OnStackEnterDroneArea;
             StackSignals.Instance.onMergeToPLayer -= OnMergeToPLayer;
             StackSignals.Instance.onAddAfterDroneAnimationDone -= OnAddAfterDroneAnimationDone;
             PlayerSignals.Instance.onChangeAllCollectableColorType -= OnChangeAllCollectableColorType;
@@ -111,7 +108,7 @@ namespace Managers
             }
         }
 
-        private void OnStackOnDronePath(Transform collectable, Transform mat)
+        private void OnStackEnterDroneArea(Transform collectable, Transform mat)
         {
             if(!_collectable.Contains(collectable)) return;
             PlayerSignals.Instance.onTranslateAnimationState(new SneakWalkAnimationState());
@@ -119,8 +116,13 @@ namespace Managers
             _collectable.Remove(collectable);
             _collectable.TrimExcess();
             _tempList.TrimExcess();
-            collectable.DOMove(new Vector3(mat.position.x, collectable.position.y, collectable.position.z + UnityEngine.Random.Range(6, 10)), 3f)
+            collectable.DOMove(new Vector3(mat.position.x, collectable.position.y, collectable.position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
                 .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
+            
+            if (_collectable.Count == 0)
+            {
+                StackSignals.Instance.onLastCollectableEnterDroneArea?.Invoke();
+            }
         }
        
         private void OnMergeToPLayer()
@@ -138,12 +140,12 @@ namespace Managers
 
         private void OnAddAfterDroneAnimationDone(bool isDead, Transform _tranform)
         {
-            if (isDead == true)
+            if (isDead)
             {
                 _tempList.Remove(_tranform);
                 _tempList.TrimExcess();
             }
-            if(isDead == false && _tempList.Contains(_tranform))
+            if(!isDead && _tempList.Contains(_tranform))
             {
                 _tempList.Remove(_tranform);
                 _collectable.Add(_tranform);

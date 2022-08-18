@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DG.Tweening;
+﻿using DG.Tweening;
+using Enums;
 using Signals;
 using UnityEngine;
 
@@ -20,30 +18,6 @@ namespace Controllers
             SetDroneMovement();
         }
 
-        #region Event Subsicription
-    
-        void OnEnable()
-        {
-            SubscribeEvents();
-        }
-
-        private void SubscribeEvents()
-        {
-            PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
-        }
-        
-        private void UnsubscribeEvents()
-        {
-            PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
-        }
-        
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
-        }
-
-        #endregion
-
         private void SetDroneMovement()
         {
             _sequence = DOTween.Sequence();
@@ -58,16 +32,15 @@ namespace Controllers
             _sequence.Pause();
         }
         
-        public void OnPlayerEnterDroneArea()
+        public void StartDroneAnimation()
         {
             _sequence.Play();
 
             _sequence.OnComplete(() =>
             {
+                StackSignals.Instance.onDroneAnimationComplated?.Invoke();
                 PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
-                PlayerSignals.Instance.onDroneAnimationComplated?.Invoke();
-                /* Start the color comparison*/
-            });//.OnComplete(() => PlayerSignals.Instance.onDroneAnimationComplated?.Invoke());
+            });
         }
     }
 }

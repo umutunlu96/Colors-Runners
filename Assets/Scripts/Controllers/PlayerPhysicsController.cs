@@ -44,7 +44,7 @@ namespace Controllers
                 PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
             }
             
-            if (other.CompareTag("TurretArea"))
+            if (other.CompareTag("ExitTurretArea"))
             {
                 PlayerSignals.Instance.onPlayerExitTurretArea?.Invoke();
             }

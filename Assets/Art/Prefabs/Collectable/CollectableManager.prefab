@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 806090970}
   m_Layer: 0
   m_Name: Physic
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshController: {fileID: 8706320383744127135}
-  phisicController: {fileID: 2629139392902277867}
+  physicController: {fileID: 2629139392902277867}
   animatorController: {fileID: 2031023731789940334}
   _isDead: 0
   currentColorType: 0
