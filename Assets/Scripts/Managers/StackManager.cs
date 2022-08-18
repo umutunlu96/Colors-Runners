@@ -23,6 +23,8 @@ namespace Managers
         [SerializeField] List<Transform> _collectable = new List<Transform>();
         [SerializeField] List<Transform> _tempList = new List<Transform>();
 
+        [SerializeField] private ColorType colorType;
+        [SerializeField] private GameObject stickmanPrefab; 
         #endregion
 
         #region private Variables
@@ -40,7 +42,7 @@ namespace Managers
         #endregion
 
         #endregion
-        
+
         private void Awake()
         {
             _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;
@@ -49,18 +51,17 @@ namespace Managers
             _addStackCommand = new AddStackCommand(ref _collectable, ref _shakeStakeCommand, transform, this);
             _removeStackCommand = new RemoveStackCommand(ref _collectable);
             _stackLerpMoveCommand = new StackLerpMoveCommand(ref _collectable, ref _lerpData, _playerPossition);
+            OnSetStackStartSize(6);
         }
 
         private void FixedUpdate()
         {
-          
             _stackLerpMoveCommand.OnLerpStackMove();
-            
         }
 
         private LerpData GetLerpData() => Resources.Load<CD_Lerp>("Data/CD_Lerp").Data;
 
-        #region Subscriptions
+        #region Event Subscriptions
 
         private void OnEnable()
         {
@@ -110,21 +111,23 @@ namespace Managers
 
         private void OnStackEnterDroneArea(Transform collectable, Transform mat)
         {
-            if(!_collectable.Contains(collectable)) return;
+            if (!_collectable.Contains(collectable)) return;
             PlayerSignals.Instance.onTranslateAnimationState(new SneakWalkAnimationState());
             _tempList.Add(collectable);
             _collectable.Remove(collectable);
             _collectable.TrimExcess();
             _tempList.TrimExcess();
-            collectable.DOMove(new Vector3(mat.position.x, collectable.position.y, collectable.position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
+            collectable.DOMove(
+                    new Vector3(mat.position.x, collectable.position.y,
+                        collectable.position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
                 .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
-            
+
             if (_collectable.Count == 0)
             {
                 StackSignals.Instance.onLastCollectableEnterDroneArea?.Invoke();
             }
         }
-       
+
         private void OnMergeToPLayer()
         {
             _tempList = _collectable;
@@ -134,7 +137,10 @@ namespace Managers
 
             foreach (var stack in _tempList)
             {
-                stack.DOMoveZ(_playerPossition.position.z, 0.4f).OnComplete(() => _playerPossition.DOScale(new Vector3(_playerPossition.localScale.x + 0.0375f, _playerPossition.localScale.y + 0.0375f, _playerPossition.localScale.z + 0.0375f) , 0.3f));
+                stack.DOMoveZ(_playerPossition.position.z, 0.4f).OnComplete(() =>
+                    _playerPossition.DOScale(
+                        new Vector3(_playerPossition.localScale.x + 0.0375f, _playerPossition.localScale.y + 0.0375f,
+                            _playerPossition.localScale.z + 0.0375f), 0.3f));
             }
         }
 
@@ -145,18 +151,28 @@ namespace Managers
                 _tempList.Remove(_tranform);
                 _tempList.TrimExcess();
             }
-            if(!isDead && _tempList.Contains(_tranform))
+
+            if (!isDead && _tempList.Contains(_tranform))
             {
                 _tempList.Remove(_tranform);
                 _collectable.Add(_tranform);
                 _tempList.TrimExcess();
                 _collectable.TrimExcess();
+                StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
             }
         }
 
         private void OnSetStackStartSize(int size)
         {
+            for (int i = 0; i < size; i++)
+            {
+                _addStackCommand.OnAddStack(Instantiate(stickmanPrefab).transform);                
+            }
 
+            for (int i = 0; i < size; i++)
+            {
+                _collectable[i].GetComponent<CollectableManager>().ChangeMatarialColor(colorType);
+            }
         }
     }
 }

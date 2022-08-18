@@ -16,6 +16,8 @@ TagManager:
   - BoostArea
   - TurretMatTrigger
   - ExitTurretArea
+  - DisableColliders
+  - Turret
   layers:
   - Default
   - TransparentFX

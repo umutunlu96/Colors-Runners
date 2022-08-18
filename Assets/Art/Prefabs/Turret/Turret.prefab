@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 3548869140762531471}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Turret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,10 +289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac35f3c246054603b5f90502b64aa5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  denemeeeeee: {fileID: 0}
   turretMaxAngleX: {x: 0, y: 0}
   turretMaxAngleY: {x: 0, y: 0}
   turret: {fileID: 1560259782622744}
+  fireParticle: {fileID: 0}
   turnSpeed: 0.2
   turnDelay: 0.6
 --- !u!1001 &1675215337407683333
