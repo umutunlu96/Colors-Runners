@@ -1,6 +1,7 @@
 ﻿using System;
 using Managers;
 using Signals;
+using StateMachine;
 using DG.Tweening;
 using UnityEngine;
 
@@ -35,6 +36,12 @@ namespace Controllers
             if (other.CompareTag("TurretArea"))
             {
                 PlayerSignals.Instance.onPlayerEnterTurretArea?.Invoke();
+            }
+           
+            if(other.CompareTag("IdleTrigger"))
+            {
+                PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
+                Debug.Log("idle trigger is done");
             }
         }
         private void OnTriggerExit(Collider other)

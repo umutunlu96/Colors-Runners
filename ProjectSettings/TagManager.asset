@@ -18,6 +18,8 @@ TagManager:
   - ExitTurretArea
   - DisableColliders
   - Turret
+  - MatObstical
+  - IdleTrigger
   layers:
   - Default
   - TransparentFX

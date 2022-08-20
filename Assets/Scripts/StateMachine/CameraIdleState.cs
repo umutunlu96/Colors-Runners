@@ -4,7 +4,7 @@
     {
         public override void ChangeStateCamera()
         {
-            _runnerCamera.Follow = _target;
+            _idleCamera.Follow = _target;
             _cinamationAnimationStates.Play("IdleCam");
         }
     }
