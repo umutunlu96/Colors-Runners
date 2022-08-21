@@ -2391,6 +2391,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9c3f287212c34424191c7df07f1fd6fb, type: 2}
+    - target: {fileID: 8794528303973325535, guid: 6c5b113fee69cb840808b4af095fb6f3, type: 3}
+      propertyPath: currentColorType
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c5b113fee69cb840808b4af095fb6f3, type: 3}
 --- !u!4 &1777793807013811941 stripped

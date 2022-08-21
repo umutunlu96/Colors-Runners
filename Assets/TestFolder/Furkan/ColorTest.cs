@@ -17,9 +17,5 @@ public class ColorTest : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-      
-    }
-
+   
 }

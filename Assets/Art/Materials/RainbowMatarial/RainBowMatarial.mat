@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ReainBowMatarial
+  m_Name: RainBowMatarial
   m_Shader: {fileID: 4800000, guid: 6c046203321edf34fb092959a05e5b4a, type: 3}
   m_ShaderKeywords: _MK_ALBEDO_MAP _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
     _MK_LIGHT_CEL _MK_OUTLINE_HULL_CLIP _MK_WRAPPED_DIFFUSE _WRAPPEDLIGHTING_ON
@@ -25,7 +25,7 @@ Material:
     - _AlbedoMap:
         m_Texture: {fileID: 2800000, guid: 87d84c2e2f2c5094abab1cbf0538e0af, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 0, y: 2.5087779}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
