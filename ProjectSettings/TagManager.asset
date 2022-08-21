@@ -18,6 +18,10 @@ TagManager:
   - ExitTurretArea
   - DisableColliders
   - Turret
+  - MatObstical
+  - IdleTrigger
+  - MainBuilding
+  - SideBuilding
   layers:
   - Default
   - TransparentFX

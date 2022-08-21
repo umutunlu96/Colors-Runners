@@ -22,6 +22,7 @@ namespace Signals
         public Action onPlayerExitTurretArea;
         public Action<Material> onChangeMaterial;
         public Action<AnimationStateMachine> onTranslateAnimationState;
+        public Action<CameraStateMachine> onTranslateCameraState;
         public Action<ColorType> onChangeAllCollectableColorType;
     }
 }
