@@ -3,6 +3,7 @@ using Managers;
 using Signals;
 using StateMachine;
 using DG.Tweening;
+using Umut;
 using UnityEngine;
 
 
@@ -14,6 +15,7 @@ namespace Controllers
 
         private void OnTriggerEnter(Collider other)
         {
+            #region Runner Area
             if(other.CompareTag("Ramp"))
             {
                 manager.JumpPlayerOnRamp();
@@ -43,9 +45,19 @@ namespace Controllers
                 PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
                 Debug.Log("idle trigger is done");
             }
+            #endregion
+
+            #region Idle Area
+            // if (other.CompareTag("MainBuilding") || other.CompareTag("SideBuilding"))
+            // {
+            //     string nameOfBuilding = other.GetComponentInParent<UmutBuildingManager>().gameObject.name;
+            //     IdleSignals.Instance.onPlayerEnterBuildingArea?.Invoke(nameOfBuilding, other.name);
+            // }
+            #endregion
         }
         private void OnTriggerExit(Collider other)
         {
+            #region Runner Area
             if (other.CompareTag("DroneArea"))
             {
                 PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
@@ -54,6 +66,24 @@ namespace Controllers
             if (other.CompareTag("ExitTurretArea"))
             {
                 PlayerSignals.Instance.onPlayerExitTurretArea?.Invoke();
+            }
+            #endregion
+
+            #region Idle Area
+            // if (other.CompareTag("MainBuilding") || other.CompareTag("SideBuilding"))
+            // {
+            //     string nameOfBuilding = other.GetComponentInParent<UmutBuildingManager>().gameObject.name;
+            //     IdleSignals.Instance.onPlayerExitBuildingArea?.Invoke(nameOfBuilding, other.name);
+            // }
+            #endregion
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("MainBuilding") || other.CompareTag("SideBuilding"))
+            {
+                string nameOfBuilding = other.GetComponentInParent<UmutBuildingManager>().gameObject.name;
+                IdleSignals.Instance.onPlayerEnterBuildingArea?.Invoke(nameOfBuilding, other.name);
             }
         }
     }
