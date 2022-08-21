@@ -2,7 +2,7 @@
 {
     public enum BuildingComplateState
     {
-        Completed,
-        Uncompleted
+        Uncompleted,
+        Completed
     }
 }

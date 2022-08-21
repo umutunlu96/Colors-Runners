@@ -10,20 +10,16 @@ namespace Managers
     public class BuildingManager : MonoBehaviour
     {
         [Header("Building Datas")]
-        public EnvironmentData _environmentData;
+        private EnvironmentData _environmentData;
         public BuildingData _mainBuilding;
         public BuildingData _SideBuilding;
         public BuildType buildingType;
+        
         [Space]
         [Header("Main building Script References")]
-        [SerializeField] BuildingMeshController mainBuildingMeshcontroller;
-        [SerializeField] BuildingPhysicController mainBuildingPhysiccontroller;
-        [SerializeField] BuildingScoreController mainBuildingScoreController;
-        [Space]
-        [Header("Side building Script References")]
-        [SerializeField] BuildingMeshController sideBuildingMeshcontroller;
-        [SerializeField] BuildingPhysicController sideBuildingPhysiccontroller;
-        [SerializeField] BuildingScoreController sideBuildingScoreController;
+        [SerializeField] BuildingMeshController buildingMeshcontroller;
+        [SerializeField] BuildingPhysicController buildingPhysiccontroller;
+        [SerializeField] BuildingScoreController buildingScoreController;
 
         private void Awake()
         {
@@ -34,10 +30,27 @@ namespace Managers
 
         private void GetEnvironmentData(int building) => _environmentData = Resources.Load<CD_EnvironmentData>("Data/CD_EnvironmentData").EnvironmentData[building];
 
+        private void CheckEnvironmentData()
+        {
+            switch (_mainBuilding.ComplateState)
+            {
+                case BuildingComplateState.Uncompleted:
+                    buildingMeshcontroller = transform.GetChild(0).GetComponentInChildren<BuildingMeshController>();
+                    buildingPhysiccontroller = transform.GetChild(0).GetComponentInChildren<BuildingPhysicController>();
+                    buildingScoreController = transform.GetChild(0).GetComponentInChildren<BuildingScoreController>();
+                    _SideBuilding.BuildingUnlockState = BuildingUnlockState.Locked;
+                    break;
+                case BuildingComplateState.Completed:
+                    buildingMeshcontroller = transform.GetChild(1).GetComponentInChildren<BuildingMeshController>();
+                    buildingPhysiccontroller = transform.GetChild(1).GetComponentInChildren<BuildingPhysicController>();
+                    buildingScoreController = transform.GetChild(1).GetComponentInChildren<BuildingScoreController>();
+                    _SideBuilding.BuildingUnlockState = BuildingUnlockState.Unlocked;
+                    break;
+            }
+        }
+        
         private void SendDataToController()
         {
-            mainBuildingScoreController.GetData(_mainBuilding.Name, _mainBuilding.PayedAmount, _mainBuilding.Price);
-            sideBuildingScoreController.GetData(_SideBuilding.Name, _SideBuilding.PayedAmount, _SideBuilding.Price);
             
         }
 
@@ -51,6 +64,5 @@ namespace Managers
             _mainBuilding = _environmentData.Buildings[0];
             _SideBuilding = _environmentData.Buildings[1];
         }
-
     }
 }
