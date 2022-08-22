@@ -1,8 +1,10 @@
-﻿using Controllers;
+﻿using System;
+using Controllers;
 using Enums;
 using Signals;
 using UnityEngine;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Managers
 {
@@ -29,15 +31,16 @@ namespace Managers
         #endregion
         #endregion
 
-        private void Awake()
-        {
-            SendColorTypeToMats();
-        }
-        
         #region Event Subscription
+
         private void OnEnable()
         {
             SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
         }
 
         private void SubscribeEvents()
@@ -49,13 +52,14 @@ namespace Managers
         {
             StackSignals.Instance.onLastCollectableEnterDroneArea += OnLastCollectableEnterDroneArea;
         }
-        
-        private void OnDisable()
-        {
-            UnSubscribeEvents();
-        }
+
         #endregion
         
+        private void Awake()
+        {
+            SendColorTypeToMats();
+        }
+
         private void Start()
         {
             SetColorOfMats();
@@ -96,15 +100,13 @@ namespace Managers
         {
             print("LastCollectable");
             await Task.Delay(1000);
-            print("Outline changed");
+            print("outline changed");
             StackSignals.Instance.onActivateOutlineTrasition?.Invoke(OutlineType.NonOutline);
             await Task.Delay(1000);
             CloseUpMat();
             print("MatsAreClosing");
             await Task.Delay(250);
             droneController.StartDroneAnimation();
-            await Task.Delay(3000);
-            StackSignals.Instance.onDroneKillsCollectables?.Invoke();
             print("Drone started");
             DisableMatControllersCollider();
         }

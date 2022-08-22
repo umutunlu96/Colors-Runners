@@ -27,8 +27,8 @@ namespace Managers
 
         #region Private Variables
 
-        private int _score = 100, _prizeScore, _scoreMultiplier; // score = Scoresignalsden cekilecek.
-        private bool _isPrize;
+        private int score = 100, prizeScore, scoreMultiplier; // score = Scoresignalsden cekilecek.
+        private bool isPrize;
 
         #endregion
         
@@ -37,9 +37,9 @@ namespace Managers
 
         private void OnEnable()
         {
-            _isPrize = true; //Test
+            isPrize = true;
             SubscribeEvents();
-            OnIdleMoneyMultiplier();
+            IdleMoneyMultiplier();
         }
 
         private void SubscribeEvents()
@@ -104,10 +104,10 @@ namespace Managers
 
         private void OnLevelSuccessful()
         {
-            _isPrize = true;
+            isPrize = true;
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
-            OnIdleMoneyMultiplier();
+            IdleMoneyMultiplier();
         }
 
         public void Play()
@@ -117,7 +117,7 @@ namespace Managers
 
         public void NextLevel()
         {
-            _isPrize = false;
+            isPrize = false;
             CoreGameSignals.Instance.onNextLevel?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
@@ -126,6 +126,7 @@ namespace Managers
         public void RestartLevel()
         {
             CoreGameSignals.Instance.onRestartLevel?.Invoke();
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }
 
@@ -141,57 +142,57 @@ namespace Managers
 
         private void OnReset()
         {
-            _isPrize = false;
-            _prizeScore = 0;
-            _score = 0;
+            isPrize = false;
+            prizeScore = 0;
+            score = 0;
         }
         
         private void Update()   //Commande bol
         {
-            if (_isPrize)
+            if (isPrize)
             {
                 if (arrow.rectTransform.position.x > 140 && arrow.rectTransform.position.x < 280)
                 {
-                    prizeText.text = (_score * 2).ToString();
-                    _scoreMultiplier = 2;
+                    prizeText.text = (score * 2).ToString();
+                    scoreMultiplier = 2;
                 }
                 else if (arrow.rectTransform.position.x >= 280 && arrow.rectTransform.position.x < 420)
                 {
-                    prizeText.text = (_score * 3).ToString();
-                    _scoreMultiplier = 3;
+                    prizeText.text = (score * 3).ToString();
+                    scoreMultiplier = 3;
                 }
                 else if (arrow.rectTransform.position.x >= 420 && arrow.rectTransform.position.x < 560)
                 {
-                    prizeText.text = (_score * 5).ToString();
-                    _scoreMultiplier = 5;
+                    prizeText.text = (score * 5).ToString();
+                    scoreMultiplier = 5;
                 }
                 else if (arrow.rectTransform.position.x >= 560 && arrow.rectTransform.position.x < 700)
                 {
-                    prizeText.text = (_score * 3).ToString();
-                    _scoreMultiplier = 3;
+                    prizeText.text = (score * 3).ToString();
+                    scoreMultiplier = 3;
                 }
                 else if (arrow.rectTransform.position.x >= 700)
                 {
-                    prizeText.text = (_score * 2).ToString();
-                    _scoreMultiplier = 2;
+                    prizeText.text = (score * 2).ToString();
+                    scoreMultiplier = 2;
                 }
             }
         }
 
-        private void OnIdleMoneyMultiplier()
+        public void IdleMoneyMultiplier()
         {
             arrow.transform.DOLocalMoveX(1300, 1f).SetRelative(true).SetEase(Ease.Linear).SetLoops(-1,LoopType.Yoyo);
         }
 
         public void ClaimButton()
         {
-            _prizeScore = _score * _scoreMultiplier;
+            prizeScore = score * scoreMultiplier;
             //Score Signalse gonder.
         }
 
         public void NoThanksButton()
         {
-            _prizeScore = _score;
+            prizeScore = score;
         }
     }
 }

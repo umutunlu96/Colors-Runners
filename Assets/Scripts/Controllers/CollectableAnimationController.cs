@@ -14,32 +14,18 @@ namespace Controllers
 
         #region Serialize Variables
 
-        [SerializeField] private CollectableManager manager;
-        [SerializeField] private ParticleSystem particleSystem; //Particle eklenecek
+        [SerializeField] CollectableManager manager;
 
         #endregion
 
         #region Private Variavles
 
-        private Animator _collectableAnimator;
-        private AnimationStateMachine _collectableStateMachine;
+        private ParticleSystem _particleSystem;
+        private Animator _CollectableAnimator;
+        private AnimationStateMachine _CollectableStateMachine;
 
         #endregion
         #endregion
-        
-        private void Awake()
-        {
-            _collectableAnimator = GetComponent<Animator>();
-            _collectableStateMachine = new IdleAnimationState();
-            _collectableStateMachine.SetContext(ref _collectableAnimator);
-            _collectableStateMachine.ChangeAnimationState();
-            
-            if (manager.GetComponentInChildren<CollectablePhysicController>().CompareTag("Collected"))
-            {
-                TranslateAnimationState(new SneakIdleAnimationState());
-            }
-        }
-        
         #region Subscriptions
 
         private void OnEnable()
@@ -62,30 +48,45 @@ namespace Controllers
             UnSubscribe();
         }
         #endregion
+        
+        
+        
+        private void Awake()
+        {
+            _CollectableAnimator = GetComponent<Animator>();
+            _CollectableStateMachine = new IdleAnimationState();
+            _CollectableStateMachine.SetContext(ref _CollectableAnimator);
+            _CollectableStateMachine.ChangeAnimationState();
+            
+            if (manager.GetComponentInChildren<CollectablePhisicController>().CompareTag("Collected"))
+            {
+                TranslateAnimationState(new SneakIdleAnimationState());
+            }
+        }
 
         public void TranslateAnimationState(AnimationStateMachine state)
         {
-            _collectableStateMachine = state;
-            _collectableStateMachine.SetContext(ref _collectableAnimator);
-            _collectableStateMachine.ChangeAnimationState();
+            _CollectableStateMachine = state;
+            _CollectableStateMachine.SetContext(ref _CollectableAnimator);
+            _CollectableStateMachine.ChangeAnimationState();
         }
 
         private void OnPlay()
         {
-            if (manager.GetComponentInChildren<CollectablePhysicController>().CompareTag("Collected"))
+            if (manager.GetComponentInChildren<CollectablePhisicController>().CompareTag("Collected"))
             {
                 TranslateAnimationState(new RunnerAnimationState());
             }
         }
         
-        private void ActivateParticule()
+        private void ActivateParticul()
         {
 
         }
 
         private void DestroyManager()
         {
-            // manager.gameObject.SetActive(false);
+            manager.gameObject.SetActive(false);
         }
     }
 }

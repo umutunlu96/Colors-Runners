@@ -45,7 +45,7 @@ namespace Managers
 
         private void Awake()
         {
-            _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;    //OnPlaye cekileck
+            _playerPossition = GameObject.FindGameObjectWithTag("Player").transform;
             _lerpData = GetLerpData();
             _shakeStakeCommand = new ShakeStackCommand(ref _collectable, ref _lerpData);
             _addStackCommand = new AddStackCommand(ref _collectable, ref _shakeStakeCommand, transform, this);
@@ -53,7 +53,12 @@ namespace Managers
             _stackLerpMoveCommand = new StackLerpMoveCommand(ref _collectable, ref _lerpData, _playerPossition);
             OnSetStackStartSize(6);
         }
-        
+
+        private void FixedUpdate()
+        {
+            _stackLerpMoveCommand.OnLerpStackMove();
+        }
+
         private LerpData GetLerpData() => Resources.Load<CD_Lerp>("Data/CD_Lerp").Data;
 
         #region Event Subscriptions
@@ -96,33 +101,25 @@ namespace Managers
 
         #endregion
 
-        
-        private void FixedUpdate()
-        {
-            _stackLerpMoveCommand.OnLerpStackMove();
-        }
-
-        
         private void OnChangeAllCollectableColorType(ColorType type)
         {
             foreach (var item in _collectable)
             {
-                item.GetComponent<CollectableManager>().ChangeMaterialColor(type); //Command
+                item.GetComponent<CollectableManager>().ChangeMatarialColor(type);
             }
         }
 
         private void OnStackEnterDroneArea(Transform collectable, Transform mat)
         {
             if (!_collectable.Contains(collectable)) return;
-            PlayerSignals.Instance.onTranslateAnimationState?.Invoke(new SneakWalkAnimationState());
+            PlayerSignals.Instance.onTranslateAnimationState(new SneakWalkAnimationState());
             _tempList.Add(collectable);
             _collectable.Remove(collectable);
             _collectable.TrimExcess();
             _tempList.TrimExcess();
-            var position = collectable.position;
             collectable.DOMove(
-                    new Vector3(mat.position.x, position.y,
-                        position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
+                    new Vector3(mat.position.x, collectable.position.y,
+                        collectable.position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
                 .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
 
             if (_collectable.Count == 0)
@@ -141,30 +138,27 @@ namespace Managers
             foreach (var stack in _tempList)
             {
                 stack.DOMoveZ(_playerPossition.position.z, 0.4f).OnComplete(() =>
-                {
-                    Vector3 localScale;
                     _playerPossition.DOScale(
-                        new Vector3((localScale = _playerPossition.localScale).x + 0.0375f, localScale.y + 0.0375f,
-                            localScale.z + 0.0375f), 0.3f);
-                });
+                        new Vector3(_playerPossition.localScale.x + 0.0375f, _playerPossition.localScale.y + 0.0375f,
+                            _playerPossition.localScale.z + 0.0375f), 0.3f));
             }
         }
 
-        private void OnAddAfterDroneAnimationDone(bool isDead, Transform collectableTranform)
+        private void OnAddAfterDroneAnimationDone(bool isDead, Transform _tranform)
         {
-            switch (isDead)
+            if (isDead)
             {
-                case true:
-                    _tempList.Remove(collectableTranform);
-                    _tempList.TrimExcess();
-                    break;
-                case false when _tempList.Contains(collectableTranform):
-                    _tempList.Remove(collectableTranform);
-                    _collectable.Add(collectableTranform);
-                    _tempList.TrimExcess();
-                    _collectable.TrimExcess();
-                    StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
-                    break;
+                _tempList.Remove(_tranform);
+                _tempList.TrimExcess();
+            }
+
+            if (!isDead && _tempList.Contains(_tranform))
+            {
+                _tempList.Remove(_tranform);
+                _collectable.Add(_tranform);
+                _tempList.TrimExcess();
+                _collectable.TrimExcess();
+                StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
             }
         }
 
@@ -177,7 +171,7 @@ namespace Managers
 
             for (int i = 0; i < size; i++)
             {
-                _collectable[i].GetComponent<CollectableManager>().ChangeMaterialColor(colorType);
+                _collectable[i].GetComponent<CollectableManager>().ChangeMatarialColor(colorType);
             }
         }
     }

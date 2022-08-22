@@ -6,7 +6,6 @@ namespace Signals
 {
     public class IdleSignals : MonoSingleton<IdleSignals>
     {
-        public Action<string,string> onPlayerEnterBuildingArea; //struct gonder
-        public Action<string,string> onPlayerExitBuildingArea;
+        public Action<string,string> onPlayerEnterBuildingArea;
     }
 }

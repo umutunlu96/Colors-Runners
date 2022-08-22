@@ -36,12 +36,12 @@ namespace Managers
 
         private void Subscribe()
         {
-            PlayerSignals.Instance.onTranslateCameraState += OnTranslateCameraState;
+            PlayerSignals.Instance.onTranslateCameraState += onTranslateCameraState;
         }
 
         private void UnSubscribe()
         {
-            PlayerSignals.Instance.onTranslateCameraState += OnTranslateCameraState;
+            PlayerSignals.Instance.onTranslateCameraState += onTranslateCameraState;
         }
 
         private void OnDisable()
@@ -50,7 +50,7 @@ namespace Managers
         }
         #endregion
 
-        private void Awake()    //Get ref
+        private void Awake()
         {
             RunnerCam = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
             IdleCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
@@ -59,11 +59,11 @@ namespace Managers
             //_state = new CameraRunnerState();
             //_state.SetContext(this);
             //_state.ChangeStateCamera();
-            OnTranslateCameraState(new CameraRunnerState());
+            onTranslateCameraState(new CameraRunnerState());
 
         }
 
-        private void OnTranslateCameraState(CameraStateMachine state)
+        private void onTranslateCameraState(CameraStateMachine state)
         {
             _state = state;
             _state.SetContext(this);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Managers;
 using MK.Toon;
 using DG.Tweening;
@@ -13,56 +12,64 @@ namespace Controllers
     public class CollectableMeshController : MonoBehaviour
     {
         #region SelfVariables
+
+        #region Private Variavles
+
+        private ColorData _colorData;
+
+        #endregion
+
         #region Serialize Variavles
 
         [SerializeField] CollectableManager manager;
 
         #endregion
-        
-        #region Private Variavles
 
-        private ColorData _colorData;
-        private Material _material;
+
+        #region Public Variables
+
+        public Material _material;
+
 
         #endregion
+
         #endregion
 
         private void Awake()
         {
             _material = GetComponent<SkinnedMeshRenderer>().material;
-            GetColorData();
+           
         }
 
         private void Start()
         {
+            GetColorData();
             _material.color = _colorData.Color;
         }
 
-        public void ChangeMaterialColor()
+        public void ChangeMatarialColor()
         {
-            GetColorData(); //Hatali kullanim sekli datayi basta alacagiz.
+
+            GetColorData();
             _material.color = _colorData.Color;
         }
 
-        private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)manager.CurrentColorType];
+        private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)manager.currentColorType];
 
-        public void SetCollectableMaterial(Material material)
+        public void SetCollectableMatarial(Material material)
         {
             _material.color = material.color;
         }
 
-        public void ActivateOutlineTransition(OutlineType type)
+        public void ActivateOutlineTrasition(OutlineType type)
         {
-            switch (type)
+            if(type == OutlineType.NonOutline)
             {
-                case OutlineType.NonOutline:
-                    _material.DOFloat(0, "_OutlineSize", 1f);
-                    break;
-                case OutlineType.Outline:
-                    _material.DOFloat(100, "_OutlineSize", 1f);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                _material.DOFloat(0, "_OutlineSize", 1f);
+            }
+            else if( type == OutlineType.Outline)
+            {
+                _material.DOFloat(100, "_OutlineSize", 1f);
             }
         }
     }
