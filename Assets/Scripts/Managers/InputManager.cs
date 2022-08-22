@@ -32,7 +32,7 @@ namespace Managers
         #endregion
 
         #region Private Variables
-
+        //commanddan cikar
         private JoystickMovementCommand _joystickMovementCommand;
         private JoystickStateChangeCommand _onJoystickStateChangeCommand;
         private StopJoystickMovementCommand _stopJoystickMovementCommand;
@@ -48,6 +48,7 @@ namespace Managers
             _joystickMovementCommand = new JoystickMovementCommand(ref floatingJoystick);
             _onJoystickStateChangeCommand = new JoystickStateChangeCommand(ref floatingJoystick, ref joystickHandleImg,
                 ref joystickBackgroundImg);
+            //Input state changed olacak
             _stopJoystickMovementCommand = new StopJoystickMovementCommand();
         }
         
@@ -86,7 +87,7 @@ namespace Managers
         {
             UnsubscribeEvents();
         }
-
+        
         #endregion
 
         private void Start()//Test version

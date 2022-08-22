@@ -2,6 +2,7 @@
 using Enums;
 using UnityEngine;
 using Extentions;
+using UnityEngine.Events;
 
 namespace Signals
 {
@@ -12,6 +13,7 @@ namespace Signals
             base.Awake();
         }
 
+        public UnityAction asdsa;
         public Action<Transform> onAddStack;
         public Action<Transform> onRemoveFromStack;
         public Action<int> onSetStackStartSize;
@@ -21,6 +23,7 @@ namespace Signals
         public Action<Transform, Transform> onStackEnterDroneArea;
         public Action onLastCollectableEnterDroneArea;
         public Action onDroneAnimationComplated;
+        public Action onDroneKillsCollectables;
         public Action<Transform> onSetScoreControllerPosition;
         public Action<Transform> onWrongTurretMatAreaEntered;
         public Action<OutlineType> onActivateOutlineTrasition;

@@ -31,10 +31,14 @@ namespace Controllers
 
         private void Awake()
         {
+            GetReferences();
+        }
+
+        private void GetReferences()
+        {
             _material = GetComponent<MeshRenderer>().material;
             _boxCollider = GetComponent<BoxCollider>();
         }
-
         public void GetColorData(ColorType colorType) => ColorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)colorType];
 
         public void SetColorData(ColorType colorType)

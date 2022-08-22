@@ -11,17 +11,6 @@ namespace Controllers
     {
         #region SelfVariables
 
-        #region Private Variavles
-
-        private Material _material;
-        private BoxCollider _boxCollider;
-        #endregion
-
-        #region Serialize Variavles
-
-
-        #endregion
-
         #region Public Variables
 
         public ColorData ColorData;
@@ -29,14 +18,30 @@ namespace Controllers
 
         #endregion
 
+        #region Serialize Variavles
+
+
+        #endregion
+        #region Private Variavles
+
+        private Material _material;
+        private BoxCollider _boxCollider;
         #endregion
 
+        #endregion
+
+
         private void Awake()
+        {
+            GetReferances();
+        }
+
+        private void GetReferances()
         {
             _material = GetComponent<MeshRenderer>().material;
             _boxCollider = GetComponent<BoxCollider>();
         }
-
+        
         public void GetColorData(ColorType colorType) => ColorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)colorType];
 
         public void SetColorData(ColorType colorType)

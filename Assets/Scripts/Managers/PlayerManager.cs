@@ -13,11 +13,26 @@ namespace Managers
     public class PlayerManager: MonoBehaviour
     {
         #region Variables
-        private PlayerData _playerData;
+
+        #region Public Variables
+        
+        #endregion
+        
+        #region Seriliazed Variables
+        
         [SerializeField] private PlayerMovementController playerMovementController;
         [SerializeField] private PlayerPhysicsController playerPhysicsController;
         [SerializeField] private PlayerMeshController playerMeshController;
         [SerializeField] private PlayerAnimationController playerAnimationController;
+        
+        #endregion
+        
+        #region Private Variables
+        
+        private PlayerData _playerData;
+        
+        #endregion
+
         #endregion
 
         #region Event Subsicription
@@ -104,7 +119,7 @@ namespace Managers
             playerMovementController.SetInputValues(inputParams);
         }      
         
-        private void OnJoystickStateChange(JoystickStates joystickState)
+        private void OnJoystickStateChange(JoystickStates joystickState) // playera gore stateyi kurgula
         {
             playerMovementController.ChangeMovementType(joystickState);
             switch (joystickState)

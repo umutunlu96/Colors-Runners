@@ -30,18 +30,18 @@ namespace Managers
         #endregion
         #endregion
 
+        private void Awake()
+        {
+            SendColorTypeToMats();
+        }
+        
         #region Event Subscription
 
         private void OnEnable()
         {
             SubscribeEvents();
         }
-
-        private void OnDisable()
-        {
-            UnSubscribeEvents();
-        }
-
+        
         private void SubscribeEvents()
         {
             StackSignals.Instance.onWrongTurretMatAreaEntered += OnWrongTurretMatAreaEntered;
@@ -51,14 +51,13 @@ namespace Managers
         {
             StackSignals.Instance.onWrongTurretMatAreaEntered -= OnWrongTurretMatAreaEntered;
         }
-
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+        
         #endregion
         
-        private void Awake()
-        {
-            SendColorTypeToMats();
-        }
-
         private void Start()
         {
             SetColorOfMats();

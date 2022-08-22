@@ -1,5 +1,4 @@
-﻿using System;
-using Controllers;
+﻿using Controllers;
 using Enums;
 using Signals;
 using StateMachine;
@@ -11,26 +10,29 @@ namespace Managers
     {
 
         #region SelfVariables
+        
+        #region Public Variable
 
+        public ColorType CurrentColorType;
+
+        #endregion
+        
         #region Serialize Variables
 
         [SerializeField] CollectableMeshController meshController;
-        [SerializeField] CollectablePhisicController physicController;
+        [SerializeField] CollectablePhysicController physicController;
         [SerializeField] CollectableAnimationController animatorController;
 
 
         #endregion
 
         #region Private Variables
-
-        [SerializeField] private bool _isDead;
+        
+        private bool _isDead;
+        
         #endregion
 
-        #region public Variable
 
-        public ColorType currentColorType;
-
-        #endregion
 
         #endregion
 
@@ -46,16 +48,18 @@ namespace Managers
         {
             PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState += OnTranslateAnimationState;
-            StackSignals.Instance.onActivateOutlineTrasition += OnActivateOutlineTrasition;
-            StackSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
+            StackSignals.Instance.onActivateOutlineTrasition += OnActivateOutlineTransition;
+            StackSignals.Instance.onDroneKillsCollectables += OnDroneKillsCollectables;
+            StackSignals.Instance.onDroneAnimationComplated += OnDroneAnimationCompleted;
         }
 
         private void UnSubscribe()
         {
             PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState -= OnTranslateAnimationState;
-            StackSignals.Instance.onActivateOutlineTrasition -= OnActivateOutlineTrasition;
-            StackSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
+            StackSignals.Instance.onActivateOutlineTrasition -= OnActivateOutlineTransition;
+            StackSignals.Instance.onDroneKillsCollectables -= OnDroneKillsCollectables;
+            StackSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationCompleted;
         }
 
         private void OnDisable()
@@ -64,10 +68,10 @@ namespace Managers
         }
         #endregion
 
-        public void ChangeMatarialColor(ColorType type)
+        public void ChangeMaterialColor(ColorType type)
         {
-            currentColorType = type;
-            meshController.ChangeMatarialColor();
+            CurrentColorType = type;
+            meshController.ChangeMaterialColor();
         }
 
         private void OnTranslateAnimationState(AnimationStateMachine state)
@@ -82,45 +86,40 @@ namespace Managers
         {
             if(physicController.CompareTag("Collected"))
             {
-                meshController.SetCollectableMatarial(material);
+                meshController.SetCollectableMaterial(material);
             }
         }
 
         public bool CompareColor(ColorType type)
         {
-            if (currentColorType == type)
-            {
-                return true;
-            }
-            else return false;
+            return CurrentColorType == type;
         }
 
-        private void OnActivateOutlineTrasition(OutlineType type)
+        private void OnActivateOutlineTransition(OutlineType type)
         {
             if(physicController.CompareTag("Collected"))
             {
-                meshController.ActivateOutlineTrasition(type);
+                meshController.ActivateOutlineTransition(type);
             }
         }
 
-        public void AddCollectableToStackManager(Transform _transform)
+        public void AddCollectableToStackManager(Transform collectableTransform)
         {
-            StackSignals.Instance.onAddStack(_transform);
-            _transform.rotation = new Quaternion(0, 0, 0,0);
+            StackSignals.Instance.onAddStack?.Invoke(collectableTransform);
+            collectableTransform.rotation = new Quaternion(0, 0, 0,0);
         }
 
-        public void RemoveCollectableFromStackManager(Transform transform)
+        public void RemoveCollectableFromStackManager(Transform collectableTransform)
         {
-            StackSignals.Instance.onRemoveFromStack?.Invoke(transform);
+            StackSignals.Instance.onRemoveFromStack?.Invoke(collectableTransform);
         }
-
 
         public void RotateMeshForward()
         {
             StackSignals.Instance.onRemoveFromStack(transform);
         }
 
-        private void OnDroneAnimationComplated()
+        private void OnDroneKillsCollectables()
         {
             if(_isDead)
             {
@@ -129,11 +128,19 @@ namespace Managers
             else
             {
                 OnTranslateAnimationState((new RunnerAnimationState()));
-                meshController.ActivateOutlineTrasition(OutlineType.Outline);
             }
+        }
+        
+        private void OnDroneAnimationCompleted()
+        {
+            if(!_isDead)
+            {
+                meshController.ActivateOutlineTransition(OutlineType.Outline);
+            }
+
             StackSignals.Instance.onAddAfterDroneAnimationDone?.Invoke(_isDead, transform);
         }
 
-        public bool IsDead { get { return _isDead; } set { _isDead = value; } }
+        public bool IsDead {get =>_isDead;  set => _isDead = value;}
     }
 }

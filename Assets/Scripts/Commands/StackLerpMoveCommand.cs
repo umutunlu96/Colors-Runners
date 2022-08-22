@@ -24,34 +24,34 @@ namespace Commands
 
         public void OnLerpStackMove()
         {
-            if (_collectable.Count > 0)
+            if (_collectable.Count <= 0) return;
+            // note that canbe put inside loop and perfectly fine just iteration number is inrease
+            //put pack to stack behind the player 
+            var localPosition = _playerPossition.localPosition;
+                
+            _collectable[0].localPosition = new Vector3(
+                Mathf.Lerp(_collectable[0].localPosition.x, localPosition.x,
+                    _lerpData.LerpSpeeds.x * Time.deltaTime),
+                Mathf.Lerp(_collectable[0].localPosition.y, localPosition.y,
+                    _lerpData.LerpSpeeds.y * Time.deltaTime),
+                Mathf.Lerp(_collectable[0].localPosition.z, localPosition.z - .5f,
+                    _lerpData.LerpSpeeds.z * Time.deltaTime)
+            );
+            _collectable[0].LookAt(_playerPossition);
+
+            //after each stack flow each other by n flow n - 1 prenciple by give offset and time 
+            for (int i = 1; i < _collectable.Count; i++)
             {
-                // note that canbe put inside loop and perfectly fine just iteration number is inrease
-                //put pack to stack behind the player 
-                _collectable[0].localPosition = new Vector3(
-                    Mathf.Lerp(_collectable[0].localPosition.x, _playerPossition.localPosition.x,
+                _collectable[i].localPosition = new Vector3(
+                    Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x,
                         _lerpData.LerpSpeeds.x * Time.deltaTime),
-                    Mathf.Lerp(_collectable[0].localPosition.y, _playerPossition.localPosition.y,
+                    Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y,
                         _lerpData.LerpSpeeds.y * Time.deltaTime),
-                    Mathf.Lerp(_collectable[0].localPosition.z, _playerPossition.localPosition.z - .5f,
+                    Mathf.Lerp(_collectable[i].localPosition.z,
+                        _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet,
                         _lerpData.LerpSpeeds.z * Time.deltaTime)
                 );
-                _collectable[0].LookAt(_playerPossition);
-
-                //after each stack flow each other by n flow n - 1 prenciple by give offset and time 
-                for (int i = 1; i < _collectable.Count; i++)
-                {
-                    _collectable[i].localPosition = new Vector3(
-                        Mathf.Lerp(_collectable[i].localPosition.x, _collectable[i - 1].localPosition.x,
-                            _lerpData.LerpSpeeds.x * Time.deltaTime),
-                        Mathf.Lerp(_collectable[i].localPosition.y, _collectable[i - 1].localPosition.y,
-                            _lerpData.LerpSpeeds.y * Time.deltaTime),
-                        Mathf.Lerp(_collectable[i].localPosition.z,
-                            _collectable[i - 1].localPosition.z - _lerpData.DistanceOffSet,
-                            _lerpData.LerpSpeeds.z * Time.deltaTime)
-                    );
-                    _collectable[i].LookAt(_playerPossition);
-                }
+                _collectable[i].LookAt(_playerPossition);
             }
         }
     }

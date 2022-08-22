@@ -70,21 +70,21 @@ namespace Controllers
             #endregion
 
             #region Idle Area
-            // if (other.CompareTag("MainBuilding") || other.CompareTag("SideBuilding"))
-            // {
-            //     string nameOfBuilding = other.GetComponentInParent<UmutBuildingManager>().gameObject.name;
-            //     IdleSignals.Instance.onPlayerExitBuildingArea?.Invoke(nameOfBuilding, other.name);
-            // }
-            #endregion
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
             if (other.CompareTag("MainBuilding") || other.CompareTag("SideBuilding"))
             {
                 string nameOfBuilding = other.GetComponentInParent<UmutBuildingManager>().gameObject.name;
-                IdleSignals.Instance.onPlayerEnterBuildingArea?.Invoke(nameOfBuilding, other.name);
+                IdleSignals.Instance.onPlayerExitBuildingArea?.Invoke(nameOfBuilding, other.name);
             }
+            #endregion
         }
+
+        // private void OnTriggerStay(Collider other)
+        // {
+        //     if (other.CompareTag("MainBuilding") || other.CompareTag("SideBuilding"))
+        //     {
+        //         string nameOfBuilding = other.GetComponentInParent<UmutBuildingManager>().gameObject.name;
+        //         IdleSignals.Instance.onPlayerEnterBuildingArea?.Invoke(nameOfBuilding, other.name);
+        //     }
+        // }
     }
 }

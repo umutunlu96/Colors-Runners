@@ -23,7 +23,7 @@ namespace Umut
             SetDataToControllers();
         }
 
-        // private void GetData() => structure = Resources.Load<StructureScriptableObject>("Data/" + gameObject.name);
+        private void GetData() => structure = Resources.Load<StructureScriptableObject>("Data/" + gameObject.name);
 
         #region Event Subscription
 
@@ -77,34 +77,35 @@ namespace Umut
         //     }
         // }
 
-        public void CheckAreaState(string buildingName)
+        public void CheckAreaState(string buildingName) // string gonderip durma
         {
-            if (buildingName.Equals("Main"))
+            switch (buildingName)
             {
-                structure.MainComplateState = BuildingComplateState.Completed;
-                structure.SideBuildingUnlockState = BuildingUnlockState.Unlocked;
-                //SetData
-                textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                meshController.SetData(structure.MainComplateState,structure.SideComplateState);
-                physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                //CheckData
-                textController.CheckData();
-                physicController.CheckData();
-                meshController.CheckData();
-                print(structure.MainComplateState);
-            }
-            else if (buildingName.Equals("Side"))
-            {
-                structure.SideComplateState = BuildingComplateState.Completed;
-                //SetData
-                textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                meshController.SetData(structure.MainComplateState,structure.SideComplateState);
-                physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                //CheckData
-                textController.CheckData();
-                physicController.CheckData();
-                meshController.CheckData();
-                print(structure.SideComplateState);
+                case "Main":
+                    structure.MainComplateState = BuildingComplateState.Completed;
+                    structure.SideBuildingUnlockState = BuildingUnlockState.Unlocked;
+                    //SetData
+                    textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
+                    meshController.SetData(structure.MainComplateState,structure.SideComplateState);
+                    physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
+                    //CheckData
+                    textController.CheckData();
+                    physicController.CheckData();
+                    meshController.CheckData();
+                    print(structure.MainComplateState);
+                    break;
+                case "Side":
+                    structure.SideComplateState = BuildingComplateState.Completed;
+                    //SetData
+                    textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
+                    meshController.SetData(structure.MainComplateState,structure.SideComplateState);
+                    physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
+                    //CheckData
+                    textController.CheckData();
+                    physicController.CheckData();
+                    meshController.CheckData();
+                    print(structure.SideComplateState);
+                    break;
             }
         }
     }

@@ -25,6 +25,7 @@ namespace StateMachine
         public void SetContext(CameraManager cameraManager)
         {
             _cameraManager = cameraManager;
+            if (_cameraManager is null) return;
             _target = _cameraManager.Player;
             _runnerCamera = _cameraManager.RunnerCam;
             _idleCamera = _cameraManager.IdleCam;
