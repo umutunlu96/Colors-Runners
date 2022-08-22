@@ -21,7 +21,7 @@ namespace Managers
         private void Awake()
         {
             _scoreText = GetComponent<TextMeshPro>();
-            _scoreText.text = "";
+            OnHideScore();
         }
 
         #region EventSubscription
@@ -43,6 +43,8 @@ namespace Managers
             
             ScoreSignals.Instance.currentScore += ReturnCurrentScore;
             ScoreSignals.Instance.totalScore += ReturnTotalScore;
+            ScoreSignals.Instance.onHideScore += OnHideScore;
+            ScoreSignals.Instance.onUpdateScoreAfterDroneArea += OnUpdateScoreAfterDroneArea;
 
             StackSignals.Instance.onSetScoreControllerPosition += OnSetPosition;
 
@@ -55,6 +57,8 @@ namespace Managers
             
             ScoreSignals.Instance.currentScore -= ReturnCurrentScore;
             ScoreSignals.Instance.totalScore -= ReturnTotalScore;
+            ScoreSignals.Instance.onHideScore -= OnHideScore;
+            ScoreSignals.Instance.onUpdateScoreAfterDroneArea += OnUpdateScoreAfterDroneArea;
 
             StackSignals.Instance.onSetScoreControllerPosition -= OnSetPosition;
 
@@ -74,8 +78,7 @@ namespace Managers
         {
             try
             {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                _target = player.transform;
+                _target = StackSignals.Instance.onGetFirstCollectable();
                 _currentScore = 0;
                 _scoreText.text = _currentScore.ToString();
             }
@@ -85,11 +88,9 @@ namespace Managers
             }
         }
 
-
-
-        private void OnCurrentLevelScoreUpdate(int score)
+        private void OnCurrentLevelScoreUpdate()
         {
-            _currentScore += score;
+            _currentScore++;
             _scoreText.text = _currentScore.ToString();
             SaveScoreParams();
         }
@@ -106,6 +107,24 @@ namespace Managers
             _target = _transform;
         }
 
+        public void OnUpdateScoreAfterDroneArea()
+        {
+            int newScore = _currentScore * 2;
+            _scoreText.text = newScore.ToString();
+            /*
+            for (int i = 0; i < _score; i++) !!write on stackmanager and call from here
+            {
+                StackSignals.Instance.onAddStack?.Invoke(player);
+            }*/
+            _currentScore = newScore;
+        }
+
+        private void OnHideScore()
+        {
+            _scoreText.text = "";
+        }
+
+        #region refactred when saveManager is added
         private void SaveScoreParams()
         {
             //conver ejs version
@@ -115,5 +134,6 @@ namespace Managers
         private int ReturnCurrentScore() {return _currentScore; }
         
         private int ReturnTotalScore() {return _totalScore; }
+        #endregion
     }
 }

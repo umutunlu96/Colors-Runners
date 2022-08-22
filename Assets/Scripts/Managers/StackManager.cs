@@ -78,6 +78,7 @@ namespace Managers
             StackSignals.Instance.onStackEnterDroneArea += OnStackEnterDroneArea;
             StackSignals.Instance.onMergeToPLayer += OnMergeToPLayer;
             StackSignals.Instance.onAddAfterDroneAnimationDone += OnAddAfterDroneAnimationDone;
+            StackSignals.Instance.onGetFirstCollectable += OnGetFirstCollectable;
             PlayerSignals.Instance.onChangeAllCollectableColorType += OnChangeAllCollectableColorType;
         }
 
@@ -91,6 +92,7 @@ namespace Managers
             StackSignals.Instance.onStackEnterDroneArea -= OnStackEnterDroneArea;
             StackSignals.Instance.onMergeToPLayer -= OnMergeToPLayer;
             StackSignals.Instance.onAddAfterDroneAnimationDone -= OnAddAfterDroneAnimationDone;
+            StackSignals.Instance.onGetFirstCollectable += OnGetFirstCollectable;
             PlayerSignals.Instance.onChangeAllCollectableColorType -= OnChangeAllCollectableColorType;
         }
 
@@ -160,6 +162,12 @@ namespace Managers
                 _collectable.TrimExcess();
                 StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
             }
+        }
+
+        private Transform OnGetFirstCollectable()
+        {
+            if (_collectable == null) return null;
+            return _collectable[0];
         }
 
         private void OnSetStackStartSize(int size)

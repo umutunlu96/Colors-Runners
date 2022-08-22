@@ -33,6 +33,7 @@ namespace Controllers
             {
                 //manager.DeactivateMovement();
                 PlayerSignals.Instance.onPlayerEnterDroneArea?.Invoke();
+                ScoreSignals.Instance.onHideScore?.Invoke();
             }
 
             if (other.CompareTag("TurretArea"))
