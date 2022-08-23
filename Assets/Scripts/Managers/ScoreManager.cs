@@ -124,6 +124,8 @@ namespace Managers
             _scoreText.text = "";
         }
 
+        //store total scroe when p;ayer enter drone area
+
         #region refactred when saveManager is added
         private void SaveScoreParams()
         {

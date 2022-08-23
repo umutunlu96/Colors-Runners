@@ -51,7 +51,7 @@ namespace Managers
             _addStackCommand = new AddStackCommand(ref _collectable, ref _shakeStakeCommand, transform, this);
             _removeStackCommand = new RemoveStackCommand(ref _collectable);
             _stackLerpMoveCommand = new StackLerpMoveCommand(ref _collectable, ref _lerpData, _playerPossition);
-            OnSetStackStartSize(6);
+            OnInitializeStackOnStart(6);
         }
 
         private void FixedUpdate()
@@ -73,7 +73,7 @@ namespace Managers
             StackSignals.Instance.onAddStack += _addStackCommand.OnAddStack;
             StackSignals.Instance.onRemoveFromStack += _removeStackCommand.OnRemoveFromStack;
             StackSignals.Instance.onLerpStack += _stackLerpMoveCommand.OnLerpStackMove;
-            StackSignals.Instance.onSetStackStartSize += OnSetStackStartSize;
+            StackSignals.Instance.onSetStackStartSize += OnInitializeStackOnStart;
             //StackSignals.Instance.onThrowStackInMiniGame += OnThrowStackInMiniGame;
             StackSignals.Instance.onStackEnterDroneArea += OnStackEnterDroneArea;
             StackSignals.Instance.onMergeToPLayer += OnMergeToPLayer;
@@ -87,7 +87,7 @@ namespace Managers
             StackSignals.Instance.onAddStack -= _addStackCommand.OnAddStack;
             StackSignals.Instance.onRemoveFromStack -= _removeStackCommand.OnRemoveFromStack;
             StackSignals.Instance.onLerpStack -= _stackLerpMoveCommand.OnLerpStackMove;
-            StackSignals.Instance.onSetStackStartSize -= OnSetStackStartSize;
+            StackSignals.Instance.onSetStackStartSize -= OnInitializeStackOnStart;
             //StackSignals.Instance.onThrowStackInMiniGame -= OnThrowStackInMiniGame;
             StackSignals.Instance.onStackEnterDroneArea -= OnStackEnterDroneArea;
             StackSignals.Instance.onMergeToPLayer -= OnMergeToPLayer;
@@ -170,12 +170,21 @@ namespace Managers
             return _collectable[0];
         }
 
-        private void OnSetStackStartSize(int size)
+        private void OnInitializeStackOnStart(int size)
         {
+            GameObject firstInitialStack = Instantiate(stickmanPrefab, _playerPossition);
+            _collectable.Add(firstInitialStack.transform);
+            firstInitialStack.transform.SetParent(transform);
+
             for (int i = 0; i < size; i++)
             {
-                _addStackCommand.OnAddStack(Instantiate(stickmanPrefab).transform);                
+                GameObject StackInstance = Instantiate(stickmanPrefab, _collectable.Last());
+                StackInstance.transform.SetParent(transform);
+                _collectable.Add(StackInstance.transform);
             }
+
+            StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
+            _collectable.TrimExcess();
 
             for (int i = 0; i < size; i++)
             {
