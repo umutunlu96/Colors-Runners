@@ -49,6 +49,7 @@ namespace Managers
             StackSignals.Instance.onSetScoreControllerPosition += OnSetPosition;
 
             CoreGameSignals.Instance.onPlay += OnFindFollowTarget;
+            CoreGameSignals.Instance.onReset += OnReset;
         }
         private void UnSubscribeEvents()
         {
@@ -63,6 +64,7 @@ namespace Managers
             StackSignals.Instance.onSetScoreControllerPosition -= OnSetPosition;
 
             CoreGameSignals.Instance.onPlay -= OnFindFollowTarget;
+            CoreGameSignals.Instance.onReset -= OnReset;
         }
 
         #endregion
@@ -79,7 +81,6 @@ namespace Managers
             try
             {
                 _target = StackSignals.Instance.onGetFirstCollectable();
-                _currentScore = 0;
                 _scoreText.text = _currentScore.ToString();
             }
             catch
@@ -126,6 +127,11 @@ namespace Managers
 
         //store total scroe when p;ayer enter drone area
 
+        private void OnReset()
+        {
+            _currentScore = 0;
+        }
+        
         #region refactred when saveManager is added
         private void SaveScoreParams()
         {
