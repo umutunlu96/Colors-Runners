@@ -32,7 +32,8 @@ namespace Controllers
             if(other.CompareTag("DroneArea")) // change name Drone Area
             {
                 //manager.DeactivateMovement();
-                PlayerSignals.Instance.onPlayerEnterDroneArea?.Invoke();
+                // PlayerSignals.Instance.onPlayerEnterDroneArea?.Invoke();
+                manager.OnPlayerEnterDroneArea();
             }
 
             if (other.CompareTag("TurretArea"))
@@ -45,6 +46,12 @@ namespace Controllers
                 PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
                 Debug.Log("idle trigger is done");
             }
+            
+            if (other.CompareTag("ExitTurretArea"))
+            {
+                PlayerSignals.Instance.onPlayerExitTurretArea?.Invoke();
+            }
+            
             #endregion
 
             #region Idle Area
@@ -60,13 +67,10 @@ namespace Controllers
             #region Runner Area
             if (other.CompareTag("DroneArea"))
             {
-                PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
+                // PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
+                // manager.OnPlayerExitDroneArea();
             }
             
-            if (other.CompareTag("ExitTurretArea"))
-            {
-                PlayerSignals.Instance.onPlayerExitTurretArea?.Invoke();
-            }
             #endregion
 
             #region Idle Area

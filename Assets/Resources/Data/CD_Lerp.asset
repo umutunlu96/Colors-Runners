@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CD_Lerp
   m_EditorClassIdentifier: 
   Data:
-    ScaleOffset: 1
-    DistanceOffSet: 0.6
-    LerpSpeeds: {x: 7, y: 7, z: 5}
+    ScaleOffset: {x: 1.5, y: 1.5, z: 1.5}
+    DistanceOffSet: 0.5
+    LerpSpeeds: {x: 7, y: 7, z: 10}
