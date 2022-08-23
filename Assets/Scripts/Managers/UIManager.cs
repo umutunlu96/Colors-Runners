@@ -104,6 +104,7 @@ namespace Managers
         private void OnPlay()
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.PreGamePanel);
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
         }
 
         private void OnLevelFailed()

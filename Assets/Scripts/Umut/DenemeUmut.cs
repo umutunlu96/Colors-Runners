@@ -11,13 +11,13 @@ namespace Umut
     {
     public void Runner()
     {
-        InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Runner);
+        CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
         PlayerSignals.Instance.onTranslateAnimationState?.Invoke(new RunnerAnimationState());
     }
     
     public void Idle()
     {
-        InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Idle);
+        CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
         PlayerSignals.Instance.onTranslateAnimationState?.Invoke(new IdleAnimationState());
     }
     
