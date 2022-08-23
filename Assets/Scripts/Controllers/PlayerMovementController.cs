@@ -168,12 +168,14 @@ namespace Controllers
             _transform.DOMoveZ(10, 3f).SetRelative().OnComplete(() =>
             {
                 _playerMovementData.RunnerForwardSpeed = 0f;
+                _playerMovementData.RunnerSidewaySpeed = 0f;
             });
         }
 
         public void ExitDroneAreaMovement()
         {
             _playerMovementData.RunnerForwardSpeed = 10f;
+            _playerMovementData.RunnerSidewaySpeed = 10f;
         }
         
         public void ChangeMovementType(JoystickStates joystickState)

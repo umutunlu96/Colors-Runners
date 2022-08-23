@@ -40,6 +40,7 @@ namespace Controllers
             {
                 StackSignals.Instance.onDroneAnimationComplated?.Invoke();
                 PlayerSignals.Instance.onPlayerExitDroneArea?.Invoke();
+                ScoreSignals.Instance.onUpdateScoreAfterDroneArea?.Invoke();
             });
         }
     }
