@@ -114,7 +114,6 @@ namespace Managers
         private void OnStackEnterDroneArea(Transform collectable, Transform mat)
         {
             if (!_collectable.Contains(collectable)) return;
-            PlayerSignals.Instance.onTranslateAnimationState(new SneakWalkAnimationState());
             _tempList.Add(collectable);
             _collectable.Remove(collectable);
             _collectable.TrimExcess();
@@ -122,7 +121,7 @@ namespace Managers
             collectable.DOMove(
                     new Vector3(mat.position.x, collectable.position.y,
                         collectable.position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
-                .OnComplete(() => PlayerSignals.Instance.onTranslateAnimationState(new SneakIdleAnimationState()));
+                .OnComplete(() => collectable.GetComponent<CollectableManager>().OnTranslateAnimationState(new SneakIdleAnimationState()));
 
             if (_collectable.Count == 0)
             {
