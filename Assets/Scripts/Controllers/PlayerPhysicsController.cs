@@ -3,6 +3,7 @@ using Managers;
 using Signals;
 using StateMachine;
 using DG.Tweening;
+using Enums;
 using Umut;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ namespace Controllers
                 //manager.DeactivateMovement();
                 // PlayerSignals.Instance.onPlayerEnterDroneArea?.Invoke();
                 manager.OnPlayerEnterDroneArea();
+                ScoreSignals.Instance.onHideScore?.Invoke();
             }
 
             if (other.CompareTag("TurretArea"))
@@ -44,6 +46,7 @@ namespace Controllers
             if(other.CompareTag("IdleTrigger"))
             {
                 PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
+                UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
                 Debug.Log("idle trigger is done");
             }
             
