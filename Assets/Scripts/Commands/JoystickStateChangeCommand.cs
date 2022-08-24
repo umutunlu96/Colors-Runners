@@ -17,17 +17,17 @@ namespace Commands
             _joystickBackgroundImg = joystickBackgroundImg;
         }
         
-        public void OnJoystickStateChange(JoystickStates joystickState)
+        public void OnJoystickStateChange(GameStates gameState)
         {
-            switch (joystickState)
+            switch (gameState)
             {
-                case JoystickStates.Runner:
+                case GameStates.Runner:
                     _floatingJoystick.AxisOptions = global::AxisOptions.Horizontal;
                     _joystickHandleImg.enabled = false;
                     _joystickBackgroundImg.enabled = false;
                     break;
                 
-                case JoystickStates.Idle:
+                case GameStates.Idle:
                     _floatingJoystick.AxisOptions = global::AxisOptions.Both;
                     _joystickHandleImg.enabled = true;
                     _joystickBackgroundImg.enabled = true;

@@ -1,13 +1,9 @@
 ﻿using System;
-using Data.ValueObject;
 using Enums;
 using Keys;
 using Signals;
-using Unity.Mathematics;
 using UnityEngine;
 using DG.Tweening;
-using Managers;
-
 
 namespace Controllers
 {
@@ -177,19 +173,26 @@ namespace Controllers
             _playerMovementData.RunnerForwardSpeed = 10f;
             _playerMovementData.RunnerSidewaySpeed = 10f;
         }
-        
-        public void ChangeMovementType(JoystickStates joystickState)
+
+        public void TurretAreaMovement()
         {
-            switch (joystickState)
+            
+        }
+        
+        public void ChangeMovementType(GameStates gameState)
+        {
+            switch (gameState)
             {
-                case JoystickStates.Runner:
+                case GameStates.Runner:
                     _runnerMovement = true;
                     _idleMovement = false;
                     break;
-                case JoystickStates.Idle:
+                case GameStates.Idle:
                     _runnerMovement = false;
                     _idleMovement = true;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
             }
         }
     }

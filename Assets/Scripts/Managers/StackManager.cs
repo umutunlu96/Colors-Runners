@@ -174,12 +174,14 @@ namespace Managers
             GameObject firstInitialStack = Instantiate(stickmanPrefab, _playerPossition);
             _collectable.Add(firstInitialStack.transform);
             firstInitialStack.transform.SetParent(transform);
+            ScoreSignals.Instance.onCurrentLevelScoreUpdate?.Invoke();
 
             for (int i = 0; i < size; i++)
             {
-                GameObject StackInstance = Instantiate(stickmanPrefab, _collectable.Last());
-                StackInstance.transform.SetParent(transform);
-                _collectable.Add(StackInstance.transform);
+                GameObject stackInstance = Instantiate(stickmanPrefab, _collectable.Last());
+                stackInstance.transform.SetParent(transform);
+                _collectable.Add(stackInstance.transform);
+                ScoreSignals.Instance.onCurrentLevelScoreUpdate?.Invoke();
             }
 
             StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
@@ -189,6 +191,8 @@ namespace Managers
             {
                 _collectable[i].GetComponent<CollectableManager>().ChangeMatarialColor(colorType);
             }
+            
+            ScoreSignals.Instance.onHideScore?.Invoke();
         }
     }
 }

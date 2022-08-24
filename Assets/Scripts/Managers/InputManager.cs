@@ -65,7 +65,7 @@ namespace Managers
             InputSignals.Instance.onPointerDown += OnPointerDown;
             InputSignals.Instance.onPointerDragged += OnPointerDragged;
             InputSignals.Instance.onPointerReleased += OnPointerReleased;
-            InputSignals.Instance.onJoystickStateChange += _onJoystickStateChangeCommand.OnJoystickStateChange;
+            CoreGameSignals.Instance.onChangeGameState += _onJoystickStateChangeCommand.OnJoystickStateChange;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
         }
@@ -77,7 +77,7 @@ namespace Managers
             InputSignals.Instance.onPointerDown -= OnPointerDown;
             InputSignals.Instance.onPointerDragged -= OnPointerDragged;
             InputSignals.Instance.onPointerReleased -= OnPointerReleased;
-            InputSignals.Instance.onJoystickStateChange -= _onJoystickStateChangeCommand.OnJoystickStateChange;
+            CoreGameSignals.Instance.onChangeGameState += _onJoystickStateChangeCommand.OnJoystickStateChange;
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
@@ -89,13 +89,7 @@ namespace Managers
 
         #endregion
 
-        private void Start()//Test version
-        {
-            InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Runner);
-        }
-
         private InputData GetInputData() => Resources.Load<CD_Input>("Data/CD_Input").InputData;
-
 
         
         private void OnPointerDown()
@@ -128,18 +122,9 @@ namespace Managers
             isReadyForTouch = true;
         }
         
-        private bool IsPointerOverUIElement() // Unused
-        {
-            var eventData = new PointerEventData(EventSystem.current);
-            eventData.position = Input.mousePosition;
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
-            return results.Count > 0;
-        }
-
         private void OnReset()
         {
-            InputSignals.Instance.onJoystickStateChange?.Invoke(JoystickStates.Runner);
+            
         }
     }
 }
