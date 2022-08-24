@@ -25,6 +25,7 @@ namespace Signals
         public Action<Transform> onWrongTurretMatAreaEntered;
         public Action<OutlineType> onActivateOutlineTrasition;
         public Action onMergeToPLayer;
+        public Action<ColorType> onChangeMatarialColor;
         public Func<Transform> onGetFirstCollectable;
         public Action<bool, Transform> onAddAfterDroneAnimationDone;
     }

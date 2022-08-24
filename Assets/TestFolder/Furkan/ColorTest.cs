@@ -8,6 +8,7 @@ public class ColorTest : MonoBehaviour
 {
     [SerializeField] CD_ColorData allColors;
     [SerializeField] Material material;
+    int num;
 
     private void Awake()
     {
@@ -17,5 +18,24 @@ public class ColorTest : MonoBehaviour
 
     }
 
-   
+    private void Start()
+    {
+        IncreaseNumbers();
+    }
+
+    private void IncreaseNumbers()
+    {
+        num++;
+        transform.DOMoveX(3, 1.3f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+        {
+            Debug.Log(num);
+            if (num < 100)
+            {
+                IncreaseNumbers();
+                return;
+            }
+            return;
+        }
+        );
+    }
 }

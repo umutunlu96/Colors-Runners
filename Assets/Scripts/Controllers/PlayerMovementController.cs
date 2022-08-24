@@ -1,13 +1,8 @@
-﻿using System;
-using Data.ValueObject;
+﻿using DG.Tweening;
 using Enums;
 using Keys;
 using Signals;
-using Unity.Mathematics;
 using UnityEngine;
-using DG.Tweening;
-using Managers;
-
 
 namespace Controllers
 {
@@ -39,14 +34,14 @@ namespace Controllers
         {
             PlayerSignals.Instance.onPlayerRotate += OnPlayerRotate;
         }
-        
+
         private void UnSubscribeEvents()
         {
             PlayerSignals.Instance.onPlayerRotate -= OnPlayerRotate;
         }
 
-        #endregion
-        
+        #endregion EventSubscription
+
         public void SetMovementData(PlayerMovementData movementData)
         {
             _playerMovementData = movementData;
@@ -101,7 +96,7 @@ namespace Controllers
             _isDragged = isDragged;
             _isReleased = isReleased;
         }
-        
+
         private void RunnerMove()
         {
             rigidBody.velocity = new Vector3(_horizontalInput * _playerMovementData.RunnerSidewaySpeed, rigidBody.velocity.y,
@@ -112,7 +107,7 @@ namespace Controllers
         private void Clamp()
         {
             var pos = transform.position;
-            pos.x =  Mathf.Clamp(transform.position.x, _playerMovementData.ClampValues.x, _playerMovementData.ClampValues.y);
+            pos.x = Mathf.Clamp(transform.position.x, _playerMovementData.ClampValues.x, _playerMovementData.ClampValues.y);
             transform.position = pos;
         }
 
@@ -120,7 +115,7 @@ namespace Controllers
         {
             Vector3 direction = Vector3.forward + Vector3.right * Mathf.Clamp(_horizontalInput,
                 -_playerMovementData.RunnerMaxRotateAngle, _playerMovementData.RunnerMaxRotateAngle);
-            
+
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction),
                 _playerMovementData.RunnerTurnSpeed);
         }
@@ -134,7 +129,7 @@ namespace Controllers
         {
             transform.rotation = Quaternion.Euler(Vector3.zero);
         }
-        
+
         private void IdleMove()
         {
             rigidBody.velocity = new Vector3(_horizontalInput * _playerMovementData.IdleSpeed, rigidBody.velocity.y,
@@ -150,13 +145,13 @@ namespace Controllers
                     _playerMovementData.IdleTurnSpeed);
             }
         }
-        
+
         private void Stop()
         {
             rigidBody.velocity = Vector3.zero;
             rigidBody.angularVelocity = Vector3.zero;
         }
-        
+
         public void SetInputValues(InputParams inputParams)
         {
             _horizontalInput = inputParams.XValue;
@@ -168,7 +163,7 @@ namespace Controllers
             _transform.DOMoveZ(10, 3f).SetRelative().OnComplete(() =>
             {
                 _playerMovementData.RunnerForwardSpeed = 0f;
-                _playerMovementData.RunnerSidewaySpeed = 0f;
+                _playerMovementData.RunnerSidewaySpeed = 5f;
             });
         }
 
@@ -177,7 +172,7 @@ namespace Controllers
             _playerMovementData.RunnerForwardSpeed = 10f;
             _playerMovementData.RunnerSidewaySpeed = 10f;
         }
-        
+
         public void ChangeMovementType(JoystickStates joystickState)
         {
             switch (joystickState)
@@ -186,6 +181,7 @@ namespace Controllers
                     _runnerMovement = true;
                     _idleMovement = false;
                     break;
+
                 case JoystickStates.Idle:
                     _runnerMovement = false;
                     _idleMovement = true;
