@@ -82,6 +82,11 @@ namespace Managers
             }
         }
 
+        public string GetTag()
+        {
+            return physicController.tag;
+        }
+
         public bool CompareColor(ColorType type)
         {
             if (currentColorType == type)

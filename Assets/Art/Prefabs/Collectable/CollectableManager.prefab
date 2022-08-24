@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4590c90ec178e4e992c4401dd5f3e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 2360636417053245304}
+  manager: {fileID: 2360636417053245304}
 --- !u!54 &806090970
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -121,9 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d002f45ee479e6b4e818a844a799cf0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorController: {fileID: 2031023731789940334}
   meshController: {fileID: 8706320383744127135}
   physicController: {fileID: 2629139392902277867}
-  animatorController: {fileID: 2031023731789940334}
   _isDead: 0
   currentColorType: 0
 --- !u!114 &8706320383744127135
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 2360636417053245304}
-  _material: {fileID: 0}
+  Material: {fileID: 0}
 --- !u!114 &2031023731789940334
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ namespace Commands
             _tempList.TrimExcess();
             collectable.DOMove(
                     new Vector3(mat.position.x, collectable.position.y,
-                        collectable.position.z + UnityEngine.Random.Range(6, 10)), 1.5f)
+                        collectable.position.z + UnityEngine.Random.Range(6, 10)), 3f)
                 .OnComplete(() => collectable.GetComponent<CollectableManager>().OnTranslateAnimationState(new SneakIdleAnimationState()));
 
             if (_collectable.Count == 0)

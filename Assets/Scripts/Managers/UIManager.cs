@@ -3,6 +3,7 @@ using Controllers;
 using DG.Tweening;
 using Enums;
 using Signals;
+using StateMachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -94,6 +95,7 @@ namespace Managers
         private void OnPlay()
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.PreGamePanel);
+            PlayerSignals.Instance.onTranslateAnimationState(new RunnerAnimationState());
         }
 
         private void OnLevelFailed()
@@ -112,6 +114,7 @@ namespace Managers
 
         public void Play()
         {
+            PlayerSignals.Instance.onTranslateAnimationState(new RunnerAnimationState());
             CoreGameSignals.Instance.onPlay?.Invoke();
         }
 
