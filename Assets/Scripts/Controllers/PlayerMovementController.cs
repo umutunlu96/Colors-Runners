@@ -1,4 +1,3 @@
-﻿using DG.Tweening;
 using Enums;
 using Keys;
 using Signals;
@@ -173,19 +172,26 @@ namespace Controllers
             _playerMovementData.RunnerSidewaySpeed = 10f;
         }
 
-        public void ChangeMovementType(JoystickStates joystickState)
+        public void TurretAreaMovement()
         {
-            switch (joystickState)
+            
+        }
+        
+        public void ChangeMovementType(GameStates gameState)
+        {
+            switch (gameState)
             {
-                case JoystickStates.Runner:
+                case GameStates.Runner:
                     _runnerMovement = true;
                     _idleMovement = false;
                     break;
 
-                case JoystickStates.Idle:
+                case GameStates.Idle:
                     _runnerMovement = false;
                     _idleMovement = true;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gameState), gameState, null);
             }
         }
     }

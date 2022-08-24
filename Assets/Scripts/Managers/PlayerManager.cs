@@ -34,7 +34,7 @@ namespace Managers
             InputSignals.Instance.onPointerDragged += OnInputDragged;
             InputSignals.Instance.onPointerReleased += OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate += OnInputParamsUpdate;
-            InputSignals.Instance.onJoystickStateChange += OnJoystickStateChange;
+            CoreGameSignals.Instance.onChangeGameState += OnJoystickStateChange;
             PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerEnterTurretArea;
             PlayerSignals.Instance.onPlayerExitTurretArea += OnPlayerExitTurretArea;
             // PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
@@ -48,7 +48,7 @@ namespace Managers
             InputSignals.Instance.onPointerDragged -= OnInputDragged;
             InputSignals.Instance.onPointerReleased -= OnInputReleased;
             InputSignals.Instance.onInputParamsUpdate -= OnInputParamsUpdate;
-            InputSignals.Instance.onJoystickStateChange -= OnJoystickStateChange;
+            CoreGameSignals.Instance.onChangeGameState -= OnJoystickStateChange;
             PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerEnterTurretArea;
             PlayerSignals.Instance.onPlayerExitTurretArea -= OnPlayerExitTurretArea;
             // PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
@@ -104,15 +104,16 @@ namespace Managers
             playerMovementController.SetInputValues(inputParams);
         }      
         
-        private void OnJoystickStateChange(JoystickStates joystickState)
+        private void OnJoystickStateChange(GameStates gameState)
         {
-            playerMovementController.ChangeMovementType(joystickState);
-            switch (joystickState)
+            playerMovementController.ChangeMovementType(gameState);
+            
+            switch (gameState)
             {
-                case JoystickStates.Runner:
+                case GameStates.Runner:
                     playerAnimationController.SetAnimationState(SticmanAnimationType.Run);
                     break;
-                case JoystickStates.Idle:
+                case GameStates.Idle:
                     playerAnimationController.SetAnimationState(SticmanAnimationType.Idle);
                     break;
             }
