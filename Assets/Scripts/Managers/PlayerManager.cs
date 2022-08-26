@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Controllers;
 using Data.UnityObject;
@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class PlayerManager: MonoBehaviour
+    public class PlayerManager : MonoBehaviour
     {
         #region Self Variables
 
@@ -48,8 +48,8 @@ namespace Managers
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").Data;
         
         #region Event Subsicription
-    
-        void OnEnable()
+
+        private void OnEnable()
         {
             SubscribeEvents();
         }
@@ -74,7 +74,7 @@ namespace Managers
                 
             RunnerSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
         }
-        
+
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
@@ -95,14 +95,15 @@ namespace Managers
 
             RunnerSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
         }
-        
+
         private void OnDisable()
         {
             UnsubscribeEvents();
         }
-        #endregion
-        
-        
+
+        #endregion Event Subsicription
+
+
         private void SetPlayerDataToControllers()
         {
             movementController.SetMovementData(_playerData.playerMovementData);
@@ -117,11 +118,12 @@ namespace Managers
         private void OnFailed() => movementController.IsReadyToPlay(false);
         
         private void OnPointerDown()
+
         {
             ActivateMovement();
             // animationController.SetAnimationState(SticmanAnimationType.Run);
         }
-        
+
         private void OnInputReleased()
         {
             DeactivateMovement();
@@ -131,7 +133,6 @@ namespace Managers
         
         private void OnJoystickDragged(IdleInputParams inputParams)  => movementController.UpdateIdleInputValue(inputParams);
    
-
         private void OnGameStateChange(GameStates gameState) => movementController.ChangeGameStates(gameState);
     
         public void StopVerticalMovement() => movementController.StopVerticalMovement();
@@ -139,6 +140,7 @@ namespace Managers
         private void OnChangePlayerColor(Color color) { meshController.ChangeMaterialColor(color); }
 
         private void ActivateMovement() { movementController.ActivateMovement(); }
+
 
         public void DeactivateMovement() { movementController.DeactivateMovement(); }
         

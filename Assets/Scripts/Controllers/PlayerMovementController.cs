@@ -1,9 +1,9 @@
 using System;
 using Enums;
 using Keys;
+using DG.Tweening;
 using Signals;
 using UnityEngine;
-using DG.Tweening;
 
 namespace Controllers
 {

@@ -136,5 +136,6 @@ namespace Managers
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
         }
+        // throw sticman from temporary list
     }
 }
