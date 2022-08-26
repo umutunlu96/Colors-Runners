@@ -15,4 +15,4 @@ MonoBehaviour:
   Data:
     ScaleOffset: {x: 1.5, y: 1.5, z: 1.5}
     DistanceOffSet: 0.5
-    LerpSpeeds: {x: 7, y: 7, z: 10}
+    LerpSpeeds: {x: 7, y: 7, z: 6}
