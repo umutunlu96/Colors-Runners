@@ -23,6 +23,7 @@ TagManager:
   - MainBuilding
   - SideBuilding
   - ExitDroneArea
+  - RainbowArea
   layers:
   - Default
   - TransparentFX

@@ -135,21 +135,19 @@ namespace Managers
         private void ActivateMovement() { movementController.ActivateMovement(); }
 
         public void DeactivateMovement() { movementController.DeactivateMovement(); }
-
-
-
-        private void OnPlayerEnterDroneArea()
-        {
-            ChangeForwardSpeed(PlayerSpeedState.EnterDroneArea);
-        }
         
-        private void OnPlayerExitDroneArea()
+        private void OnPlayerEnterDroneArea()
         {
             exitDroneAreaPosition = transform.position;
             StopVerticalMovement();
             ChangeForwardSpeed(PlayerSpeedState.Stop);
         }
         
+        private void OnPlayerExitDroneArea()
+        {
+
+        }
+
         private void OnDroneAnimationComplated()
         {
             StartVerticalMovement(exitDroneAreaPosition);

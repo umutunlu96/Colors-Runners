@@ -66,6 +66,11 @@ namespace Controllers
             {
                 manager.OnTranslateAnimationState(new RunnerAnimationState());
             }
+
+            if (other.CompareTag("RainbowArea") && !manager.IsTouchTheGate)
+            {
+                manager.EnterRainbowGate();
+            }
         }
     }
 }
