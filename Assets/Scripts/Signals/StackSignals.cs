@@ -20,7 +20,6 @@ namespace Signals
         public Action onThrowStackInMiniGame;
         public Action<Transform, Transform> onStackEnterDroneArea;
         public Action onLastCollectableEnterDroneArea;
-        public Action onDroneAnimationComplated;
         public Action<Transform> onSetScoreControllerPosition;
         public Action<Transform> onWrongTurretMatAreaEntered;
         public Action<OutlineType> onActivateOutlineTrasition;
@@ -28,5 +27,6 @@ namespace Signals
         public Action<ColorType> onChangeMatarialColor;
         public Func<Transform> onGetFirstCollectable;
         public Action<bool, Transform> onAddAfterDroneAnimationDone;
+        
     }
 }

@@ -14,9 +14,8 @@ public class PlayerMovementData
     public Vector2 ClampValues;
     public float RunnerForwardSpeed;
     public float RunnerSidewaySpeed;
-    public float RunnerTurretAreaSpeed;
-    [Range(0,1)] public float RunnerMaxRotateAngle;
-    public float RunnerTurnSpeed;
+    public float SizeUpValue;
+    public float MaxSizeValue;
     
     [Space][Header("Idle")]
     public float IdleSpeed;
