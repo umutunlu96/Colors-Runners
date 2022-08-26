@@ -109,6 +109,7 @@ namespace Managers
         public void RemoveCollectableFromStackManager(Transform transform)
         {
             StackSignals.Instance.onRemoveFromStack?.Invoke(transform);
+            ScoreSignals.Instance.onCurrentLevelScoreUpdate?.Invoke(false);
         }
 
         public void RotateMeshForward()
