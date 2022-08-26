@@ -125,5 +125,6 @@ namespace Managers
                             _playerPossition.localScale.z + 0.0375f), 0.3f));
             }
         }
+        // throw sticman from temporary list
     }
 }
