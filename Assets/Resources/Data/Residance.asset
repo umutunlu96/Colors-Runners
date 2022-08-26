@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 704b5b466a314680bedeeacaccadcb8d, type: 3}
+  m_Name: Residance
+  m_EditorClassIdentifier: 
+  MainName: Residance
+  MainBuildingType: 4
+  MainBuildingUnlockState: 0
+  MainComplateState: 0
+  MainColor:
+    serializedVersion: 2
+    rgba: 0
+  MainPrice: 300
+  MainPayedAmount: 0
+  MainPayedAmountText: 0
+  SideName: Car Park
+  SideBuildingType: 4
+  SideBuildingUnlockState: 1
+  SideComplateState: 0
+  SideColor:
+    serializedVersion: 2
+    rgba: 0
+  SidePrice: 150
+  SidePayedAmount: 0
+  SidePayedAmountText: 0

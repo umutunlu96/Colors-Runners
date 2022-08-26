@@ -5,11 +5,12 @@ using UnityEngine;
 namespace Umut
 {
     [Serializable]
-    public abstract class StructureScriptableObject : ScriptableObject
+    [CreateAssetMenu(fileName = "UmutDeneme", menuName = "UmutDeneme/Building", order = 0)]
+    public class StructureScriptableObject : ScriptableObject
     {
         [Header("BuildingType")]
         public BuildType BuildingType;
-        
+
         [Space]
         [Header("Main")]
         public string MainName;
@@ -19,7 +20,7 @@ namespace Umut
         public int MainPrice;
         public int MainPayedAmount;
         public int MainPayedAmountText;
-        
+
         [Header("Side")]
         public string SideName;
         public BuildingUnlockState SideBuildingUnlockState = BuildingUnlockState.Locked;
@@ -28,6 +29,5 @@ namespace Umut
         public int SidePrice;
         public int SidePayedAmount;
         public int SidePayedAmountText;
-        public abstract void CheckData();
     }
 }

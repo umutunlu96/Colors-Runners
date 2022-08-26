@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using Controllers;
+﻿using Controllers;
+using Enums;
 using UnityEngine;
 using UnityObject;
-using Enums;
 using ValueObject;
 
 namespace Managers
@@ -11,15 +10,17 @@ namespace Managers
     {
         [Header("Building Datas")]
         private EnvironmentData _environmentData;
+
         public BuildingData _mainBuilding;
         public BuildingData _SideBuilding;
         public BuildType buildingType;
-        
+
         [Space]
         [Header("Main building Script References")]
-        [SerializeField] BuildingMeshController buildingMeshcontroller;
-        [SerializeField] BuildingPhysicController buildingPhysiccontroller;
-        [SerializeField] BuildingScoreController buildingScoreController;
+        [SerializeField] private BuildingMeshController buildingMeshcontroller;
+
+        [SerializeField] private BuildingPhysicController buildingPhysiccontroller;
+        [SerializeField] private BuildingScoreController buildingScoreController;
 
         private void Awake()
         {
@@ -40,6 +41,7 @@ namespace Managers
                     buildingScoreController = transform.GetChild(0).GetComponentInChildren<BuildingScoreController>();
                     _SideBuilding.BuildingUnlockState = BuildingUnlockState.Locked;
                     break;
+
                 case BuildingComplateState.Completed:
                     buildingMeshcontroller = transform.GetChild(1).GetComponentInChildren<BuildingMeshController>();
                     buildingPhysiccontroller = transform.GetChild(1).GetComponentInChildren<BuildingPhysicController>();
@@ -48,15 +50,13 @@ namespace Managers
                     break;
             }
         }
-        
+
         private void SendDataToController()
         {
-            
         }
 
         public void PlayerEnterTriggerArea()
         {
-            
         }
 
         private void SetBuildings()
