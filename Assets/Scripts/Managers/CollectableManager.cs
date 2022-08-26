@@ -49,7 +49,7 @@ namespace Managers
             PlayerSignals.Instance.onChangeMaterial += OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState += OnTranslateAnimationState;
             StackSignals.Instance.onActivateOutlineTrasition += OnActivateOutlineTrasition;
-            StackSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
+            RunnerSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
             StackSignals.Instance.onChangeMatarialColor += OnChangeMatarialColor;
         }
 
@@ -58,7 +58,7 @@ namespace Managers
             PlayerSignals.Instance.onChangeMaterial -= OnSetCollectableMaterial;
             PlayerSignals.Instance.onTranslateAnimationState -= OnTranslateAnimationState;
             StackSignals.Instance.onActivateOutlineTrasition -= OnActivateOutlineTrasition;
-            StackSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
+            RunnerSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
             StackSignals.Instance.onChangeMatarialColor -= OnChangeMatarialColor;
         }
 

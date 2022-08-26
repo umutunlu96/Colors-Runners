@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Keys
 {
-    public struct InputParams
+    public struct RunnerInputParams
     {
         public float XValue;
         public float YValue;

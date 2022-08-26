@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     playerMovementData:
-      ClampValues: {x: -4.5, y: 4.5}
+      ClampValues: {x: -4, y: 4}
       RunnerForwardSpeed: 10
-      RunnerSidewaySpeed: 10
-      RunnerMaxRotateAngle: 0.5
-      RunnerTurnSpeed: 0.1
+      RunnerSidewaySpeed: 2
       IdleSpeed: 5
       IdleTurnSpeed: 0.1

@@ -22,6 +22,7 @@ TagManager:
   - IdleTrigger
   - MainBuilding
   - SideBuilding
+  - ExitDroneArea
   layers:
   - Default
   - TransparentFX
