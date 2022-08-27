@@ -1,8 +1,8 @@
-﻿using Signals;
-using System.Collections;
-using System.Collections.Generic;
-using Umut;
+﻿using System.Collections.Generic;
+using Commands;
+using Enums;
 using UnityEngine;
+using UnityObject;
 
 namespace Assets.Scripts.Managers
 {
@@ -15,7 +15,7 @@ namespace Assets.Scripts.Managers
         //private LoadGameCommand _loadGameCommand;
         //private SaveGameCommand _saveGameCommand;
         [SerializeField] private CD_CityScriptableObject _cityScriptableObject;
-        [SerializeField] private List<StructureScriptableObject> _buildingScriptableObjects;
+        [SerializeField] private List<CD_Structure> _buildingScriptableObjects;
 
         #endregion
 
@@ -30,6 +30,13 @@ namespace Assets.Scripts.Managers
             //if there is no save file created
             GetDatas();
             InitizilizeSaveFile();
+            foreach (var structure in _buildingScriptableObjects)
+            {
+                // if(LoadGameCommand<ScriptableObject>.OnLoadGameData(SaveStates.MainBuildingName, structure.StructureData).ToString() == null)
+                //     print("Error");
+                
+                print(LoadGameCommand<CD_Structure>.OnLoadGameData(SaveStates.MainBuildingName, structure.StructureData).GetType());
+            }
         }
        
         #region Subscription
@@ -60,8 +67,8 @@ namespace Assets.Scripts.Managers
 
         private void GetDatas()
         {
-            _cityScriptableObject = Resources.Load<CD_CityScriptableObject>("Data/City");
-            foreach(StructureScriptableObject cityScriptableObject in _cityScriptableObject.CityScriptableObject)
+            _cityScriptableObject = Resources.Load<CD_CityScriptableObject>("Data/Idle/City");
+            foreach(CD_Structure cityScriptableObject in _cityScriptableObject.CityScriptableObject)
             {
                 _buildingScriptableObjects.Add(cityScriptableObject);
             }
@@ -71,11 +78,10 @@ namespace Assets.Scripts.Managers
         {
             foreach(var buildingScriptableObject in _buildingScriptableObjects)
             {
-                ES3.Save(buildingScriptableObject.MainName, buildingScriptableObject);
+                ES3.Save(buildingScriptableObject.name, buildingScriptableObject);
             }
         }
-
-       
+        
+        
     }
-
 }

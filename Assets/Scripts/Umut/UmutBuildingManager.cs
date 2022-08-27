@@ -1,14 +1,14 @@
-﻿using System;
-using Enums;
+﻿using Enums;
 using Signals;
 using UnityEngine;
+using UnityObject;
 
 namespace Umut
 {
     public class UmutBuildingManager : MonoBehaviour
     {
         #region SelfVariables
-        [SerializeField] private StructureScriptableObject structure;
+        [SerializeField] private CD_Structure cdStructure;
         [SerializeField] private UmutBuildingMeshController meshController;
         [SerializeField] private UmutBuildingPhysicsController physicController;
         [SerializeField] private UmutBuildingTextController textController;
@@ -20,7 +20,7 @@ namespace Umut
         {
             _buildingName = gameObject.name;
             // GetData();
-            SetDataToControllers();
+            // SetDataToControllers();
         }
 
         // private void GetData() => structure = Resources.Load<StructureScriptableObject>("Data/" + gameObject.name);
@@ -49,15 +49,15 @@ namespace Umut
         #endregion
         
         
-        private void SetDataToControllers()
-        {
-            meshController.SetData(structure.MainComplateState,structure.SideComplateState);
-            physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-            
-            textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState,
-                structure.MainName, structure.SideName,structure.MainPayedAmount,structure.MainPrice,
-                structure.SidePayedAmount ,structure.SidePrice);
-        }
+        // private void SetDataToControllers()
+        // {
+        //     meshController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState);
+        //     physicController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState,cdStructure.SideBuildingUnlockState);
+        //     
+        //     textController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState,cdStructure.SideBuildingUnlockState,
+        //         cdStructure.MainName, cdStructure.SideName,cdStructure.MainPayedAmount,cdStructure.MainPrice,
+        //         cdStructure.SidePayedAmount ,cdStructure.SidePrice);
+        // }
 
         private void OnPlayerEnterBuildingArea(string nameOfBuilding, string nameOfType)
         {
@@ -77,35 +77,35 @@ namespace Umut
         //     }
         // }
 
-        public void CheckAreaState(string buildingName)
-        {
-            if (buildingName.Equals("Main"))
-            {
-                structure.MainComplateState = BuildingComplateState.Completed;
-                structure.SideBuildingUnlockState = BuildingUnlockState.Unlocked;
-                //SetData
-                textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                meshController.SetData(structure.MainComplateState,structure.SideComplateState);
-                physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                //CheckData
-                textController.CheckData();
-                physicController.CheckData();
-                meshController.CheckData();
-                print(structure.MainComplateState);
-            }
-            else if (buildingName.Equals("Side"))
-            {
-                structure.SideComplateState = BuildingComplateState.Completed;
-                //SetData
-                textController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                meshController.SetData(structure.MainComplateState,structure.SideComplateState);
-                physicController.SetData(structure.MainComplateState,structure.SideComplateState,structure.SideBuildingUnlockState);
-                //CheckData
-                textController.CheckData();
-                physicController.CheckData();
-                meshController.CheckData();
-                print(structure.SideComplateState);
-            }
-        }
+        // public void CheckAreaState(string buildingName)
+        // {
+        //     if (buildingName.Equals("Main"))
+        //     {
+        //         cdStructure.MainComplateState = BuildingComplateState.Completed;
+        //         cdStructure.SideBuildingUnlockState = BuildingUnlockState.Unlocked;
+        //         //SetData
+        //         textController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState,cdStructure.SideBuildingUnlockState);
+        //         meshController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState);
+        //         physicController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState,cdStructure.SideBuildingUnlockState);
+        //         //CheckData
+        //         textController.CheckData();
+        //         physicController.CheckData();
+        //         meshController.CheckData();
+        //         print(cdStructure.MainComplateState);
+        //     }
+        //     else if (buildingName.Equals("Side"))
+        //     {
+        //         cdStructure.SideComplateState = BuildingComplateState.Completed;
+        //         //SetData
+        //         textController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState,cdStructure.SideBuildingUnlockState);
+        //         meshController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState);
+        //         physicController.SetData(cdStructure.MainComplateState,cdStructure.SideComplateState,cdStructure.SideBuildingUnlockState);
+        //         //CheckData
+        //         textController.CheckData();
+        //         physicController.CheckData();
+        //         meshController.CheckData();
+        //         print(cdStructure.SideComplateState);
+        //     }
+        // }
     }
 }
