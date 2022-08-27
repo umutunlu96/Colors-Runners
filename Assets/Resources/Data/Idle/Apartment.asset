@@ -16,12 +16,12 @@ MonoBehaviour:
     BuildingType: 1
     MainBuildingName: Apartment
     MainCompleteState: 0
-    MainPrice: 100
+    MainPrice: 200
     MainPayedAmount: 0
     MainPayedAmountText: 0
-    SideBuildingName: sadsad
+    SideBuildingName: Park
     SideUnlockState: 1
     SideCompleteState: 0
-    SidePrice: 100
+    SidePrice: 50
     SidePayedAmount: 0
     SidePayedAmountText: 0

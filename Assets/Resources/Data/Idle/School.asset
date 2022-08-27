@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: School
   m_EditorClassIdentifier: 
   StructureData:
-    BuildingType: 0
-    MainBuildingName: qweqwe
+    BuildingType: 3
+    MainBuildingName: School
     MainCompleteState: 0
-    MainPrice: 0
+    MainPrice: 125
     MainPayedAmount: 0
     MainPayedAmountText: 0
-    SideBuildingName: qweqwe
+    SideBuildingName: Park
     SideUnlockState: 1
     SideCompleteState: 0
-    SidePrice: 0
+    SidePrice: 70
     SidePayedAmount: 0
     SidePayedAmountText: 0

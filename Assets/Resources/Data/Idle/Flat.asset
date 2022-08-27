@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StructureData:
     BuildingType: 5
-    MainBuildingName: qwe
+    MainBuildingName: Flat
     MainCompleteState: 0
     MainPrice: 150
     MainPayedAmount: 0
     MainPayedAmountText: 0
-    SideBuildingName: qwrr
+    SideBuildingName: Car
     SideUnlockState: 1
     SideCompleteState: 0
-    SidePrice: 150
+    SidePrice: 75
     SidePayedAmount: 0
     SidePayedAmountText: 0

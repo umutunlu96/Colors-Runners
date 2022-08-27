@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StructureData:
     BuildingType: 0
-    MainBuildingName: qweqwe
+    MainBuildingName: Waffle House
     MainCompleteState: 0
-    MainPrice: 0
+    MainPrice: 105
     MainPayedAmount: 0
     MainPayedAmountText: 0
-    SideBuildingName: qweqwe
+    SideBuildingName: Car
     SideUnlockState: 1
     SideCompleteState: 0
-    SidePrice: 0
+    SidePrice: 45
     SidePayedAmount: 0
     SidePayedAmountText: 0
