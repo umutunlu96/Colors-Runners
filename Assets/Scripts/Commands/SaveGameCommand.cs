@@ -11,6 +11,7 @@ namespace Commands
             {
                 case SaveStates.Score: ES3.Save("Score", data);break;
                 case SaveStates.Level: ES3.Save("Level", data);break;
+                case SaveStates.BuildingType: ES3.Save(structureData.BuildingType.ToString(),data);break;
                 case SaveStates.MainBuildingName: ES3.Save(structureData.MainBuildingName, data);break;
                 case SaveStates.MainCompleteState: ES3.Save(structureData.MainCompleteState.ToString(), data);break;
                 case SaveStates.MainPrice: ES3.Save(structureData.MainPrice.ToString(), data);break;

@@ -5,6 +5,7 @@
         Level,
         Score,
         
+        BuildingType,
         MainBuildingName,
         MainCompleteState,
         MainPrice,

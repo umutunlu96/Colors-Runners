@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Commands;
+﻿using System;
+using System.Collections.Generic;
+using Data.ValueObject;
 using Enums;
 using UnityEngine;
 using UnityObject;
 
-namespace Assets.Scripts.Managers
+namespace Managers
 {
     public class SaveManager : MonoBehaviour
     {
@@ -14,8 +15,9 @@ namespace Assets.Scripts.Managers
 
         //private LoadGameCommand _loadGameCommand;
         //private SaveGameCommand _saveGameCommand;
-        [SerializeField] private CD_CityScriptableObject _cityScriptableObject;
-        [SerializeField] private List<CD_Structure> _buildingScriptableObjects;
+        [SerializeField] private CD_CityScriptableObject CDcityData;
+        [SerializeField] private List<CD_Structure> CDstructureData;
+        [SerializeField] private List<StructureData> structureData;
 
         #endregion
 
@@ -23,22 +25,15 @@ namespace Assets.Scripts.Managers
 
         private void Awake()
         {
-
-            //_loadGameCommand = new LoadGameCommand();
-            // _saveGameCommand = new SaveGameCommand();
-
-            //if there is no save file created
             GetDatas();
-            InitizilizeSaveFile();
-            foreach (var structure in _buildingScriptableObjects)
-            {
-                // if(LoadGameCommand<ScriptableObject>.OnLoadGameData(SaveStates.MainBuildingName, structure.StructureData).ToString() == null)
-                //     print("Error");
-                
-                print(LoadGameCommand<CD_Structure>.OnLoadGameData(SaveStates.MainBuildingName, structure.StructureData).GetType());
-            }
+            LoadDatas();
         }
-       
+
+        private void Start()
+        {
+            // SaveDatas();
+        }
+
         #region Subscription
 
         private void OnEnable()
@@ -67,21 +62,34 @@ namespace Assets.Scripts.Managers
 
         private void GetDatas()
         {
-            _cityScriptableObject = Resources.Load<CD_CityScriptableObject>("Data/Idle/City");
-            foreach(CD_Structure cityScriptableObject in _cityScriptableObject.CityScriptableObject)
+            CDcityData = Resources.Load<CD_CityScriptableObject>("Data/Idle/City");
+            foreach(CD_Structure cityScriptableObject in CDcityData.CityScriptableObject)
             {
-                _buildingScriptableObjects.Add(cityScriptableObject);
+                CDstructureData.Add(cityScriptableObject);
+            }
+
+            foreach (var structure in CDstructureData)
+            {
+                structureData.Add(structure.StructureData);
             }
         }
         
-        private void InitizilizeSaveFile()
+        public void SaveDatas()
         {
-            foreach(var buildingScriptableObject in _buildingScriptableObjects)
+            foreach (var structure in structureData)
             {
-                ES3.Save(buildingScriptableObject.name, buildingScriptableObject);
+                ES3.Save(structure.BuildingType.ToString(),structure);
             }
         }
-        
-        
+
+        public void LoadDatas()
+        {
+            var maxEnumCount = Enum.GetNames(typeof(BuildType)).Length;
+
+            for (int i = 0; i < maxEnumCount; i++)
+            {
+                structureData[i] = ES3.Load(structureData[i].BuildingType.ToString(), structureData[i]);
+            }
+        }
     }
 }
