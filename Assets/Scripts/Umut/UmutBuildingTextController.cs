@@ -93,7 +93,7 @@ namespace Umut
             if (payedAmount >= price)
             {
                 print(buildingName +" Maximum Reached");
-                manager.CheckAreaState(buildingName);
+                // manager.CheckAreaState(buildingName);
             }
         }
 
