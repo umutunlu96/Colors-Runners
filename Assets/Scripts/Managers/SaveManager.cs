@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Commands;
+using Data.ValueObject;
 using Enums;
 using UnityEngine;
 using UnityObject;
@@ -14,8 +15,8 @@ namespace Assets.Scripts.Managers
 
         //private LoadGameCommand _loadGameCommand;
         //private SaveGameCommand _saveGameCommand;
-        [SerializeField] private CD_CityScriptableObject _cityScriptableObject;
-        [SerializeField] private List<CD_Structure> _buildingScriptableObjects;
+        [SerializeField] private CD_CityScriptableObject cityData;
+        [SerializeField] private List<CD_Structure> structureData;
 
         #endregion
 
@@ -30,12 +31,9 @@ namespace Assets.Scripts.Managers
             //if there is no save file created
             GetDatas();
             InitizilizeSaveFile();
-            foreach (var structure in _buildingScriptableObjects)
+            foreach (var structure in structureData)
             {
-                // if(LoadGameCommand<ScriptableObject>.OnLoadGameData(SaveStates.MainBuildingName, structure.StructureData).ToString() == null)
-                //     print("Error");
-                
-                print(LoadGameCommand<CD_Structure>.OnLoadGameData(SaveStates.MainBuildingName, structure.StructureData).GetType());
+                print(LoadGameCommand<CD_Structure>.OnLoadGameData(SaveStates.BuildingType,structure.StructureData));
             }
         }
        
@@ -67,16 +65,16 @@ namespace Assets.Scripts.Managers
 
         private void GetDatas()
         {
-            _cityScriptableObject = Resources.Load<CD_CityScriptableObject>("Data/Idle/City");
-            foreach(CD_Structure cityScriptableObject in _cityScriptableObject.CityScriptableObject)
+            cityData = Resources.Load<CD_CityScriptableObject>("Data/Idle/City");
+            foreach(CD_Structure cityScriptableObject in cityData.CityScriptableObject)
             {
-                _buildingScriptableObjects.Add(cityScriptableObject);
+                structureData.Add(cityScriptableObject);
             }
         }
         
         private void InitizilizeSaveFile()
         {
-            foreach(var buildingScriptableObject in _buildingScriptableObjects)
+            foreach(var buildingScriptableObject in structureData)
             {
                 ES3.Save(buildingScriptableObject.name, buildingScriptableObject);
             }
