@@ -1,37 +1,47 @@
-﻿using UnityEngine;
-using Enums;
+﻿using Managers;
+using StateMachine;
+using UnityEngine;
 
 namespace Controllers
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        [SerializeField] private Animator animator;
+        #region SelfVariables
 
-        public void SetAnimationState(SticmanAnimationType animType)
+        
+        #region Serialize Variables
+
+        [SerializeField] private PlayerManager manager;
+
+        #endregion Serialize Variables
+
+        #region Private Variavles
+
+        private ParticleSystem _particleSystem;
+        private Animator _playereAnimator;
+        private AnimationStateMachine _playerStateMachine;
+
+        #endregion Private Variavles
+
+        #endregion SelfVariables
+
+        private void Awake()
         {
-            if (gameObject.activeSelf)
-            {
-                switch (animType)
-                {
-                    case SticmanAnimationType.Idle:
-                        animator.SetTrigger("Idle");
-                        break;
-                    case SticmanAnimationType.Run:
-                        animator.SetTrigger("Run");
-                        break;
-                    case SticmanAnimationType.SneakWalk:
-                        animator.SetTrigger("SneakWalk");
-                        break;
-                    case SticmanAnimationType.SneakIdle:
-                        animator.SetTrigger("SneakIdle");
-                        break;
-                    case SticmanAnimationType.Die:
-                        animator.SetTrigger("Death");
-                        break;
-                    case SticmanAnimationType.MinigameThrow:
-                        break;
-                }
-            }
+            Initialize();
+        }
+
+        public void TranslatePlayerAnimationState(AnimationStateMachine state)
+        {
+            _playerStateMachine = state;
+            _playerStateMachine.SetContext(ref _playereAnimator);
+            _playerStateMachine.ChangeAnimationState();
+        }
+
+        private void Initialize()
+        {
+            _playereAnimator = GetComponent<Animator>();
+            _playerStateMachine = GetComponent<AnimationStateMachine>();
+            TranslatePlayerAnimationState(new IdleAnimationState());
         }
     }
 }
