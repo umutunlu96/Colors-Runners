@@ -133,7 +133,7 @@ namespace Managers
             _collectableList.Clear();
             _collectableList.TrimExcess();
             print("Merge to player finished");
-            PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
+            PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraMiniGameState());
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
         }
         // throw sticman from temporary list

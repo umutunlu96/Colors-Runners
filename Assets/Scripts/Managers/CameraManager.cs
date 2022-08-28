@@ -14,6 +14,7 @@ namespace Managers
         #region Public Variables
 
         public CinemachineVirtualCamera RunnerCam;
+        public CinemachineVirtualCamera MiniGameCam;
         public CinemachineVirtualCamera IdleCam;
         public Animator StateDrivenCameraAnimator;
         public Transform Player;
@@ -31,12 +32,10 @@ namespace Managers
         private void Awake()
         {
             RunnerCam = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            IdleCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
+            MiniGameCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
+            IdleCam = transform.GetChild(2).GetComponent<CinemachineVirtualCamera>();
             StateDrivenCameraAnimator = GetComponent<Animator>();
             Player = GameObject.FindGameObjectWithTag("Player").transform;
-            //_state = new CameraRunnerState();
-            //_state.SetContext(this);
-            //_state.ChangeStateCamera();
             onTranslateCameraState(new CameraRunnerState());
         }
         

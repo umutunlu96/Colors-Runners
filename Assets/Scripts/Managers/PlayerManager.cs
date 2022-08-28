@@ -52,7 +52,7 @@ namespace Managers
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onChangeGameState += OnGameStateChange;
             CoreGameSignals.Instance.onReset += OnReset;
-
+            
             InputSignals.Instance.onInputTaken += OnPointerDown;
             InputSignals.Instance.onInputReleased += OnInputReleased;
             InputSignals.Instance.onInputDragged += OnInputDragged;
