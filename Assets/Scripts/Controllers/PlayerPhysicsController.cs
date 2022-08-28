@@ -44,8 +44,10 @@ namespace Controllers
             if(other.CompareTag("IdleTrigger"))
             {
                 print("IdleTriggered");
+                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
                 PlayerSignals.Instance.onPlayerEnterIdleArea?.Invoke();
                 StackSignals.Instance.onMergeToPLayer?.Invoke();
+                other.gameObject.SetActive(false);
             }
         }
         private void OnTriggerExit(Collider other)

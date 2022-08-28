@@ -7,7 +7,7 @@ using UnityObject;
 
 namespace Managers
 {
-    public class SaveManager : MonoBehaviour
+    public class CityManager : MonoBehaviour
     {
         #region Self Variables
 
@@ -27,11 +27,6 @@ namespace Managers
         {
             GetDatas();
             LoadDatas();
-        }
-
-        private void Start()
-        {
-            // SaveDatas();
         }
 
         #region Subscription
