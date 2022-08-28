@@ -182,6 +182,7 @@ namespace Managers
         public void NoThanksButton()
         {
             prizeScore = score;
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
         }
     }
 }
