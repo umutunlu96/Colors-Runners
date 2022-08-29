@@ -20,6 +20,7 @@ namespace Managers
             SaveSignals.Instance.onRunnerSaveData += OnRunnerSaveData;
             SaveSignals.Instance.onIdleSaveData += OnIdleSaveData;
             SaveSignals.Instance.onSaveIdleParams += IdleSaveGame;
+            // SaveSignals.Instance.onLoadIdleGame += OnIdleGameLoad;
         }
 
         private void UnsubscribeEvents()
@@ -27,6 +28,7 @@ namespace Managers
             SaveSignals.Instance.onRunnerSaveData -= OnRunnerSaveData;
             SaveSignals.Instance.onIdleSaveData -= OnIdleSaveData;
             SaveSignals.Instance.onSaveIdleParams -= IdleSaveGame;
+            // SaveSignals.Instance.onLoadIdleGame -= OnIdleGameLoad;
         }
 
         private void OnDisable()
