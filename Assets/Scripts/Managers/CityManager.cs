@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Data.ValueObject;
 using Enums;
+using Keys;
+using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityObject;
 
@@ -11,13 +15,30 @@ namespace Managers
     {
         #region Self Variables
 
+        #region Public Variables
+
+        
+
+        #endregion
+
+        #region Serialized Variables
+
+        [SerializeField] private List<BuildingManager> buildingManagers;
+        [SerializeField] private SaveManager saveManager;
+        
+        #endregion
+
         #region Private Variables
 
-        //private LoadGameCommand _loadGameCommand;
-        //private SaveGameCommand _saveGameCommand;
-        [SerializeField] private CD_CityScriptableObject CDcityData;
-        [SerializeField] private List<CD_Structure> CDstructureData;
-        [SerializeField] private List<StructureData> structureData;
+        private int _currentIdleLevel = 1;
+        private int _currentScore = 0;
+        [ShowInInspector] private IdleLevelData _levelsData;
+        [ShowInInspector] private List<BuildingData> _buildingDatas;
+
+        [ShowInInspector] private List<int> mainPayedAmount = new List<int>();
+        [ShowInInspector] private List<BuildingComplateState> mainComplateState = new List<BuildingComplateState>();
+        [ShowInInspector] private List<int> sidePayedAmount = new List<int>();
+        [ShowInInspector] private List<BuildingComplateState> sideComplateState = new List<BuildingComplateState>();
 
         #endregion
 
@@ -25,66 +46,85 @@ namespace Managers
 
         private void Awake()
         {
-            GetDatas();
-            LoadDatas();
+            _levelsData = GetIdleLevelBuildingData();
+            GetCurrentLevelData();
+            SetDataToBuildingManagers();
         }
+        
+        private IdleLevelData GetIdleLevelBuildingData() => Resources.Load<CD_IdleLevelData>("Data/CD_IdleLevelData").IdleLevel;
 
-        #region Subscription
+        private int GetIdleLevel() => _currentIdleLevel;
+
+        #region Event Subscription
 
         private void OnEnable()
         {
-            Subscribe();
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            SaveSignals.Instance.onGetIdleLevelId += GetIdleLevel;
+            SaveSignals.Instance.onIdleSaveData += OnSaveData;
+        }
+
+        private void UnSubscribeEvents()
+        {
+            SaveSignals.Instance.onGetIdleLevelId -= GetIdleLevel;
+            SaveSignals.Instance.onIdleSaveData -= OnSaveData;
         }
 
         private void OnDisable()
         {
-            UnSubscribe();
+            UnSubscribeEvents();
         }
 
-        private void Subscribe()
+        #endregion
+        
+        
+        private void GetCurrentLevelData()
         {
-            //CoreGameSignals.Instance.onSaveGameData += _saveGameCommand.OnSaveGameData;
-            //CoreGameSignals.Instance.onLoadGameData += _loadGameCommand.OnLoadGameData;
-        }
-
-        private void UnSubscribe()
-        {
-          // CoreGameSignals.Instance.onSaveGameData -= _saveGameCommand.OnSaveGameData;
-           // CoreGameSignals.Instance.onLoadGameData -= _loadGameCommand.OnLoadGameData;
-        }
-
-        #endregion]
-
-        private void GetDatas()
-        {
-            CDcityData = Resources.Load<CD_CityScriptableObject>("Data/Idle/City");
-            foreach(CD_Structure cityScriptableObject in CDcityData.CityScriptableObject)
+            foreach (var levelBuilding in _levelsData.CityData)
             {
-                CDstructureData.Add(cityScriptableObject);
+                _buildingDatas = levelBuilding.BuildingData;
             }
+        }
 
-            foreach (var structure in CDstructureData)
+        private void SetDataToBuildingManagers()
+        {
+            for (int i = 0; i < buildingManagers.Count; i++)
             {
-                structureData.Add(structure.StructureData);
+                buildingManagers[i].BuildingData = _buildingDatas[i];
             }
+        }
+
+        private void GetDataFromBuildingManagers()
+        {
+            for (int i = 0; i < buildingManagers.Count; i++)
+            {
+                mainPayedAmount.Add(buildingManagers[i].BuildingData.mainBuildingData.PayedAmount);
+                mainComplateState.Add(buildingManagers[i].BuildingData.mainBuildingData.CompleteState);
+                sidePayedAmount.Add(buildingManagers[i].BuildingData.sideBuildindData.PayedAmount);
+                sideComplateState.Add(buildingManagers[i].BuildingData.sideBuildindData.CompleteState);
+            }
+        }
+
+        public void OnSaveData()
+        {
+            GetDataFromBuildingManagers();
+            SaveSignals.Instance.onSaveIdleParams?.Invoke(SaveIdleParams());
         }
         
-        public void SaveDatas()
+        public SaveIdleGameDataParams SaveIdleParams()
         {
-            foreach (var structure in structureData)
+            return new SaveIdleGameDataParams()
             {
-                ES3.Save(structure.BuildingType.ToString(),structure);
-            }
-        }
-
-        public void LoadDatas()
-        {
-            var maxEnumCount = Enum.GetNames(typeof(BuildType)).Length;
-
-            for (int i = 0; i < maxEnumCount; i++)
-            {
-                structureData[i] = ES3.Load(structureData[i].BuildingType.ToString(), structureData[i]);
-            }
+                IdleLevel = _currentIdleLevel,
+                MainBuildingState = mainComplateState,
+                MainPayedAmount = mainPayedAmount,
+                SideBuildingState = sideComplateState,
+                SidePayedAmount = sidePayedAmount
+            };
         }
     }
 }
