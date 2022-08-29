@@ -177,12 +177,14 @@ namespace Managers
         public void ClaimButton()
         {
             //prizeScoreu Signalse gonder.
+            PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
 
         public void NoThanksButton()
         {
             prizeScore = score;
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
+            PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
     }
 }

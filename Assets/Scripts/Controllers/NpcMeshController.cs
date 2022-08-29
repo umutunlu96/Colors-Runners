@@ -31,12 +31,17 @@ namespace Assets.Scripts.Controllers
 
         private void Start()
         {
-            //GetColorData();
+            GetColorData();
             _matarial.color = _colorData.Color;
         }
 
 
-       // private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)manager.currentColorType];
+        private void GetColorData() => _colorData = Resources.Load<CD_ColorData>("Data/CD_ColorData").Colors[(int)manager.currentColorType];
 
+        public void ChangeMatarialColor()
+        {
+            GetColorData();
+            _matarial.color = _colorData.Color;
+        }
     }
 }
