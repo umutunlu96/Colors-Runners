@@ -69,6 +69,7 @@ namespace Managers
         private void OnReset()
         {
             OnChangeGameState(GameStates.Runner);
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
         }
     }
 }
