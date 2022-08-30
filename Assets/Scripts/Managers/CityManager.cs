@@ -24,7 +24,6 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private List<BuildingManager> buildingManagers;
-        [SerializeField] private SaveManager saveManager;
         
         #endregion
 
@@ -44,10 +43,10 @@ namespace Managers
 
         #endregion
 
-        private void Awake()
+        private void Start()
         {
             _levelsData = GetIdleLevelBuildingData();
-            GetCurrentLevelData();
+            GetCurrentLevelData(SaveSignals.Instance.onLoadIdleGame());
             SetDataToBuildingManagers();
         }
         
@@ -82,11 +81,21 @@ namespace Managers
         #endregion
         
         
-        private void GetCurrentLevelData()
+        private void GetCurrentLevelData(SaveIdleGameDataParams idleParams)
         {
             foreach (var levelBuilding in _levelsData.CityData)
             {
                 _buildingDatas = levelBuilding.BuildingData;
+            }
+            
+            if(!ES3.FileExists("IdleGame.es3")) return;
+
+            for (int i = 0; i < _buildingDatas.Count; i++)
+            {
+                _buildingDatas[i].mainBuildingData.PayedAmount = idleParams.MainPayedAmount[i];
+                _buildingDatas[i].sideBuildindData.PayedAmount = idleParams.SidePayedAmount[i];
+                _buildingDatas[i].mainBuildingData.CompleteState = idleParams.MainBuildingState[i];
+                _buildingDatas[i].sideBuildindData.CompleteState = idleParams.SideBuildingState[i];
             }
         }
 
@@ -114,7 +123,12 @@ namespace Managers
             GetDataFromBuildingManagers();
             SaveSignals.Instance.onSaveIdleParams?.Invoke(SaveIdleParams());
         }
-        
+
+        public void OnLoadIdleGame(SaveIdleGameDataParams idleParams)
+        {
+            
+        }
+
         public SaveIdleGameDataParams SaveIdleParams()
         {
             return new SaveIdleGameDataParams()

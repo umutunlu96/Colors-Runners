@@ -19,33 +19,33 @@ MonoBehaviour:
       - BuildingType: 0
         mainBuildingData:
           BuildingName: Apartment
-          CompleteState: 1
+          CompleteState: 0
           Price: 100
-          PayedAmount: 101
+          PayedAmount: 0
         sideBuildindData:
           BuildingName: Park
-          CompleteState: 1
+          CompleteState: 0
           Price: 50
-          PayedAmount: 51
+          PayedAmount: 0
       - BuildingType: 1
         mainBuildingData:
           BuildingName: Flat
-          CompleteState: 1
-          Price: 111
-          PayedAmount: 112
+          CompleteState: 0
+          Price: 100
+          PayedAmount: 0
         sideBuildindData:
           BuildingName: Park
-          CompleteState: 1
-          Price: 11
-          PayedAmount: 12
+          CompleteState: 0
+          Price: 50
+          PayedAmount: 0
       - BuildingType: 2
         mainBuildingData:
           BuildingName: Office
           CompleteState: 0
-          Price: 111
-          PayedAmount: 68
+          Price: 75
+          PayedAmount: 0
         sideBuildindData:
           BuildingName: Car
           CompleteState: 0
-          Price: 11
+          Price: 25
           PayedAmount: 0

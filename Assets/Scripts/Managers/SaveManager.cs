@@ -20,7 +20,7 @@ namespace Managers
             SaveSignals.Instance.onRunnerSaveData += OnRunnerSaveData;
             SaveSignals.Instance.onIdleSaveData += OnIdleSaveData;
             SaveSignals.Instance.onSaveIdleParams += IdleSaveGame;
-            // SaveSignals.Instance.onLoadIdleGame += OnIdleGameLoad;
+            SaveSignals.Instance.onLoadIdleGame += OnIdleGameLoad;
         }
 
         private void UnsubscribeEvents()
@@ -28,7 +28,7 @@ namespace Managers
             SaveSignals.Instance.onRunnerSaveData -= OnRunnerSaveData;
             SaveSignals.Instance.onIdleSaveData -= OnIdleSaveData;
             SaveSignals.Instance.onSaveIdleParams -= IdleSaveGame;
-            // SaveSignals.Instance.onLoadIdleGame -= OnIdleGameLoad;
+            SaveSignals.Instance.onLoadIdleGame -= OnIdleGameLoad;
         }
 
         private void OnDisable()
@@ -37,11 +37,10 @@ namespace Managers
         } 
         #endregion
 
-        private void Start()
+        private void Awake()
         {
-            OnIdleGameLoad();
-        }
 
+        }
 
         private void OnRunnerSaveData()
         {
@@ -76,9 +75,9 @@ namespace Managers
         }
 
         
-        private void OnIdleGameLoad()
+        private SaveIdleGameDataParams OnIdleGameLoad()
         {
-            SaveSignals.Instance.onLoadIdleGame?.Invoke(new SaveIdleGameDataParams()
+            return new SaveIdleGameDataParams()
                 {
                     IdleLevel = ES3.KeyExists("IdleGame","Idlegame.es3")? ES3.Load<int>("IdleGame","IdleGame.es3"):0,
                     CollectablesCount = ES3.KeyExists("CollectablesCount","Idlegame.es3")? ES3.Load<int>("CollectablesCount","IdleGame.es3"):0,
@@ -86,8 +85,7 @@ namespace Managers
                     SidePayedAmount = ES3.KeyExists("SideCurrentScore","Idlegame.es3")? ES3.Load<List<int>>("SideCurrentScore","IdleGame.es3"):default,
                     MainBuildingState = ES3.KeyExists("MainBuildingState","Idlegame.es3")? ES3.Load<List<BuildingComplateState>>("MainBuildingState","IdleGame.es3"):default,
                     SideBuildingState = ES3.KeyExists("SideBuildingState","Idlegame.es3")? ES3.Load<List<BuildingComplateState>>("SideBuildingState","IdleGame.es3"):default,
-                }
-            );
+                };
         }
     }
 }

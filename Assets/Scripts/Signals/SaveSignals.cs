@@ -14,6 +14,6 @@ namespace Signals
         public Func<int> onGetIdleLevelId = delegate { return 0;};
 
         public UnityAction<SaveIdleGameDataParams> onSaveIdleParams = delegate { };
-        public Action<SaveIdleGameDataParams> onLoadIdleGame;
+        public Func<SaveIdleGameDataParams> onLoadIdleGame;
     }
 }

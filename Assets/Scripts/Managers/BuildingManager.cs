@@ -21,11 +21,12 @@ namespace Managers
         #region Serialized
 
         [SerializeField] private GameObject mainBuilding;
-        [SerializeField] private GameObject sideBuilding;
-
         [SerializeField] private TextMeshPro mainText;
-        [SerializeField] private TextMeshPro sideText;
+        [SerializeField] private BuildingMeshController mainMesh;
         
+        [SerializeField] private GameObject sideBuilding;
+        [SerializeField] private TextMeshPro sideText;
+        [SerializeField] private BuildingMeshController sideMesh;
         
         #endregion
 
@@ -102,10 +103,12 @@ namespace Managers
                 _mainPayedAmount++;
                 SetText(mainText,_mainBuildingName,_mainPayedAmount,_mainPrice);
                 SetDataToBuildingData();
+                print(_sidePayedAmount);
             }
             
             else if (_mainBuildingComplateState == BuildingComplateState.Completed && _sideBuildingComplateState == BuildingComplateState.Uncompleted)
             {
+                print(_sidePayedAmount);
                 CheckComplateState(_sideBuildingComplateState,_sidePayedAmount,_sidePrice);
                 _sidePayedAmount++;
                 SetText(sideText,_sideBuildingName,_sidePayedAmount,_sidePrice);
@@ -120,15 +123,14 @@ namespace Managers
                 _mainBuildingComplateState = BuildingComplateState.Completed;
                 mainBuilding.SetActive(false);
                 sideBuilding.SetActive(true);
-                
-                //meshcontroller.alpha = 1 
+                mainMesh.ChangeBuildingSaturation(1.5f);
             }
 
-            if (complateState == _sideBuildingComplateState && payedAmount >= price)
+            else if (complateState == _sideBuildingComplateState && payedAmount >= price)
             {
                 _sideBuildingComplateState = BuildingComplateState.Completed;
                 sideBuilding.SetActive(false);
-                //meshcontroller.alpha = 1 
+                sideMesh.ChangeBuildingSaturation(1.5f);
             }
         }
 
