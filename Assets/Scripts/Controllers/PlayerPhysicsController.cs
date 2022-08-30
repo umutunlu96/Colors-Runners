@@ -54,8 +54,8 @@ namespace Controllers
         {
             if(other.CompareTag("DroneArea")) // change name Drone Area
             {
-                PlayerSignals.Instance.onPlayerEnterDroneArea?.Invoke();
                 ScoreSignals.Instance.onHideScore?.Invoke();
+                PlayerSignals.Instance.onPlayerEnterDroneArea?.Invoke();
             }
             
             if (other.CompareTag("ExitTurretArea"))

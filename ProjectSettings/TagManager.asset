@@ -24,6 +24,7 @@ TagManager:
   - SideBuilding
   - ExitDroneArea
   - RainbowArea
+  - WayPoint
   layers:
   - Default
   - TransparentFX

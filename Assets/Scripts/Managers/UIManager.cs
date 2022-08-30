@@ -105,7 +105,7 @@ namespace Managers
         private void OnPlay()
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.PreGamePanel);
-            PlayerSignals.Instance.onTranslateAnimationState(new RunnerAnimationState());
+            PlayerSignals.Instance.onTranslateCollectableAnimationState(new RunnerAnimationState());
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
 
         }
@@ -126,7 +126,7 @@ namespace Managers
 
         public void Play()
         {
-            PlayerSignals.Instance.onTranslateAnimationState(new RunnerAnimationState());
+            PlayerSignals.Instance.onTranslateCollectableAnimationState(new RunnerAnimationState());
             CoreGameSignals.Instance.onPlay?.Invoke();
         }
 
@@ -177,12 +177,14 @@ namespace Managers
         public void ClaimButton()
         {
             //prizeScoreu Signalse gonder.
+            PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
 
         public void NoThanksButton()
         {
             prizeScore = score;
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
+            PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
     }
 }
