@@ -128,6 +128,7 @@ namespace Managers
             SaveSignals.Instance.onIdleSaveData?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }
 
@@ -135,8 +136,10 @@ namespace Managers
         {
             LevelSignals.Instance.onRestartLevel?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.LoseGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
+            OnReset();
         }
 
         public void AddStackButton()
@@ -173,6 +176,7 @@ namespace Managers
             //prizeScoreu Signalse gonder.
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
 
@@ -181,6 +185,7 @@ namespace Managers
             prizeScore = score;
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }

@@ -82,6 +82,7 @@ namespace Managers
             
             StackSignals.Instance.onAddStack += _addStackCommand.OnAddStack;
             StackSignals.Instance.onRemoveFromStack += _removeStackCommand.OnRemoveFromStack;
+            StackSignals.Instance.onCollectableRemovedFromStack += OnCollectableRemovedFromStack;
             StackSignals.Instance.onSetStackStartSize += _initializeStackOnStartCommand.OnInitializeStackOnStart;
             //StackSignals.Instance.onThrowStackInMiniGame += OnThrowStackInMiniGame;
             StackSignals.Instance.onStackEnterDroneArea += _stackEnterDroneAreaCommand.OnStackEnterDroneArea;
@@ -95,9 +96,10 @@ namespace Managers
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-
+            
             StackSignals.Instance.onAddStack -= _addStackCommand.OnAddStack;
             StackSignals.Instance.onRemoveFromStack -= _removeStackCommand.OnRemoveFromStack;
+            StackSignals.Instance.onCollectableRemovedFromStack -= OnCollectableRemovedFromStack;
             StackSignals.Instance.onSetStackStartSize -= _initializeStackOnStartCommand.OnInitializeStackOnStart;
             //StackSignals.Instance.onThrowStackInMiniGame -= OnThrowStackInMiniGame;
             StackSignals.Instance.onStackEnterDroneArea -= _stackEnterDroneAreaCommand.OnStackEnterDroneArea;
@@ -153,13 +155,20 @@ namespace Managers
         }
         // throw sticman from temporary list
 
+        private int GetCollectableCount() => _collectableList.Count + _tempList.Count;
+        
+        private void OnCollectableRemovedFromStack()
+        {
+            if (GetCollectableCount() == 0)
+            {
+                LevelSignals.Instance.onLevelFailed?.Invoke();
+                ScoreSignals.Instance.onHideScore?.Invoke();
+            }
+        }
+        
+        
         private void OnReset()
         {
-            // foreach (var collectable in _tempList)
-            // {
-            //     Destroy(collectable.gameObject);
-            // }
-
             for (int i = 0; i < transform.childCount; i++)
             {
                 Destroy(transform.GetChild(i).gameObject);
