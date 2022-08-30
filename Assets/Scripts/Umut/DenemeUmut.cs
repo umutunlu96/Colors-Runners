@@ -9,9 +9,6 @@ namespace Umut
 {
     public class DenemeUmut : MonoBehaviour
     {
-        public void Asd()
-        {
-            SaveSignals.Instance.onIdleSaveData?.Invoke();
-        }
+        
     }
 }

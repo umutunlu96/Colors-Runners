@@ -23,8 +23,9 @@ Material:
   m_Name: LongBuildingCar
   m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
   m_ShaderKeywords: _METALLICSPECGLOSSMAP _MK_ALBEDO_MAP _MK_ARTISTIC_PROJECTION_SCREEN_SPACE
-    _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_LIGHT_CEL _MK_NORMAL_MAP _MK_RECEIVE_SHADOWS
-    _MK_SPECULAR_ISOTROPIC _MK_WRAPPED_DIFFUSE _NORMALMAP _RECEIVESHADOWS_ON _WRAPPEDLIGHTING_ON
+    _MK_COLOR_GRADING_ALBEDO _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_LIGHT_CEL _MK_NORMAL_MAP
+    _MK_RECEIVE_SHADOWS _MK_SPECULAR_ISOTROPIC _MK_WRAPPED_DIFFUSE _NORMALMAP _RECEIVESHADOWS_ON
+    _WRAPPEDLIGHTING_ON
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -171,7 +172,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ColorGrading: 0
+    - _ColorGrading: 1
     - _Contrast: 1
     - _Cull: 2
     - _Cutoff: 0.5
@@ -218,7 +219,7 @@ Material:
     - _RimSize: 1
     - _RimSmoothness: 0.5
     - _RimThresholdOffset: 0.25
-    - _Saturation: 1
+    - _Saturation: 0
     - _SketchMapScale: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0

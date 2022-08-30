@@ -135,6 +135,7 @@ namespace Managers
             isPrize = false;
             LevelSignals.Instance.onNextLevel?.Invoke();
             SaveSignals.Instance.onIdleSaveData?.Invoke();
+            CoreGameSignals.Instance.onReset?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }
@@ -178,13 +179,17 @@ namespace Managers
         public void ClaimButton()
         {
             //prizeScoreu Signalse gonder.
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
 
         public void NoThanksButton()
         {
             prizeScore = score;
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
         }
     }

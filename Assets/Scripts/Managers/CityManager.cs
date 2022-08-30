@@ -48,6 +48,7 @@ namespace Managers
             _levelsData = GetIdleLevelBuildingData();
             GetCurrentLevelData(SaveSignals.Instance.onLoadIdleGame());
             SetDataToBuildingManagers();
+            SaveSignals.Instance.onDataGet?.Invoke();
         }
         
         private IdleLevelData GetIdleLevelBuildingData() => Resources.Load<CD_IdleLevelData>("Data/CD_IdleLevelData").IdleLevel;

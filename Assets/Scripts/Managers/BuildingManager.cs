@@ -2,6 +2,7 @@
 using Controllers;
 using Data.ValueObject;
 using Enums;
+using Signals;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -55,12 +56,12 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-            
+            SaveSignals.Instance.onDataGet += Init;
         }
 
         private void UnSubscribeEvents()
         {
-            
+            SaveSignals.Instance.onDataGet -= Init;
         }
 
         private void OnDisable()
@@ -70,10 +71,10 @@ namespace Managers
 
         #endregion
 
-        private void Start()
+        private void Init()
         {
             SetDatas(BuildingData);
-            // CheckDatas();
+            CheckDatas();
             InitializeTextOnStart();
         }
         
@@ -121,7 +122,6 @@ namespace Managers
         {
             if (complateState == _mainBuildingComplateState && payedAmount >= price)
             {
-                print("MainClosed");
                 _mainBuildingComplateState = BuildingComplateState.Completed;
                 mainBuilding.SetActive(false);
                 sideBuilding.SetActive(true);
@@ -130,7 +130,6 @@ namespace Managers
 
             else if (complateState == _sideBuildingComplateState && payedAmount >= price)
             {
-                print("SideClosed");
                 _sideBuildingComplateState = BuildingComplateState.Completed;
                 sideBuilding.SetActive(false);
                 sideMesh.ChangeBuildingSaturation(1.5f);
