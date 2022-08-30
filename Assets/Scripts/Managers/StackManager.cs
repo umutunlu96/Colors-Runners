@@ -78,6 +78,7 @@ namespace Managers
         private void Subscribe()
         {
             CoreGameSignals.Instance.onPlay += OnPlay;
+            CoreGameSignals.Instance.onReset += OnReset;
             
             StackSignals.Instance.onAddStack += _addStackCommand.OnAddStack;
             StackSignals.Instance.onRemoveFromStack += _removeStackCommand.OnRemoveFromStack;
@@ -93,7 +94,8 @@ namespace Managers
         private void UnSubscribe()
         {
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            
+            CoreGameSignals.Instance.onReset -= OnReset;
+
             StackSignals.Instance.onAddStack -= _addStackCommand.OnAddStack;
             StackSignals.Instance.onRemoveFromStack -= _removeStackCommand.OnRemoveFromStack;
             StackSignals.Instance.onSetStackStartSize -= _initializeStackOnStartCommand.OnInitializeStackOnStart;
@@ -150,5 +152,24 @@ namespace Managers
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
         }
         // throw sticman from temporary list
+
+        private void OnReset()
+        {
+            // foreach (var collectable in _tempList)
+            // {
+            //     Destroy(collectable.gameObject);
+            // }
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+            
+            _collectableList.Clear();
+            _tempList.Clear();
+            _collectableList.TrimExcess();
+            _tempList.TrimExcess();
+            _initializeStackOnStartCommand.OnInitializeStackOnStart(5);//test pupose that bind next level signal
+        }
     }
 }
