@@ -40,7 +40,7 @@ namespace Managers
 
         private PlayerData GetPlayerData() => Resources.Load<CD_Player>("Data/CD_Player").Data;
 
-        #region Event Subsicription
+        #region Event Subscription
 
         private void OnEnable()
         {
@@ -68,6 +68,8 @@ namespace Managers
             PlayerSignals.Instance.onPlayerScaleUp += OnPlayerScaleUp;
             PlayerSignals.Instance.onTranslatePlayerAnimationState += OnTranslatePlayerAnimationState;
 
+            LevelSignals.Instance.onLevelFailed += OnLevelFailed;
+            
             RunnerSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
         }
 
@@ -91,6 +93,8 @@ namespace Managers
             PlayerSignals.Instance.onPlayerScaleUp -= OnPlayerScaleUp;
             PlayerSignals.Instance.onTranslatePlayerAnimationState -= OnTranslatePlayerAnimationState;
 
+            LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
+            
             RunnerSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
         }
 
@@ -111,9 +115,7 @@ namespace Managers
             movementController.IsReadyToPlay(true);
             // _playerData.playerMovementData.RunnerForwardSpeed = 5;
         }
-
-        private void OnFailed() => movementController.IsReadyToPlay(false);
-
+        
         private void OnPointerDown()
 
         {
@@ -204,11 +206,15 @@ namespace Managers
 
         private Transform OnGetPlayerTransform() => transform;
 
+        private void OnLevelFailed() => movementController.IsReadyToPlay(false);
+        
         private void OnReset()
         {
+            ChangeForwardSpeed(PlayerSpeedState.Normal);
             movementController.MovementReset();
             animationController.gameObject.SetActive(false);
             transform.DOScale(Vector3.one, .1f);
+            movementController.OnReset();
         }
     }
 }

@@ -37,6 +37,11 @@ namespace Managers
 
         private void Awake()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             _levelID = GetActiveLevel();
             levelLoader = new LevelLoaderCommand();
             levelClearer = new ClearActiveLevelCommand();
@@ -44,8 +49,8 @@ namespace Managers
         
         private int GetActiveLevel()
         {
-            if (!ES3.FileExists()) return 0;
-            return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 0;
+            if (!ES3.FileExists()) return 1;
+            return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 1;
         }
 
         private int GetActiveIdleLevel()
@@ -89,6 +94,7 @@ namespace Managers
         private void Start()
         {
             OnInitializeLevel();
+            SetLevelText();
         }
 
         private void OnNextLevel()
@@ -98,6 +104,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset?.Invoke();
             SaveSignals.Instance.onRunnerSaveData?.Invoke();
             LevelSignals.Instance.onLevelInitialize?.Invoke();
+            SetLevelText();
         }
 
         private void OnRestartLevel()
