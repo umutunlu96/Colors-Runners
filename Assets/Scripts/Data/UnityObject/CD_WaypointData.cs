@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using Data.ValueObject;
+﻿using Data.ValueObject;
+using System.Linq;
+using UnityEngine;
 
 namespace Data.UnityObject
 {

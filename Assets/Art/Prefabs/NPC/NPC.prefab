@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _waypoints: []
+  _patrolSpeed: 0
 --- !u!1 &7189740029554050647
 GameObject:
   m_ObjectHideFlags: 0

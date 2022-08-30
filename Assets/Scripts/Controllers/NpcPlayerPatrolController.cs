@@ -1,5 +1,4 @@
 ﻿using Data.UnityObject;
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +8,45 @@ namespace Controllers
 {
     public class NpcPlayerPatrolController : MonoBehaviour
     {
-        public List<Transform> _waypoints;
+        #region Self Variables
+
+        #region Serialize Variables
+
+        [SerializeField] private List<Transform> _waypoints;
+        [SerializeField] private float _patrolSpeed;
+
+        #endregion Serialize Variables
+
+        #region Private Variables
+
         private int _currentWaypointTarget;
-        private float _patrolSpeed;
         private Coroutine _prevCoroutine;
+
+        #endregion Private Variables
+
+        #endregion Self Variables
 
         private void Awake()
         {
+            _waypoints.AddRange(GameObject.FindGameObjectsWithTag("WayPoint").Select(x => x.transform));
             _patrolSpeed = 2f;
-            GetWaypoints();
         }
 
         private void Start()
         {
+            
+        }
+
+
+        private void OnEnable()
+        {
             _prevCoroutine = StartCoroutine(MovingToNextWaypoint());
         }
 
-        private void GetWaypoints() => _waypoints = Resources.Load<CD_WaypointData>("Data/CD_WaypointData").waypoint.Waypoints;
+        private void OnDisable()
+        {
+            StopCoroutine(_prevCoroutine);
+        }
 
         private IEnumerator MovingToNextWaypoint()
         {
@@ -45,7 +66,5 @@ namespace Controllers
             StopCoroutine(_prevCoroutine);
             _prevCoroutine = StartCoroutine(MovingToNextWaypoint());
         }
-
-
     }
 }

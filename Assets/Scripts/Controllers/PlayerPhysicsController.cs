@@ -47,6 +47,7 @@ namespace Controllers
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
                 PlayerSignals.Instance.onPlayerEnterIdleArea?.Invoke();
                 StackSignals.Instance.onMergeToPLayer?.Invoke();
+                PlayerSignals.Instance.onActivateObject?.Invoke();
                 other.gameObject.SetActive(false);
             }
         }
