@@ -36,7 +36,7 @@ namespace Commands
             for (int i = 0; i < size; i++)
             {
                 Transform frontStickman = _collectable[_collectable.Count - 1].transform;
-                frontStickman.position = new Vector3(0,.3f,frontStickman.position.z - 1.5f);
+                frontStickman.position = new Vector3(0,0,frontStickman.position.z - 1.5f);
                 GameObject stackInstance = GameObject.Instantiate(stickmanPrefab, frontStickman.position,quaternion.identity);
                 stackInstance.transform.SetParent(_parent);
                 _collectable.Add(stackInstance.transform);

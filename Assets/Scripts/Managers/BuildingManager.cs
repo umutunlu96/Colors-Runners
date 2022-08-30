@@ -73,7 +73,8 @@ namespace Managers
         private void Start()
         {
             SetDatas(BuildingData);
-            CheckDatas();
+            // CheckDatas();
+            InitializeTextOnStart();
         }
         
         public void SetDatas(BuildingData buildingData)
@@ -82,7 +83,7 @@ namespace Managers
             _mainBuildingComplateState = buildingData.mainBuildingData.CompleteState;
             _mainPrice = buildingData.mainBuildingData.Price;
             _mainPayedAmount = buildingData.mainBuildingData.PayedAmount;
-
+            
             _sideBuildingName = buildingData.sideBuildindData.BuildingName;
             _sideBuildingComplateState = buildingData.sideBuildindData.CompleteState;
             _sidePrice = buildingData.sideBuildindData.Price;
@@ -120,6 +121,7 @@ namespace Managers
         {
             if (complateState == _mainBuildingComplateState && payedAmount >= price)
             {
+                print("MainClosed");
                 _mainBuildingComplateState = BuildingComplateState.Completed;
                 mainBuilding.SetActive(false);
                 sideBuilding.SetActive(true);
@@ -128,6 +130,7 @@ namespace Managers
 
             else if (complateState == _sideBuildingComplateState && payedAmount >= price)
             {
+                print("SideClosed");
                 _sideBuildingComplateState = BuildingComplateState.Completed;
                 sideBuilding.SetActive(false);
                 sideMesh.ChangeBuildingSaturation(1.5f);
@@ -137,6 +140,12 @@ namespace Managers
         public void SetText(TextMeshPro text,string BuildingName ,int PayedAmount, int price)
         {
             text.text = BuildingName + "\n" + PayedAmount + " / " + price;
+        }
+
+        private void InitializeTextOnStart()
+        {
+            SetText(mainText,_mainBuildingName,_mainPayedAmount,_mainPrice);
+            SetText(sideText,_sideBuildingName,_sidePayedAmount,_sidePrice);
         }
 
         private void SetDataToBuildingData()

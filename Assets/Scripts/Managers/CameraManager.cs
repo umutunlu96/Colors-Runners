@@ -35,8 +35,6 @@ namespace Managers
             MiniGameCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
             IdleCam = transform.GetChild(2).GetComponent<CinemachineVirtualCamera>();
             StateDrivenCameraAnimator = GetComponent<Animator>();
-
-            Player = GameObject.FindGameObjectWithTag("Player").transform;
             onTranslateCameraState(new CameraRunnerState());
         }
         

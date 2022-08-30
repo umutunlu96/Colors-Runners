@@ -134,6 +134,7 @@ namespace Managers
         {
             isPrize = false;
             LevelSignals.Instance.onNextLevel?.Invoke();
+            SaveSignals.Instance.onIdleSaveData?.Invoke();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }

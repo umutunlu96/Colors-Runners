@@ -3792,7 +3792,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1704392275, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3626865593313052502, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
       propertyPath: manager

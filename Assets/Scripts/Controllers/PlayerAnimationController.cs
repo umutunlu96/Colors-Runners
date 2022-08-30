@@ -1,4 +1,6 @@
-﻿using Managers;
+﻿using System;
+using Managers;
+using Signals;
 using StateMachine;
 using UnityEngine;
 
@@ -24,12 +26,36 @@ namespace Controllers
         #endregion Private Variavles
 
         #endregion SelfVariables
-
         private void Awake()
         {
             Initialize();
         }
 
+        #region Event Subscription
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerEnterIdleArea += OnPlayerEnterIdleArea;
+        }
+        
+        private void UnSubscribeEvents()
+        {
+            PlayerSignals.Instance.onPlayerEnterIdleArea -= OnPlayerEnterIdleArea;
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        #endregion
+        
+        
         public void TranslatePlayerAnimationState(AnimationStateMachine state)
         {
             _playerStateMachine = state;
@@ -37,11 +63,16 @@ namespace Controllers
             _playerStateMachine.ChangeAnimationState();
         }
 
+        private void OnPlayerEnterIdleArea()
+        {
+            transform.gameObject.SetActive(true);
+        }
         private void Initialize()
         {
             _playereAnimator = GetComponent<Animator>();
-            _playerStateMachine = GetComponent<AnimationStateMachine>();
+            // _playerStateMachine = GetComponent<AnimationStateMachine>();
             TranslatePlayerAnimationState(new IdleAnimationState());
+            transform.gameObject.SetActive(false);
         }
     }
 }

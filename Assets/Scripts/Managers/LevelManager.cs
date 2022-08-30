@@ -22,7 +22,7 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private GameObject levelHolder;
-
+        
         #endregion
 
         #region Private Variables
@@ -30,7 +30,7 @@ namespace Managers
         private int _levelID;
         private LevelLoaderCommand levelLoader;
         private ClearActiveLevelCommand levelClearer;
-        
+
         #endregion
 
         #endregion
@@ -41,11 +41,17 @@ namespace Managers
             levelLoader = new LevelLoaderCommand();
             levelClearer = new ClearActiveLevelCommand();
         }
-
+        
         private int GetActiveLevel()
         {
             if (!ES3.FileExists()) return 0;
             return ES3.KeyExists("Level") ? ES3.Load<int>("Level") : 0;
+        }
+
+        private int GetActiveIdleLevel()
+        {
+            if (!ES3.FileExists()) return 0;
+            return ES3.KeyExists("IdleLevel") ? ES3.Load<int>("IdleLevel") : 0;
         }
         
         #region Event Subscription
