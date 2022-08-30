@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     private void SubscribeEvents()
     {
         CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
-        CoreGameSignals.Instance.onSaveGameData += OnSaveGame;
         CoreGameSignals.Instance.onReset += OnReset;
         CoreGameSignals.Instance.onGetGameState += OnGetGameState;
 
@@ -38,7 +37,6 @@ public class GameManager : MonoBehaviour
     private void UnsubscribeEvents()
     {
         CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
-        CoreGameSignals.Instance.onSaveGameData -= OnSaveGame;
         CoreGameSignals.Instance.onReset -= OnReset;
         CoreGameSignals.Instance.onGetGameState -= OnGetGameState;
 
@@ -66,7 +64,6 @@ public class GameManager : MonoBehaviour
             ES3.Save("Level", saveDataParams.Level);
         }
     }
-
     private void OnReset()
     {
         OnChangeGameState(GameStates.Runner);

@@ -45,6 +45,7 @@ namespace Managers
         private void OnEnable()
         {
             SubscribeEvents();
+            StackSignals.Instance.onGetPlayer?.Invoke();
         }
 
         private void SubscribeEvents()
@@ -58,6 +59,7 @@ namespace Managers
             InputSignals.Instance.onInputDragged += OnInputDragged;
             InputSignals.Instance.onJoystickDragged += OnJoystickDragged;
 
+            PlayerSignals.Instance.onGetPlayerTransfrom += OnGetPlayerTransform;
             PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
             PlayerSignals.Instance.onPlayerExitDroneArea += OnPlayerExitDroneArea;
             PlayerSignals.Instance.onPlayerEnterTurretArea += OnPlayerEnterTurretArea;
@@ -80,6 +82,7 @@ namespace Managers
             InputSignals.Instance.onInputDragged -= OnInputDragged;
             InputSignals.Instance.onJoystickDragged -= OnJoystickDragged;
 
+            PlayerSignals.Instance.onGetPlayerTransfrom -= OnGetPlayerTransform;
             PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
             PlayerSignals.Instance.onPlayerExitDroneArea -= OnPlayerExitDroneArea;
             PlayerSignals.Instance.onPlayerEnterTurretArea -= OnPlayerEnterTurretArea;
@@ -157,7 +160,7 @@ namespace Managers
         private void OnPlayerExitDroneArea()
         {
         }
-
+        
         private void OnDroneAnimationComplated()
         {
             StartVerticalMovement(exitDroneAreaPosition);
@@ -198,6 +201,8 @@ namespace Managers
         public void StartVerticalMovement(Vector3 exitPosition) => movementController.OnStartVerticalMovement(exitPosition);
 
         public void ChangeForwardSpeed(PlayerSpeedState changeSpeedState) => movementController.ChangeVerticalSpeed(changeSpeedState);
+
+        private Transform OnGetPlayerTransform() => transform;
 
         private void OnReset()
         {
