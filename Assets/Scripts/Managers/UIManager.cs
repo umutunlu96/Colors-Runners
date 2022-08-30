@@ -55,7 +55,6 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
-            UISignals.Instance.onUpdateStageData += OnUpdateStageData;
             UISignals.Instance.onSetLevelText += OnSetLevelText;
             UISignals.Instance.onIdleMoneyMultiplier += OnIdleMoneyMultiplier;
             CoreGameSignals.Instance.onPlay += OnPlay;
@@ -67,7 +66,6 @@ namespace Managers
         {
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
             UISignals.Instance.onClosePanel -= OnClosePanel;
-            UISignals.Instance.onUpdateStageData -= OnUpdateStageData;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             UISignals.Instance.onIdleMoneyMultiplier -= OnIdleMoneyMultiplier;
             CoreGameSignals.Instance.onPlay -= OnPlay;
@@ -91,15 +89,9 @@ namespace Managers
         {
             uiPanelController.ClosePanel(panelParam);
         }
-
-        private void OnUpdateStageData(int value)
-        {
-            
-        }
-
         private void OnSetLevelText(int value)
         {
-            
+            levelText.text = "Level " + value;
         }
 
         private void OnPlay()
@@ -107,7 +99,6 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.PreGamePanel);
             PlayerSignals.Instance.onTranslateCollectableAnimationState(new RunnerAnimationState());
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
-
         }
 
         private void OnLevelFailed()
@@ -143,7 +134,8 @@ namespace Managers
         public void RestartLevel()
         {
             LevelSignals.Instance.onRestartLevel?.Invoke();
-            UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
+            CoreGameSignals.Instance.onReset?.Invoke();
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
         }
 

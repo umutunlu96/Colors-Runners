@@ -1,7 +1,6 @@
 ﻿using Managers;
 using Signals;
 using Enums;
-using Umut;
 using UnityEngine;
 
 
@@ -61,11 +60,6 @@ namespace Controllers
             {
                 manager.ChangeForwardSpeed(PlayerSpeedState.Normal);
             }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-
         }
     }
 }

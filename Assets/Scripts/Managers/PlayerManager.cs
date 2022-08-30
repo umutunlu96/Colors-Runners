@@ -209,6 +209,7 @@ namespace Managers
             movementController.MovementReset();
             animationController.gameObject.SetActive(false);
             transform.DOScale(Vector3.one, .1f);
+            movementController.OnReset();
         }
     }
 }

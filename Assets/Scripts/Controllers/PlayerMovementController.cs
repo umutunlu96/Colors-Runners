@@ -1,8 +1,6 @@
-using System;
 using Enums;
 using Keys;
 using DG.Tweening;
-using Signals;
 using UnityEngine;
 using Managers;
 
@@ -155,6 +153,11 @@ namespace Controllers
             _isReadyToMove = false;
             transform.position = Vector3.zero;
             transform.rotation = Quaternion.identity;
+        }
+
+        public void OnReset()
+        {
+            DOTween.KillAll();
         }
     }
 }
