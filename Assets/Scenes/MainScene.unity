@@ -6244,8 +6244,6 @@ MonoBehaviour:
   Data:
     StageList: []
   levelHolder: {fileID: 2707297507192890190}
-  levelLoader: {fileID: 0}
-  levelClearer: {fileID: 0}
 --- !u!1 &2707297506938656001
 GameObject:
   m_ObjectHideFlags: 0
