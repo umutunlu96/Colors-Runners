@@ -31,12 +31,12 @@ MonoBehaviour:
         mainBuildingData:
           BuildingName: Bank
           CompleteState: 0
-          Price: 250
+          Price: 125
           PayedAmount: 0
         sideBuildindData:
           BuildingName: Car Park
           CompleteState: 0
-          Price: 50
+          Price: 75
           PayedAmount: 0
       - BuildingType: 6
         mainBuildingData:
@@ -45,7 +45,7 @@ MonoBehaviour:
           Price: 100
           PayedAmount: 0
         sideBuildindData:
-          BuildingName: Ambulance Garage
+          BuildingName: Ambulance
           CompleteState: 0
           Price: 75
           PayedAmount: 0

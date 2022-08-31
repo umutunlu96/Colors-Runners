@@ -42,7 +42,6 @@ namespace Controllers
                 if (timer >= delay && ScoreSignals.Instance.currentScore() >= 0)
                 {
                     manager.OnPlayerEnter();
-                    PlayerSignals.Instance.onThrowParticule?.Invoke();
                     timer = 0;
                 }
             }

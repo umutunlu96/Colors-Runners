@@ -19,5 +19,6 @@ MonoBehaviour:
       RunnerSidewaySpeed: 2
       SizeUpValue: 0.025
       MaxSizeValue: 2.5
+      MinSizeValue: 1
       IdleSpeed: 8
       IdleTurnSpeed: 0.5
