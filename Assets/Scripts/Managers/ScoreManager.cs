@@ -111,7 +111,7 @@ namespace Managers
         private void OnTotalScoreUpdate(int score)
         {
             _totalScore += score;
-            _scoreText.text = _currentScore.ToString();
+            _scoreText.text = _totalScore.ToString();
             SaveScoreParams();
         }
 
