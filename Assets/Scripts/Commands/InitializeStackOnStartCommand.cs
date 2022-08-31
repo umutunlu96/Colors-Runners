@@ -49,7 +49,7 @@ namespace Commands
             StackSignals.Instance.onSetScoreControllerPosition?.Invoke(_collectable[0]);
             _collectable.TrimExcess();
 
-            PlayerSignals.Instance.onChangeAllCollectableColorType?.Invoke(_colorType);
+            PlayerSignals.Instance.onChangeAllCollectableColorType?.Invoke(StackSignals.Instance.onGetColorType());
 
             ScoreSignals.Instance.onHideScore?.Invoke();
         }

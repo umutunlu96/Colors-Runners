@@ -20,7 +20,6 @@ namespace Controllers
 
             if(other.CompareTag("Gate"))
             {
-                Material color = other.GetComponent<MeshRenderer>().material;
                 PlayerSignals.Instance.onChangeAllCollectableColorType(other.GetComponent<GateController>().currentColorType);
             }
 
