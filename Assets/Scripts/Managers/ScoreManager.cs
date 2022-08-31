@@ -41,6 +41,8 @@ namespace Managers
         
         private void SubscribeEvents()
         {
+            
+            
             ScoreSignals.Instance.onCurrentLevelScoreUpdate += OnCurrentLevelScoreUpdate;
             ScoreSignals.Instance.onTotalScoreUpdate += OnTotalScoreUpdate;
             ScoreSignals.Instance.currentScore += ReturnCurrentScore;
@@ -61,7 +63,7 @@ namespace Managers
             ScoreSignals.Instance.currentScore -= ReturnCurrentScore;
             ScoreSignals.Instance.totalScore -= ReturnTotalScore;
             ScoreSignals.Instance.onHideScore -= OnHideScore;
-            ScoreSignals.Instance.onUpdateScoreAfterDroneArea += OnUpdateScoreAfterDroneArea;
+            ScoreSignals.Instance.onUpdateScoreAfterDroneArea -= OnUpdateScoreAfterDroneArea;
 
             StackSignals.Instance.onSetScoreControllerPosition -= OnSetPosition;
             PlayerSignals.Instance.onPlayerEnterIdleArea -= OnPlayerEnterIdleArea;
@@ -86,15 +88,8 @@ namespace Managers
 
         private void OnFindFollowTarget()
         {
-            try
-            {
-                _target = StackSignals.Instance.onGetFirstCollectable();
-                _scoreText.text = _currentScore.ToString();
-            }
-            catch
-            {
-                Debug.Log("Player Cant find" , _target);
-            }
+            _target = StackSignals.Instance.onGetFirstCollectable();
+            _scoreText.text = _currentScore.ToString();
         }
 
         private void OnCurrentLevelScoreUpdate(bool increase)
@@ -120,6 +115,9 @@ namespace Managers
         {
             _target = FindObjectOfType<PlayerManager>().transform;
             followOffset = followIdleOffset;
+            _totalScore += _currentScore;
+            _currentScore = 0;
+            
         }
             
         public void OnUpdateScoreAfterDroneArea()
@@ -127,20 +125,13 @@ namespace Managers
             int newScore = _currentScore * 2;
             _currentScore = newScore;
             _scoreText.text = newScore.ToString();
-            
-            // for (int i = 0; i < _score; i++) !!write on stackmanager and call from here
-            // {
-            //     StackSignals.Instance.onAddStack?.Invoke(player);
-            // }
         }
 
         private void OnHideScore()
         {
             _scoreText.text = "";
         }
-
-        //store total scroe when p;ayer enter drone area
-
+        
         private void OnReset()
         {
             _currentScore = 0;

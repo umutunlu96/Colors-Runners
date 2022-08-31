@@ -130,6 +130,8 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.IdlePanel);
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.PreGamePanel);
+            
+            //Score Savele
         }
 
         public void RestartLevel()

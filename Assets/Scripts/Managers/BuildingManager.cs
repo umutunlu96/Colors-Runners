@@ -101,20 +101,28 @@ namespace Managers
         {
             if (_mainBuildingComplateState == BuildingComplateState.Uncompleted && _sideBuildingComplateState == BuildingComplateState.Uncompleted)
             {
-                CheckComplateState(_mainBuildingComplateState,_mainPayedAmount,_mainPrice);
-                _mainPayedAmount++;
-                SetText(mainText,_mainBuildingName,_mainPayedAmount,_mainPrice);
-                SetDataToBuildingData();
-                print(_sidePayedAmount);
+                if (ScoreSignals.Instance.totalScore() > 0)
+                {
+                    ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
+                    CheckComplateState(_mainBuildingComplateState,_mainPayedAmount,_mainPrice);
+                    _mainPayedAmount++;
+                    SetText(mainText,_mainBuildingName,_mainPayedAmount,_mainPrice);
+                    SetDataToBuildingData();
+                    print(_sidePayedAmount);
+                }
             }
             
             else if (_mainBuildingComplateState == BuildingComplateState.Completed && _sideBuildingComplateState == BuildingComplateState.Uncompleted)
             {
-                print(_sidePayedAmount);
-                CheckComplateState(_sideBuildingComplateState,_sidePayedAmount,_sidePrice);
-                _sidePayedAmount++;
-                SetText(sideText,_sideBuildingName,_sidePayedAmount,_sidePrice);
-                SetDataToBuildingData();
+                if (ScoreSignals.Instance.totalScore() > 0)
+                {
+                    ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
+                    print(_sidePayedAmount);
+                    CheckComplateState(_sideBuildingComplateState,_sidePayedAmount,_sidePrice);
+                    _sidePayedAmount++;
+                    SetText(sideText,_sideBuildingName,_sidePayedAmount,_sidePrice);
+                    SetDataToBuildingData();
+                }
             }
         }
 
