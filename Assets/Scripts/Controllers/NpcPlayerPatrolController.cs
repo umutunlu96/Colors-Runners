@@ -28,13 +28,7 @@ namespace Controllers
 
         private void Awake()
         {
-            _waypoints.AddRange(GameObject.FindGameObjectsWithTag("WayPoint").Select(x => x.transform));
             _patrolSpeed = 2f;
-        }
-
-        private void Start()
-        {
-            
         }
 
 

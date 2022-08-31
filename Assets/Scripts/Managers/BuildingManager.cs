@@ -106,19 +106,21 @@ namespace Managers
                     ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
                     ScoreSignals.Instance.onUpdateScoreText?.Invoke();
                     CheckComplateState(_mainBuildingComplateState,_mainPayedAmount,_mainPrice);
+                    PlayerSignals.Instance.onScaleDown?.Invoke();
+                    PlayerSignals.Instance.onThrowParticule?.Invoke();
                     _mainPayedAmount++;
                     SetText(mainText,_mainBuildingName,_mainPayedAmount,_mainPrice);
                     SetDataToBuildingData();
                     print(_sidePayedAmount);
                 }
             }
-            
             else if (_mainBuildingComplateState == BuildingComplateState.Completed && _sideBuildingComplateState == BuildingComplateState.Uncompleted)
             {
                 if (ScoreSignals.Instance.totalScore() > 0)
                 {
                     ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
                     ScoreSignals.Instance.onUpdateScoreText?.Invoke();
+                    PlayerSignals.Instance.onScaleDown?.Invoke();
                     print(_sidePayedAmount);
                     CheckComplateState(_sideBuildingComplateState,_sidePayedAmount,_sidePrice);
                     _sidePayedAmount++;
