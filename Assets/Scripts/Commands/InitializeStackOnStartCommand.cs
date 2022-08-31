@@ -3,6 +3,8 @@ using Signals;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Managers;
+using StateMachine;
 using Unity.Mathematics;
 using UnityEngine;
 

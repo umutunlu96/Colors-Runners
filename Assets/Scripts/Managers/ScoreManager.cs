@@ -122,9 +122,7 @@ namespace Managers
             
         public void OnUpdateScoreAfterDroneArea()
         {
-            int newScore = _currentScore * 2;
-            _currentScore = newScore;
-            _scoreText.text = newScore.ToString();
+            _scoreText.text = _currentScore.ToString();
         }
 
         private void OnHideScore()
