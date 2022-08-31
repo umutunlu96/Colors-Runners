@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Commands;
 using Controllers;
 using DG.Tweening;
@@ -57,7 +58,11 @@ namespace Managers
             UISignals.Instance.onClosePanel += OnClosePanel;
             UISignals.Instance.onSetLevelText += OnSetLevelText;
             UISignals.Instance.onIdleMoneyMultiplier += OnIdleMoneyMultiplier;
+            
             CoreGameSignals.Instance.onPlay += OnPlay;
+            
+            PlayerSignals.Instance.onPlayerExitDroneArea += OnPlayerExitDroneArea;
+            
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             LevelSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
         }
@@ -68,7 +73,11 @@ namespace Managers
             UISignals.Instance.onClosePanel -= OnClosePanel;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             UISignals.Instance.onIdleMoneyMultiplier -= OnIdleMoneyMultiplier;
+            
             CoreGameSignals.Instance.onPlay -= OnPlay;
+            
+            PlayerSignals.Instance.onPlayerExitDroneArea -= OnPlayerExitDroneArea;
+            
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
             LevelSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
         }
@@ -115,6 +124,13 @@ namespace Managers
             IdleMoneyMultiplier();
         }
 
+        private async void OnPlayerExitDroneArea()
+        {
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.X2Panel);
+            await Task.Delay(500);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.X2Panel);
+        }
+        
         public void Play()
         {
             PlayerSignals.Instance.onTranslateCollectableAnimationState(new RunnerAnimationState());
