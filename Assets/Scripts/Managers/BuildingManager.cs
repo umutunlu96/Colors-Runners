@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Controllers;
 using Data.ValueObject;
 using Enums;
@@ -130,7 +131,7 @@ namespace Managers
             }
         }
 
-        public void CheckComplateState(BuildingComplateState complateState, int payedAmount, int price)
+        private void CheckComplateState(BuildingComplateState complateState, int payedAmount, int price)
         {
             if (complateState == _mainBuildingComplateState && payedAmount >= price)
             {
@@ -140,7 +141,7 @@ namespace Managers
                 mainMesh.ChangeBuildingSaturation(1.5f);
             }
 
-            else if (complateState == _sideBuildingComplateState && payedAmount >= price)
+            if (complateState == _sideBuildingComplateState && payedAmount >= price)
             {
                 _sideBuildingComplateState = BuildingComplateState.Completed;
                 sideBuilding.SetActive(false);
