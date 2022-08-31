@@ -151,7 +151,7 @@ namespace Managers
             _collectableList.TrimExcess();
             print("Merge to player finished");
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraMiniGameState());
-            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
+            LevelSignals.Instance.onLevelSuccessful?.Invoke();
         }
         // throw sticman from temporary list
 

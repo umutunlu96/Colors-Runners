@@ -41,13 +41,12 @@ namespace Managers
         
         private void SubscribeEvents()
         {
-            
-            
             ScoreSignals.Instance.onCurrentLevelScoreUpdate += OnCurrentLevelScoreUpdate;
             ScoreSignals.Instance.onTotalScoreUpdate += OnTotalScoreUpdate;
             ScoreSignals.Instance.currentScore += ReturnCurrentScore;
             ScoreSignals.Instance.totalScore += ReturnTotalScore;
             ScoreSignals.Instance.onHideScore += OnHideScore;
+            ScoreSignals.Instance.onShowScoreIdle += OnShowScore;
             ScoreSignals.Instance.onUpdateScoreAfterDroneArea += OnUpdateScoreAfterDroneArea;
 
             StackSignals.Instance.onSetScoreControllerPosition += OnSetPosition;
@@ -55,6 +54,8 @@ namespace Managers
             
             CoreGameSignals.Instance.onPlay += OnFindFollowTarget;
             CoreGameSignals.Instance.onReset += OnReset;
+            
+            LevelSignals.Instance.onNextLevel += OnNextLevel;
         }
         private void UnSubscribeEvents()
         {
@@ -63,6 +64,7 @@ namespace Managers
             ScoreSignals.Instance.currentScore -= ReturnCurrentScore;
             ScoreSignals.Instance.totalScore -= ReturnTotalScore;
             ScoreSignals.Instance.onHideScore -= OnHideScore;
+            ScoreSignals.Instance.onShowScoreIdle -= OnShowScore;
             ScoreSignals.Instance.onUpdateScoreAfterDroneArea -= OnUpdateScoreAfterDroneArea;
 
             StackSignals.Instance.onSetScoreControllerPosition -= OnSetPosition;
@@ -70,9 +72,16 @@ namespace Managers
             
             CoreGameSignals.Instance.onPlay -= OnFindFollowTarget;
             CoreGameSignals.Instance.onReset -= OnReset;
+
+            LevelSignals.Instance.onNextLevel -= OnNextLevel;
         }
 
         #endregion
+
+        private void Start()
+        {
+            _totalScore = SaveSignals.Instance.onRunnerGameLoad().Score;
+        }
 
         private void Update()
         {
@@ -115,9 +124,7 @@ namespace Managers
         {
             _target = FindObjectOfType<PlayerManager>().transform;
             followOffset = followIdleOffset;
-            _totalScore += _currentScore;
-            _currentScore = 0;
-            
+            _scoreText.text = "";
         }
             
         public void OnUpdateScoreAfterDroneArea()
@@ -129,6 +136,12 @@ namespace Managers
         {
             _scoreText.text = "";
         }
+
+        private void OnShowScore()
+        {
+            _currentScore = 0;
+            _scoreText.text = _totalScore.ToString();
+        }
         
         private void OnReset()
         {
@@ -139,13 +152,18 @@ namespace Managers
         #region refactred when saveManager is added
         private void SaveScoreParams()
         {
-            //conver ejs version
             new ScoreParams() {currentLevelScore = _currentScore, totalScore = _totalScore };
+        }
+
+        private void OnNextLevel()
+        {
+            SaveSignals.Instance.onRunnerSaveData?.Invoke();
         }
         
         private int ReturnCurrentScore() {return _currentScore; }
         
         private int ReturnTotalScore() {return _totalScore; }
+        
         #endregion
     }
 }

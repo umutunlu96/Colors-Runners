@@ -104,6 +104,7 @@ namespace Managers
                 if (ScoreSignals.Instance.totalScore() > 0)
                 {
                     ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
+                    ScoreSignals.Instance.onUpdateScoreText?.Invoke();
                     CheckComplateState(_mainBuildingComplateState,_mainPayedAmount,_mainPrice);
                     _mainPayedAmount++;
                     SetText(mainText,_mainBuildingName,_mainPayedAmount,_mainPrice);
@@ -117,6 +118,7 @@ namespace Managers
                 if (ScoreSignals.Instance.totalScore() > 0)
                 {
                     ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
+                    ScoreSignals.Instance.onUpdateScoreText?.Invoke();
                     print(_sidePayedAmount);
                     CheckComplateState(_sideBuildingComplateState,_sidePayedAmount,_sidePrice);
                     _sidePayedAmount++;

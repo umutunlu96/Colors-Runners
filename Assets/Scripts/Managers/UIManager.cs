@@ -32,7 +32,7 @@ namespace Managers
 
         #region Private Variables
 
-        private int score = 100, prizeScore, scoreMultiplier; // score = Scoresignalsden cekilecek.
+        private int score, prizeScore, scoreMultiplier; // score = Scoresignalsden cekilecek.
         private bool isPrize;
         private PrizeArrowMoveCommand _prizeArrowMoveCommand;
 
@@ -59,6 +59,8 @@ namespace Managers
             UISignals.Instance.onSetLevelText += OnSetLevelText;
             UISignals.Instance.onIdleMoneyMultiplier += OnIdleMoneyMultiplier;
             
+            ScoreSignals.Instance.onUpdateScoreText += UpdateScoreText;
+
             CoreGameSignals.Instance.onPlay += OnPlay;
             
             PlayerSignals.Instance.onPlayerExitDroneArea += OnPlayerExitDroneArea;
@@ -73,6 +75,8 @@ namespace Managers
             UISignals.Instance.onClosePanel -= OnClosePanel;
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             UISignals.Instance.onIdleMoneyMultiplier -= OnIdleMoneyMultiplier;
+            
+            ScoreSignals.Instance.onUpdateScoreText -= UpdateScoreText;
             
             CoreGameSignals.Instance.onPlay -= OnPlay;
             
@@ -119,6 +123,7 @@ namespace Managers
         private void OnLevelSuccessful()
         {
             isPrize = true;
+            score = ScoreSignals.Instance.currentScore();
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.EndGamePrizePanel);
             IdleMoneyMultiplier();
@@ -135,6 +140,7 @@ namespace Managers
         {
             PlayerSignals.Instance.onTranslateCollectableAnimationState(new RunnerAnimationState());
             CoreGameSignals.Instance.onPlay?.Invoke();
+            scoreText.text = ScoreSignals.Instance.totalScore().ToString();
         }
 
         public void NextLevel()
@@ -191,8 +197,11 @@ namespace Managers
         
         public void ClaimButton()
         {
-            //prizeScoreu Signalse gonder.
+            ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(prizeScore);
+            ScoreSignals.Instance.onShowScoreIdle?.Invoke();
+            UpdateScoreText();
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
@@ -201,11 +210,19 @@ namespace Managers
         public void NoThanksButton()
         {
             prizeScore = score;
+            ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(prizeScore);
+            ScoreSignals.Instance.onShowScoreIdle?.Invoke();
+            UpdateScoreText();
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Idle);
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.EndGamePrizePanel);
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.InGamePanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.IdlePanel);
             PlayerSignals.Instance.onTranslateCameraState?.Invoke(new CameraIdleState());
+        }
+
+        private void UpdateScoreText()
+        {
+            scoreText.text = ScoreSignals.Instance.totalScore().ToString();
         }
     }
 }
