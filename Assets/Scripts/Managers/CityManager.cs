@@ -45,6 +45,11 @@ namespace Managers
 
         private void Start()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             _levelsData = GetIdleLevelBuildingData();
             GetCurrentLevelData(SaveSignals.Instance.onLoadIdleGame());
             SetDataToBuildingManagers();

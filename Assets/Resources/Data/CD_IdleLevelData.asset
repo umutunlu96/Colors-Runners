@@ -16,69 +16,36 @@ MonoBehaviour:
     CityData:
     - LevelNumber: 0
       BuildingData:
-      - BuildingType: 7
+      - BuildingType: 5
         mainBuildingData:
-          BuildingName: Ice Cream
+          BuildingName: School
+          CompleteState: 0
+          Price: 100
+          PayedAmount: 0
+        sideBuildindData:
+          BuildingName: School Bus
+          CompleteState: 0
+          Price: 50
+          PayedAmount: 0
+      - BuildingType: 1
+        mainBuildingData:
+          BuildingName: Bank
+          CompleteState: 0
+          Price: 125
+          PayedAmount: 0
+        sideBuildindData:
+          BuildingName: Car Park
+          CompleteState: 0
+          Price: 75
+          PayedAmount: 0
+      - BuildingType: 6
+        mainBuildingData:
+          BuildingName: Hospital
           CompleteState: 0
           Price: 100
           PayedAmount: 0
         sideBuildindData:
           BuildingName: Ambulance
           CompleteState: 0
-          Price: 50
-          PayedAmount: 0
-      - BuildingType: 4
-        mainBuildingData:
-          BuildingName: School
-          CompleteState: 0
-          Price: 150
-          PayedAmount: 0
-        sideBuildindData:
-          BuildingName: Car
-          CompleteState: 0
-          Price: 50
-          PayedAmount: 0
-      - BuildingType: 9
-        mainBuildingData:
-          BuildingName: Police Station
-          CompleteState: 0
-          Price: 115
-          PayedAmount: 0
-        sideBuildindData:
-          BuildingName: Park
-          CompleteState: 0
-          Price: 45
-          PayedAmount: 0
-      - BuildingType: 10
-        mainBuildingData:
-          BuildingName: Sky Keeper
-          CompleteState: 0
-          Price: 250
-          PayedAmount: 0
-        sideBuildindData:
-          BuildingName: Car
-          CompleteState: 0
-          Price: 150
-          PayedAmount: 0
-      - BuildingType: 11
-        mainBuildingData:
-          BuildingName: Pizza House
-          CompleteState: 0
-          Price: 175
-          PayedAmount: 0
-        sideBuildindData:
-          BuildingName: Car
-          CompleteState: 0
-          Price: 100
-          PayedAmount: 0
-      - BuildingType: 12
-        mainBuildingData:
-          BuildingName: Taco House
-          CompleteState: 0
-          Price: 135
-          PayedAmount: 0
-        sideBuildindData:
-          BuildingName: Car
-          CompleteState: 0
-          Price: 65
+          Price: 75
           PayedAmount: 0
