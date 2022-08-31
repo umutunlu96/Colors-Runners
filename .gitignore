@@ -58,3 +58,16 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll
+Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Editor.dll
+Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.Config.dll
+Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.dll
+Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.dll
+Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.dll
+Assets/Plugins/Sirenix/Assemblies/NoEditor/Sirenix.Serialization.dll
+Assets/Plugins/Sirenix/Assemblies/NoEditor/Sirenix.Utilities.dll
+Assets/Plugins/Sirenix/Assemblies/NoEmitAndNoEditor/Sirenix.Serialization.dll
+Assets/Plugins/Sirenix/Assemblies/NoEmitAndNoEditor/Sirenix.Utilities.dll
+Assets/Plugins/Sirenix/Odin Inspector/Config/Editor/OdinModuleConfig.asset
+Assets/Plugins/Sirenix/Odin Inspector/Scripts/Editor/OdinUpgrader.cs
+Assets/Plugins/Sirenix/Odin Inspector/Scripts/Editor/OdinUpgrader.cs.meta
