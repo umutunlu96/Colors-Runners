@@ -31,11 +31,6 @@ namespace Controllers
             _patrolSpeed = 2f;
         }
 
-        private void Start()
-        {
-            _waypoints.AddRange(GameObject.FindGameObjectsWithTag("WayPoint").Select(x => x.transform));
-        }
-
 
         private void OnEnable()
         {
