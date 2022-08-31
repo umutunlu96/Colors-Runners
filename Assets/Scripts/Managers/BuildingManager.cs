@@ -104,6 +104,8 @@ namespace Managers
                 if (ScoreSignals.Instance.totalScore() > 0)
                 {
                     ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
+                    ScoreSignals.Instance.onUpdateScoreText?.Invoke();
+                    CheckComplateState(_mainBuildingComplateState,_mainPayedAmount,_mainPrice);
                     PlayerSignals.Instance.onScaleDown?.Invoke();
                     PlayerSignals.Instance.onThrowParticule?.Invoke();
                     _mainPayedAmount++;
@@ -117,6 +119,7 @@ namespace Managers
                 if (ScoreSignals.Instance.totalScore() > 0)
                 {
                     ScoreSignals.Instance.onTotalScoreUpdate?.Invoke(-1);
+                    ScoreSignals.Instance.onUpdateScoreText?.Invoke();
                     PlayerSignals.Instance.onScaleDown?.Invoke();
                     print(_sidePayedAmount);
                     CheckComplateState(_sideBuildingComplateState,_sidePayedAmount,_sidePrice);
