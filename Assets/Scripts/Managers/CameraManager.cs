@@ -14,6 +14,7 @@ namespace Managers
 
         #region Public Variables
 
+        public CinemachineVirtualCamera InitializeCam;
         public CinemachineVirtualCamera RunnerCam;
         public CinemachineVirtualCamera MiniGameCam;
         public CinemachineVirtualCamera IdleCam;
@@ -32,9 +33,6 @@ namespace Managers
         
         private void Awake()
         {
-            RunnerCam = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
-            MiniGameCam = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
-            IdleCam = transform.GetChild(2).GetComponent<CinemachineVirtualCamera>();
             StateDrivenCameraAnimator = GetComponent<Animator>();
             onTranslateCameraState(new CameraRunnerState());
         }
@@ -52,9 +50,8 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             
             PlayerSignals.Instance.onTranslateCameraState += onTranslateCameraState;
-            PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
-            PlayerSignals.Instance.onPlayerExitDroneArea += OnDroneAnimationComplated;
-            // RunnerSignals.Instance.onDroneAnimationComplated += OnDroneAnimationComplated;
+            // PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
+            // PlayerSignals.Instance.onPlayerExitDroneArea += OnDroneAnimationComplated;
         }
 
         private void UnSubscribe()
@@ -63,9 +60,8 @@ namespace Managers
             CoreGameSignals.Instance.onReset -= OnReset;
 
             PlayerSignals.Instance.onTranslateCameraState -= onTranslateCameraState;
-            PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
-            PlayerSignals.Instance.onPlayerExitDroneArea -= OnDroneAnimationComplated;
-            // RunnerSignals.Instance.onDroneAnimationComplated -= OnDroneAnimationComplated;
+            // PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
+            // PlayerSignals.Instance.onPlayerExitDroneArea -= OnDroneAnimationComplated;
         }
 
         private void OnDisable()
@@ -77,6 +73,7 @@ namespace Managers
         private void OnPlay()
         {
             Player = GameObject.FindGameObjectWithTag("Player").transform;
+            InitializeCam.PreviousStateIsValid = false;
             RunnerCam.PreviousStateIsValid = false;
             MiniGameCam.PreviousStateIsValid = false;
             IdleCam.PreviousStateIsValid = false;
@@ -97,7 +94,7 @@ namespace Managers
         private void OnReset()
         {
             Player = PlayerSignals.Instance.onGetPlayerTransfrom();
-            onTranslateCameraState(new CameraRunnerState());
+            onTranslateCameraState(new CameraInitializeState());
         }
     }
 }
