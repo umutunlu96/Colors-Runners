@@ -66,7 +66,6 @@ namespace Controllers
         public async void SetCollectableMatarial(Material material)
         {
             Material.color = material.color;
-            _mainModule.startColor = _renderer.material.color;
             await Task.Yield();
         }
 
@@ -77,7 +76,10 @@ namespace Controllers
 
         public  void StartParticle()
         {
-
+            var emitParams = new EmitParams();
+            emitParams.startColor = _renderer.material.color;
+            emitParams.startSize = particle.startSize / 2;
+            particle.Emit(emitParams, 1);
             particle.Play();
         }
 
