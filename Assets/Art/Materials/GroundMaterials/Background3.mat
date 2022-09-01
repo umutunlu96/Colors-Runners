@@ -7,18 +7,17 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Background2
+  m_Name: Background3
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2000
   stringTagMap:
     IGNOREPROJECTOR: False
-    RenderType: Transparent
-  disabledShaderPasses:
-  - SHADOWCASTER
+    RenderType: Opaque
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -172,7 +171,7 @@ Material:
     - _DrawnClampMax: 1
     - _DrawnClampMin: 0
     - _DrawnMapScale: 1
-    - _DstBlend: 1
+    - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -211,7 +210,7 @@ Material:
     - _SpecularIntensity: 1
     - _SpecularSmoothness: 0
     - _SpecularThresholdOffset: 0.25
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _Stencil: 1
     - _StencilComp: 8
     - _StencilFail: 0
@@ -221,7 +220,7 @@ Material:
     - _StencilWriteMask: 255
     - _StencilZFail: 0
     - _StylizeTab: 1
-    - _Surface: 1
+    - _Surface: 0
     - _ThresholdMapScale: 1
     - _VertexAnimation: 0
     - _VertexAnimationIntensity: 0.05
@@ -229,10 +228,10 @@ Material:
     - _WorkflowMode: 1
     - _WrappedLighting: 0
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _AlbedoColor: {r: 0.2196078, g: 0.7137255, b: 1, a: 1}
-    - _BaseColor: {r: 0.45882353, g: 0.92941177, b: 1, a: 1}
+    - _BaseColor: {r: 0.023529412, g: 0.87058824, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
