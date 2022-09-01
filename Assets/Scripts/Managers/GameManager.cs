@@ -27,6 +27,7 @@ namespace Managers
         private void OnEnable()
         {
             SubscribeEvents();
+            Fog.SetActive(true);
         }
     
         private void SubscribeEvents()
@@ -74,6 +75,7 @@ namespace Managers
         }
         private void OnReset()
         {
+            Fog.SetActive(true);
             OnChangeGameState(GameStates.Runner);
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
         }
