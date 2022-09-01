@@ -620,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &243361089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10784,7 +10784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445044, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_text
-      value: 22
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445044, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_Enabled
@@ -10792,7 +10792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445044, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_fontSize
-      value: 44.75
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445045, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_Materials.Array.data[0]
