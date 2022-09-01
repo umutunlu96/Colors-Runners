@@ -28,7 +28,6 @@ namespace Managers
         #region Private
 
         private PlayerData _playerData;
-        private Vector3 exitDroneAreaPosition;
 
         #endregion Private
 
@@ -158,7 +157,6 @@ namespace Managers
 
         private void OnPlayerEnterDroneArea()
         {
-            exitDroneAreaPosition = transform.position;
             StopVerticalMovement();
             ChangeForwardSpeed(PlayerSpeedState.Stop);
         }
@@ -169,7 +167,7 @@ namespace Managers
         
         private void OnDroneAnimationComplated()
         {
-            StartVerticalMovement(exitDroneAreaPosition);
+            StartVerticalMovement();
         }
 
         private void OnPlayerEnterTurretArea()
@@ -208,7 +206,7 @@ namespace Managers
             animationController.TranslatePlayerAnimationState(state);
         }
 
-        public void StartVerticalMovement(Vector3 exitPosition) => movementController.OnStartVerticalMovement(exitPosition);
+        public void StartVerticalMovement() => movementController.OnStartVerticalMovement();
 
         public void ChangeForwardSpeed(PlayerSpeedState changeSpeedState) => movementController.ChangeVerticalSpeed(changeSpeedState);
 

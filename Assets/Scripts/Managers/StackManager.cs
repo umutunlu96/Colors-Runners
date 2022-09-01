@@ -92,6 +92,7 @@ namespace Managers
             PlayerSignals.Instance.onChangeAllCollectableColorType += _changeAllCollectableColor.OnChangeAllCollectableColorType;
             PlayerSignals.Instance.onChangeAllCollectableColorType += OnChangeColorType;
             StackSignals.Instance.onGetColorType += GetColorType;
+            PlayerSignals.Instance.onPlayerExitDroneArea += OnCollectableRemovedFromStack;
         }
 
         private void UnSubscribe()
@@ -110,6 +111,7 @@ namespace Managers
             PlayerSignals.Instance.onChangeAllCollectableColorType -= _changeAllCollectableColor.OnChangeAllCollectableColorType;
             PlayerSignals.Instance.onChangeAllCollectableColorType -= OnChangeColorType;
             StackSignals.Instance.onGetColorType -= GetColorType;
+            PlayerSignals.Instance.onPlayerExitDroneArea -= OnCollectableRemovedFromStack;
         }
 
         #endregion Event Subscriptions
@@ -162,6 +164,7 @@ namespace Managers
         {
             if (GetCollectableCount() == 0)
             {
+                print("Level Failed");
                 LevelSignals.Instance.onLevelFailed?.Invoke();
                 ScoreSignals.Instance.onHideScore?.Invoke();
             }

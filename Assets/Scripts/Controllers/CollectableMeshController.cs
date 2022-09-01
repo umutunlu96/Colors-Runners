@@ -1,9 +1,11 @@
 ﻿using DG.Tweening;
 using Enums;
 using Managers;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityObject;
 using ValueObject;
+using static UnityEngine.ParticleSystem;
 
 namespace Controllers
 {
@@ -21,12 +23,16 @@ namespace Controllers
         #region Serialize Variavles
 
         [SerializeField] private CollectableManager manager;
+        [SerializeField] private ParticleSystem particle;
+
 
         #endregion Serialize Variavles
-        
+
         #region Private Variavles
 
+        private MainModule _mainModule;
         private ColorData _colorData;
+        private Renderer _renderer;
         private Material _rainbow; 
         #endregion Private Variavles
         
@@ -35,6 +41,8 @@ namespace Controllers
         private void Awake()
         {
             Material = GetComponent<SkinnedMeshRenderer>().material;
+            _renderer = GetComponent<Renderer>();
+            _mainModule = particle.main;
         }
 
         private void Start()
@@ -55,16 +63,24 @@ namespace Controllers
         private void GetRainbowMat() => _rainbow = Resources.Load<Material>("RainbowMaterial/RainbowMaterial");
         
         
-        public void SetCollectableMatarial(Material material)
+        public async void SetCollectableMatarial(Material material)
         {
             Material.color = material.color;
+            _mainModule.startColor = _renderer.material.color;
+            await Task.Yield();
         }
 
         public void SetRainbowMaterial()
         {
             GetComponent<SkinnedMeshRenderer>().material = _rainbow;
         }
-        
+
+        public  void StartParticle()
+        {
+
+            particle.Play();
+        }
+
         public void ActivateOutlineTrasition(OutlineType type)
         {
             if (type == OutlineType.NonOutline)
