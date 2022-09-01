@@ -54,14 +54,20 @@ namespace Controllers
         private void Awake()
         {
             _CollectableAnimator = GetComponent<Animator>();
-            if (manager.GetTag() == "Collected")
+            if (manager.GetTag() == "Collected" && !CoreGameSignals.Instance.onIsGameRunning())
             {
                 _CollectableStateMachine = new SneakIdleAnimationState();
             }
-            else
+            else if(manager.GetTag() != "Collected" && !CoreGameSignals.Instance.onIsGameRunning())
             {
                 _CollectableStateMachine = new IdleAnimationState();
             }
+            
+            else if (CoreGameSignals.Instance.onIsGameRunning())
+            {
+                _CollectableStateMachine = new RunnerAnimationState();
+            }
+            
             _CollectableStateMachine.SetContext(ref _CollectableAnimator);
             _CollectableStateMachine.ChangeAnimationState();
         }

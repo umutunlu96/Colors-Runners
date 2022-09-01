@@ -2,6 +2,7 @@
 using Signals;
 using StateMachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Controllers
 {
@@ -77,6 +78,19 @@ namespace Controllers
             if (other.CompareTag("RainbowArea") && !manager.IsTouchTheGate)
             {
                 manager.EnterRainbowGate();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("ExitTurretArea"))
+            {
+                manager.OnTranslateAnimationState(new RunnerAnimationState());
+            }
+
+            if (other.CompareTag("ExitDroneArea"))
+            {
+                manager.OnTranslateAnimationState(new RunnerAnimationState());
             }
         }
     }

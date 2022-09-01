@@ -162,9 +162,9 @@ namespace Managers
         public async void OnCOllisionWithObstacle(GameObject _gameObject)
         {
             meshController.StartParticle();
-            await Task.Delay(300);
-            RemoveCollectableFromStackManager(transform);
             _gameObject.SetActive(false);
+            await Task.Delay(100);
+            RemoveCollectableFromStackManager(transform);
         }
     }
 }

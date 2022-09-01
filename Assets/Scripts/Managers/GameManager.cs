@@ -15,7 +15,17 @@ namespace Managers
     
         #endregion Public Variables
 
+        #region Serialized
+
         [SerializeField] private GameObject Fog;
+
+        #endregion
+
+        #region Private
+
+        private bool isGameRunning;
+
+        #endregion
         
         #endregion Self Variables
     
@@ -32,25 +42,34 @@ namespace Managers
     
         private void SubscribeEvents()
         {
+            CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
             CoreGameSignals.Instance.onReset += OnReset;
             CoreGameSignals.Instance.onGetGameState += OnGetGameState;
+            CoreGameSignals.Instance.onIsGameRunning += IsGameRunning;
     
             PlayerSignals.Instance.onPlayerEnterIdleArea += OnPlayerEnterIdleArea;
         }
     
         private void UnsubscribeEvents()
         {
+            CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
             CoreGameSignals.Instance.onReset -= OnReset;
             CoreGameSignals.Instance.onGetGameState -= OnGetGameState;
-    
+            CoreGameSignals.Instance.onIsGameRunning -= IsGameRunning;
+            
             PlayerSignals.Instance.onPlayerEnterIdleArea -= OnPlayerEnterIdleArea;
         }
     
         private void OnDisable()
         {
             UnsubscribeEvents();
+        }
+
+        private void OnPlay()
+        {
+            ChangeGameRunningState();
         }
     
         private void OnChangeGameState(GameStates newState)
@@ -65,17 +84,15 @@ namespace Managers
         private void OnPlayerEnterIdleArea() => OnChangeGameState(GameStates.Idle);
     
         private GameStates OnGetGameState() => States;
-    
-        private void OnSaveGame(SaveRunnerGameDataParams saveDataParams)
-        {
-            if (saveDataParams.Level != null)
-            {
-                ES3.Save("Level", saveDataParams.Level);
-            }
-        }
+        
+        public bool IsGameRunning() => isGameRunning;
+
+        private void ChangeGameRunningState() => isGameRunning = !isGameRunning;
+        
         private void OnReset()
         {
             Fog.SetActive(true);
+            ChangeGameRunningState();
             OnChangeGameState(GameStates.Runner);
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
         }

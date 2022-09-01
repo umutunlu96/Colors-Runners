@@ -26,7 +26,6 @@ namespace Managers
         #region Private 
 
         private CameraStateMachine _state;
-
         #endregion
 
         #endregion
@@ -50,8 +49,6 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             
             PlayerSignals.Instance.onTranslateCameraState += onTranslateCameraState;
-            // PlayerSignals.Instance.onPlayerEnterDroneArea += OnPlayerEnterDroneArea;
-            // PlayerSignals.Instance.onPlayerExitDroneArea += OnDroneAnimationComplated;
         }
 
         private void UnSubscribe()
@@ -60,8 +57,6 @@ namespace Managers
             CoreGameSignals.Instance.onReset -= OnReset;
 
             PlayerSignals.Instance.onTranslateCameraState -= onTranslateCameraState;
-            // PlayerSignals.Instance.onPlayerEnterDroneArea -= OnPlayerEnterDroneArea;
-            // PlayerSignals.Instance.onPlayerExitDroneArea -= OnDroneAnimationComplated;
         }
 
         private void OnDisable()
@@ -79,10 +74,7 @@ namespace Managers
             IdleCam.PreviousStateIsValid = false;
             onTranslateCameraState(new CameraRunnerState());
         }
-        private void OnPlayerEnterDroneArea() => RunnerCam.Follow = null;
 
-
-        private void OnDroneAnimationComplated() => RunnerCam.Follow = Player;
         
         private void onTranslateCameraState(CameraStateMachine state)
         {
