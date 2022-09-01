@@ -30,19 +30,13 @@ namespace Controllers
                 else if (!manager.CompareColor(other.transform.parent.GetComponent<CollectableManager>()
                     .currentColorType)) //call from signals
                 {
-                    //manager.StartParticle();
-                    //manager.RemoveCollectableFromStackManager(transform.parent);
-                    //other.transform.parent.gameObject.SetActive(false);
                     manager.OnCOllisionWithObstacle(other.transform.parent.gameObject); 
                 }
             }
 
             if (other.CompareTag("Obstacle"))
             {
-                //manager.StartParticle();
-                //manager.RemoveCollectableFromStackManager(manager.transform);
-                //other.gameObject.SetActive(false);
-                manager.OnCOllisionWithObstacle(other.transform.parent.gameObject); 
+                manager.OnCOllisionWithObstacle(other.gameObject); 
             }
 
             if (other.CompareTag("ExitDroneArea"))

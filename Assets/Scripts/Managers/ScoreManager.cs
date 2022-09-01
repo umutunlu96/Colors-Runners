@@ -10,15 +10,30 @@ namespace Managers
     {
         #region Variables
 
+        #region Public
+
+        public float deneme;
+
+        #endregion
+        
+        #region Serialize
+
+        [SerializeField] private GameObject backgroundImage;
+        [SerializeField] private Vector3 followRunnerOffset;
+        [SerializeField] private Vector3 followIdleOffset;
+        
+        #endregion
+
+        #region Private
+
+        private Vector3 followOffset;
         private int _currentScore;
         private int _totalScore;
         private Transform _target;
         private TextMeshPro _scoreText;
-
-        public float deneme;
-        [SerializeField] private Vector3 followRunnerOffset;
-        [SerializeField] private Vector3 followIdleOffset;
-        private Vector3 followOffset;
+        
+        #endregion
+        
         #endregion
 
         private void Awake()
@@ -81,6 +96,7 @@ namespace Managers
         private void Start()
         {
             _totalScore = SaveSignals.Instance.onRunnerGameLoad().Score;
+            backgroundImage.SetActive(false);
         }
 
         private void Update()
@@ -99,6 +115,7 @@ namespace Managers
         {
             _target = StackSignals.Instance.onGetFirstCollectable();
             _scoreText.text = _currentScore.ToString();
+            backgroundImage.SetActive(true);
         }
 
         private void OnCurrentLevelScoreUpdate(bool increase)
@@ -124,27 +141,32 @@ namespace Managers
         {
             _target = FindObjectOfType<PlayerManager>().transform;
             followOffset = followIdleOffset;
+            backgroundImage.SetActive(false);
             _scoreText.text = "";
         }
             
         public void OnUpdateScoreAfterDroneArea()
         {
+            backgroundImage.SetActive(true);
             _scoreText.text = _currentScore.ToString();
         }
 
         private void OnHideScore()
         {
+            backgroundImage.SetActive(false);
             _scoreText.text = "";
         }
 
         private void OnShowScore()
         {
+            backgroundImage.SetActive(true);
             _currentScore = 0;
             _scoreText.text = _totalScore.ToString();
         }
         
         private void OnReset()
         {
+            backgroundImage.SetActive(false);
             _currentScore = 0;
             followOffset = followRunnerOffset;
         }
