@@ -8176,7 +8176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1893734393
 Transform:
   m_ObjectHideFlags: 0
@@ -9693,7 +9693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collectableList: []
   _tempList: []
-  colorType: 4
+  colorType: 3
   stickmanPrefab: {fileID: 4703302485167264113, guid: 64f1633875949d449a608f7476afa5a7, type: 3}
 --- !u!1 &2707297507822129244
 GameObject:
