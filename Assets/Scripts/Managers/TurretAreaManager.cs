@@ -86,15 +86,12 @@ namespace Managers
 
         private async void OnWrongTurretMatAreaEntered(Transform target)
         {
-            await Task.Delay(250);
-            
             if (_turretFireCounter % 2 == 0)
             {
                 leftTurret.Aim(target);
                 rightTurret.Aim(target);
                 rightTurret.Shoot(target);
             }
-
             await Task.Delay(250);
             _turretFireCounter++;
         }
