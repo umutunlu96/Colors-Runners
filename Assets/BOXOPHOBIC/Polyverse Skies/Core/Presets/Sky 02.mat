@@ -10,8 +10,8 @@ Material:
   m_Name: Sky 02
   m_Shader: {fileID: 4800000, guid: 6fc9318f5193c094c98c0d450cd61e3b, type: 3}
   m_ShaderKeywords: _DISABLEDIRECTIONLIGHT_ON _ENABLECLOUDSROTATION_ON _ENABLEDIRECTIONLIGHT_ON
-    _ENABLEPATTERNOVERLAY_ON _ENABLESUNMOONMASK_ON _ENABLESUNMOON_ON _ENABLESUN_ON
-    _USECUBEMAP_ON _USEENVIRONMENTGRADIENT_ON _USETEXTURE_ON
+    _ENABLESUNMOONMASK_ON _ENABLESUNMOON_ON _ENABLESUN_ON _USECUBEMAP_ON _USEENVIRONMENTGRADIENT_ON
+    _USETEXTURE_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -181,7 +181,7 @@ Material:
     - _EnableDirectionLight: 1
     - _EnableFogMessage: 0
     - _EnableMoon: 0
-    - _EnablePatternOverlay: 1
+    - _EnablePatternOverlay: 0
     - _EnableSkyPatternOverlay: 0
     - _EnableStars: 0
     - _EnableStarsRotation: 0
@@ -192,8 +192,8 @@ Material:
     - _EnableSunMoonMask: 1
     - _EnableTwinkling: 0
     - _EqHeight: 0.419
-    - _EquatorHeight: 0.85
-    - _EquatorSmoothness: 0.4
+    - _EquatorHeight: 1
+    - _EquatorSmoothness: 0.01
     - _Exposure: 0
     - _Fade: 0.463
     - _Float0: 2.7
@@ -220,7 +220,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _PatternCat: 1
-    - _PatternContrast: 0.2
+    - _PatternContrast: 0
     - _RoatationSpeed: 0.4
     - _Rotation: 0
     - _RotationSpeed: 0.5

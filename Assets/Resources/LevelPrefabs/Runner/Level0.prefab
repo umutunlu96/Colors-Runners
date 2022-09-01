@@ -400,7 +400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1777793807068240073
 Transform:
   m_ObjectHideFlags: 0
@@ -928,7 +928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1646291576173254615, guid: 1ad745ee989b8534da6272b1f07a30ef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: -2.25
       objectReference: {fileID: 0}
     - target: {fileID: 1646291576173254615, guid: 1ad745ee989b8534da6272b1f07a30ef, type: 3}
       propertyPath: m_LocalPosition.y
@@ -936,7 +936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1646291576173254615, guid: 1ad745ee989b8534da6272b1f07a30ef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 210
+      value: 215.68
       objectReference: {fileID: 0}
     - target: {fileID: 1646291576173254615, guid: 1ad745ee989b8534da6272b1f07a30ef, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3210,7 +3210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8122475622055846472, guid: feeabecc7dde8264a8b9cade8fcc67d3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 86.67
+      value: 210.83
       objectReference: {fileID: 0}
     - target: {fileID: 8122475622055846472, guid: feeabecc7dde8264a8b9cade8fcc67d3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3615,6 +3615,14 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6683873225213134394, guid: ee5dd9c4c5f4d8642931a5ff2fadf291, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683873225213134394, guid: ee5dd9c4c5f4d8642931a5ff2fadf291, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6683873225213134396, guid: ee5dd9c4c5f4d8642931a5ff2fadf291, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -3794,9 +3802,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6262485798856335008, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6711339664575778700, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8019403123650135591, guid: 1828cdc1f31b7eb41a2d5c721ee84a78, type: 3}
       propertyPath: m_RootOrder
