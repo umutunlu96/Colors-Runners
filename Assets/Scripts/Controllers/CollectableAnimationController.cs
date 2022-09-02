@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using Managers;
+﻿using Managers;
 using Signals;
 using StateMachine;
 using UnityEngine;
@@ -25,7 +23,14 @@ namespace Controllers
         private AnimationStateMachine _CollectableStateMachine;
 
         #endregion
+        
         #endregion
+        
+        private void Awake()
+        {
+            Initialize();
+        }
+        
         #region Subscriptions
 
         private void OnEnable()
@@ -49,9 +54,7 @@ namespace Controllers
         }
         #endregion
         
-        
-        
-        private void Awake()
+        private void Initialize()
         {
             _CollectableAnimator = GetComponent<Animator>();
             if (manager.GetTag() == "Collected" && !CoreGameSignals.Instance.onIsGameRunning())
@@ -71,9 +74,7 @@ namespace Controllers
             _CollectableStateMachine.SetContext(ref _CollectableAnimator);
             _CollectableStateMachine.ChangeAnimationState();
         }
-
-       
-
+        
         public void TranslateCollectableAnimationState(AnimationStateMachine state)
         {
             _CollectableStateMachine = state;
@@ -87,16 +88,6 @@ namespace Controllers
             {
                 TranslateCollectableAnimationState(new RunnerAnimationState());
             }
-        }
-        
-        private void ActivateParticul()
-        {
-
-        }
-
-        private void DestroyManager()
-        {
-            manager.gameObject.SetActive(false);
         }
     }
 }

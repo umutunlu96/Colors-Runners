@@ -33,7 +33,7 @@ namespace Managers
         private void Awake()
         {
             StateDrivenCameraAnimator = GetComponent<Animator>();
-            onTranslateCameraState(new CameraRunnerState());
+            onTranslateCameraState(new CameraInitializeState());
         }
         
         #region Subscriptions
@@ -68,6 +68,7 @@ namespace Managers
         private void OnPlay()
         {
             Player = GameObject.FindGameObjectWithTag("Player").transform;
+            
             InitializeCam.PreviousStateIsValid = false;
             RunnerCam.PreviousStateIsValid = false;
             MiniGameCam.PreviousStateIsValid = false;
