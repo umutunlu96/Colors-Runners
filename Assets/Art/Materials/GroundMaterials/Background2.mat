@@ -8,17 +8,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Background2
-  m_Shader: {fileID: 4800000, guid: 733fefdcde0d35f4b822d2935d5a22f4, type: 3}
-  m_ShaderKeywords: _MK_ARTISTIC_PROJECTION_SCREEN_SPACE _MK_DISSOLVE_BORDER_COLOR
-    _MK_ENVIRONMENT_REFLECTIONS_AMBIENT _MK_LIGHT_CEL
-  m_LightmapFlags: 6
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 3000
   stringTagMap:
     IGNOREPROJECTOR: False
-    RenderType: Opaque
-  disabledShaderPasses: []
+    RenderType: Transparent
+  disabledShaderPasses:
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -150,7 +150,7 @@ Material:
     - _Artistic: 0
     - _ArtisticFrequency: 1
     - _ArtisticProjection: 1
-    - _Blend: 0
+    - _Blend: 2
     - _BlendDst: 0
     - _BlendSrc: 1
     - _Brightness: 1
@@ -172,7 +172,7 @@ Material:
     - _DrawnClampMax: 1
     - _DrawnClampMin: 0
     - _DrawnMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -195,7 +195,7 @@ Material:
     - _OptionsTab: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
-    - _ReceiveShadows: 0
+    - _ReceiveShadows: 1
     - _RenderFace: 0
     - _RenderPriority: 0
     - _Rim: 0
@@ -204,14 +204,14 @@ Material:
     - _RimThresholdOffset: 0.25
     - _Saturation: 1
     - _SketchMapScale: 1
-    - _Smoothness: 0
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _Specular: 0
     - _SpecularHighlights: 1
     - _SpecularIntensity: 1
     - _SpecularSmoothness: 0
     - _SpecularThresholdOffset: 0.25
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _Stencil: 1
     - _StencilComp: 8
     - _StencilFail: 0
@@ -221,7 +221,7 @@ Material:
     - _StencilWriteMask: 255
     - _StencilZFail: 0
     - _StylizeTab: 1
-    - _Surface: 0
+    - _Surface: 1
     - _ThresholdMapScale: 1
     - _VertexAnimation: 0
     - _VertexAnimationIntensity: 0.05
@@ -229,10 +229,10 @@ Material:
     - _WorkflowMode: 1
     - _WrappedLighting: 0
     - _ZTest: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _AlbedoColor: {r: 0.2196078, g: 0.7137255, b: 1, a: 1}
-    - _BaseColor: {r: 0.21176472, g: 0.7019608, b: 0.9960785, a: 1}
+    - _BaseColor: {r: 0.45882353, g: 0.92941177, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
