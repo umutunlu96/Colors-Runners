@@ -687,7 +687,7 @@ RectTransform:
   m_GameObject: {fileID: 243361088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.01}
-  m_LocalScale: {x: 2, y: 6.5, z: 1}
+  m_LocalScale: {x: 1.75, y: 4.5, z: 1}
   m_Children: []
   m_Father: {fileID: 2707297508412611759}
   m_RootOrder: 0
@@ -11120,11 +11120,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445035, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445035, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445035, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_LocalScale.x
@@ -11193,6 +11193,14 @@ PrefabInstance:
     - target: {fileID: 5457473263757445044, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_fontSize
       value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457473263757445044, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
+      propertyPath: m_margin.x
+      value: 4.766455
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457473263757445044, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
+      propertyPath: m_margin.z
+      value: 4.9682093
       objectReference: {fileID: 0}
     - target: {fileID: 5457473263757445045, guid: 77e35ebf6763b994290b1f7581a2d510, type: 3}
       propertyPath: m_Materials.Array.data[0]
