@@ -55,6 +55,7 @@ namespace Managers
             ScoreSignals.Instance.onTotalScoreUpdate += OnTotalScoreUpdate;
             ScoreSignals.Instance.currentScore += ReturnCurrentScore;
             ScoreSignals.Instance.totalScore += ReturnTotalScore;
+            ScoreSignals.Instance.onShowScore += OnShowScore;
             ScoreSignals.Instance.onHideScore += OnHideScore;
             ScoreSignals.Instance.onShowScoreIdle += OnShowScore;
             RunnerSignals.Instance.onDroneAnimationComplated += OnUpdateScoreAfterDroneArea;
@@ -73,6 +74,7 @@ namespace Managers
             ScoreSignals.Instance.onTotalScoreUpdate -= OnTotalScoreUpdate;
             ScoreSignals.Instance.currentScore -= ReturnCurrentScore;
             ScoreSignals.Instance.totalScore -= ReturnTotalScore;
+            ScoreSignals.Instance.onShowScore -= OnShowScore;
             ScoreSignals.Instance.onHideScore -= OnHideScore;
             ScoreSignals.Instance.onShowScoreIdle -= OnShowScore;
             RunnerSignals.Instance.onDroneAnimationComplated -= OnUpdateScoreAfterDroneArea;
