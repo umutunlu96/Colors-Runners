@@ -46,11 +46,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             StackSignals.Instance.onWrongTurretMatAreaEntered += OnWrongTurretMatAreaEntered;
+            PlayerSignals.Instance.onPlayerExitTurretArea += OnPlayerExitTurretArea;
         }
 
         private void UnSubscribeEvents()
         {
             StackSignals.Instance.onWrongTurretMatAreaEntered -= OnWrongTurretMatAreaEntered;
+            PlayerSignals.Instance.onPlayerExitTurretArea -= OnPlayerExitTurretArea;
         }
 
         #endregion
@@ -84,6 +86,15 @@ namespace Managers
         }
         #endregion
 
+        private async void OnPlayerExitTurretArea()
+        {
+            await Task.Delay(2000);
+            foreach (var mat in matControllers)
+            {
+                mat.gameObject.SetActive(false);
+            }
+        }
+        
         private async void OnWrongTurretMatAreaEntered(Transform target)
         {
             if (_turretFireCounter % 2 == 0)

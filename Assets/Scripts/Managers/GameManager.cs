@@ -69,7 +69,7 @@ namespace Managers
 
         private void OnPlay()
         {
-            ChangeGameRunningState();
+            ChangeGameRunningState(true);
         }
     
         private void OnChangeGameState(GameStates newState)
@@ -81,18 +81,21 @@ namespace Managers
         private void ControlFog(GameStates newState) => Fog.SetActive(newState != GameStates.Idle);
 
 
-        private void OnPlayerEnterIdleArea() => OnChangeGameState(GameStates.Idle);
-    
+        private void OnPlayerEnterIdleArea()
+        {
+            OnChangeGameState(GameStates.Idle);
+            ChangeGameRunningState(false);
+        }
+        
         private GameStates OnGetGameState() => States;
         
         public bool IsGameRunning() => isGameRunning;
 
-        private void ChangeGameRunningState() => isGameRunning = !isGameRunning;
+        private void ChangeGameRunningState(bool isRunning) => isGameRunning = isRunning;
         
         private void OnReset()
         {
             Fog.SetActive(true);
-            ChangeGameRunningState();
             OnChangeGameState(GameStates.Runner);
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Runner);
         }
