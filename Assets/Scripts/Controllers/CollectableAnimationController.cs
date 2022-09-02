@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using Signals;
 using StateMachine;
 using UnityEngine;
@@ -28,6 +29,7 @@ namespace Controllers
         
         private void Awake()
         {
+            _CollectableAnimator = GetComponent<Animator>();
             Initialize();
         }
         
@@ -53,10 +55,9 @@ namespace Controllers
             UnSubscribe();
         }
         #endregion
-        
+
         private void Initialize()
         {
-            _CollectableAnimator = GetComponent<Animator>();
             if (manager.GetTag() == "Collected" && !CoreGameSignals.Instance.onIsGameRunning())
             {
                 _CollectableStateMachine = new SneakIdleAnimationState();
@@ -82,6 +83,11 @@ namespace Controllers
             _CollectableStateMachine.ChangeAnimationState();
         }
 
+        private void DestroyManager()
+        {
+            manager.gameObject.SetActive(false);
+        }
+        
         private void OnPlay()
         {
             if (manager.GetComponentInChildren<CollectablePhisicController>().CompareTag("Collected"))
