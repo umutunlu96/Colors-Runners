@@ -9,15 +9,10 @@ namespace Managers
     public class ScoreManager : MonoBehaviour
     {
         #region Variables
-
-        #region Public
-
-        public float deneme;
-
-        #endregion
         
         #region Serialize
 
+        [SerializeField] private float localScaleMultiplier;
         [SerializeField] private GameObject backgroundImage;
         [SerializeField] private Vector3 followRunnerOffset;
         [SerializeField] private Vector3 followIdleOffset;
@@ -97,23 +92,22 @@ namespace Managers
         {
             _totalScore = SaveSignals.Instance.onRunnerGameLoad().Score;
             backgroundImage.SetActive(false);
+            _scoreText.text = "";
         }
 
         private void Update()
         {
             if (_target == null) return;
-            followOffset = followIdleOffset;
-
             transform.position = new Vector3(_target.position.x,
-                _target.transform.position.y + followOffset.y 
-                + (_target.transform.localScale.y - 1) * (_target.transform.localScale.y - 1) * deneme,
-                
+                _target.position.y + followOffset.y + 
+                (_target.transform.localScale.y - 1) * (_target.localScale.y - 1) * localScaleMultiplier,
                 _target.position.z + followOffset.z);
         }
 
         private void OnFindFollowTarget()
         {
-            _target = StackSignals.Instance.onGetFirstCollectable();
+            _target = FindObjectOfType<PlayerManager>().transform;
+            followOffset = followRunnerOffset;
             _scoreText.text = _currentScore.ToString();
             backgroundImage.SetActive(true);
         }
@@ -160,6 +154,7 @@ namespace Managers
         private void OnShowScore()
         {
             backgroundImage.SetActive(true);
+            _scoreText.enabled = true;
             _currentScore = 0;
             _scoreText.text = _totalScore.ToString();
         }
@@ -167,6 +162,7 @@ namespace Managers
         private void OnReset()
         {
             backgroundImage.SetActive(false);
+            _scoreText.text = "";
             _currentScore = 0;
             followOffset = followRunnerOffset;
         }
