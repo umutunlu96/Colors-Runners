@@ -55,11 +55,9 @@ namespace Managers
             ScoreSignals.Instance.onTotalScoreUpdate += OnTotalScoreUpdate;
             ScoreSignals.Instance.currentScore += ReturnCurrentScore;
             ScoreSignals.Instance.totalScore += ReturnTotalScore;
-            ScoreSignals.Instance.onShowScore += OnShowScore;
             ScoreSignals.Instance.onHideScore += OnHideScore;
             ScoreSignals.Instance.onShowScoreIdle += OnShowScore;
-            RunnerSignals.Instance.onDroneAnimationComplated += OnUpdateScoreAfterDroneArea;
-
+            ScoreSignals.Instance.onUpdateScoreAfterDroneArea += OnUpdateScoreAfterDroneArea;
             StackSignals.Instance.onSetScoreControllerPosition += OnSetPosition;
             PlayerSignals.Instance.onPlayerEnterIdleArea += OnPlayerEnterIdleArea;
             
@@ -74,11 +72,9 @@ namespace Managers
             ScoreSignals.Instance.onTotalScoreUpdate -= OnTotalScoreUpdate;
             ScoreSignals.Instance.currentScore -= ReturnCurrentScore;
             ScoreSignals.Instance.totalScore -= ReturnTotalScore;
-            ScoreSignals.Instance.onShowScore -= OnShowScore;
             ScoreSignals.Instance.onHideScore -= OnHideScore;
             ScoreSignals.Instance.onShowScoreIdle -= OnShowScore;
-            RunnerSignals.Instance.onDroneAnimationComplated -= OnUpdateScoreAfterDroneArea;
-
+            ScoreSignals.Instance.onUpdateScoreAfterDroneArea -= OnUpdateScoreAfterDroneArea;
             StackSignals.Instance.onSetScoreControllerPosition -= OnSetPosition;
             PlayerSignals.Instance.onPlayerEnterIdleArea -= OnPlayerEnterIdleArea;
             
@@ -108,7 +104,7 @@ namespace Managers
 
         private void OnFindFollowTarget()
         {
-            _target = FindObjectOfType<PlayerManager>().transform;
+            _target = StackSignals.Instance.onGetFirstCollectable();
             followOffset = followRunnerOffset;
             _scoreText.text = _currentScore.ToString();
             backgroundImage.SetActive(true);

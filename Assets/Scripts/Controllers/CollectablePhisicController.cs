@@ -59,7 +59,7 @@ namespace Controllers
                 if (!manager.CompareColor(other.GetComponent<TurretMatController>().currentColorType))
                 {
                     StackSignals.Instance.onWrongTurretMatAreaEntered?.Invoke(manager.transform);
-                    int randomDeath = Random.Range(0, 4);
+                    int randomDeath = Random.Range(0, 3);
                     if (randomDeath != 1) return;
                     manager.RemoveCollectableFromStackManager(manager.transform);
                 }

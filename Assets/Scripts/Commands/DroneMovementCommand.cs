@@ -36,7 +36,7 @@ namespace Commands
                 _sequence.OnComplete(() =>
                 {
                     RunnerSignals.Instance.onDroneAnimationComplated?.Invoke();
-                    ScoreSignals.Instance.onShowScore?.Invoke();
+                    ScoreSignals.Instance.onUpdateScoreAfterDroneArea?.Invoke();
                 });
             }
             _sequence.Play();
