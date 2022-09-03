@@ -1,6 +1,9 @@
 # LevelUP_ColorRunner
 The source code of the Colors Runners Hyper-Casual Game clone.
 
+## Gameplay Video
+
+https://www.linkedin.com/posts/umut-%C3%BCnl%C3%BC-602918225_level-up-akademideki-%C3%BC%C3%A7%C3%BCnc%C3%BC-oyunumuzu-tamamlad%C4%B1k-activity-6971488208974954496-H7TM?utm_source=share&utm_medium=member_desktop
 
 ## Contributor
 
@@ -39,7 +42,7 @@ Note: uml not updated
  - State Machine
  - Object Pooling
  - Command
- - Singelton
+ - Singleton
 
 ## Special Thanks
  Special thanks to Level-Up Academy to giving us this opportunuty.
