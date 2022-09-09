@@ -1,11 +1,9 @@
 # LevelUP_ColorRunner
 The source code of the Colors Runners Hyper-Casual Game clone.
 
-https://drive.google.com/file/d/11zRPX-8FpNQo74KK38tixajK75pEHGtf/view?usp=sharing
-
 ## Gameplay Video
 
-https://www.linkedin.com/posts/umut-%C3%BCnl%C3%BC-602918225_level-up-akademideki-%C3%BC%C3%A7%C3%BCnc%C3%BC-oyunumuzu-tamamlad%C4%B1k-activity-6971488208974954496-H7TM?utm_source=share&utm_medium=member_desktop
+https://drive.google.com/file/d/11zRPX-8FpNQo74KK38tixajK75pEHGtf/view?usp=sharing
 
 ## Contributor
 
